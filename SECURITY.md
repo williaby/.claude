@@ -52,6 +52,7 @@ This configuration uses environment variables to securely manage API keys for MC
 | `UPSTASH_REDIS_REST_URL` | Context7 | [Create at upstash.com](https://upstash.com) |
 | `UPSTASH_REDIS_REST_TOKEN` | Context7 | From Upstash dashboard |
 | `SENTRY_AUTH_TOKEN` | Sentry | [Create at sentry.io](https://sentry.io/settings/auth-tokens/) |
+| `ZAPIER_API_KEY` | Zapier | [Get from Zapier settings](https://zapier.com/app/settings/integrations) |
 
 ### Security Best Practices
 

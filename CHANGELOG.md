@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Zapier MCP server configuration for workflow automation
+- Enhanced `.env.example` with organized sections and detailed instructions
+- Improved documentation for all MCP server categories
+
+### Changed
+- Reorganized `.env.example` with clear categories and setup instructions
+- Updated README to categorize MCP servers by function
+
 ## [1.0.0] - 2025-01-02
 
 ### Added

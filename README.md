@@ -40,8 +40,10 @@ nano ~/.claude/.env
 ### Template Configurations (`settings/`, `mcp/`)
 - Base settings templates for common tool permissions
 - Common MCP server configurations:
-  - **API-based servers**: perplexity, tavily, context7, sentry, github
-  - **Development tools**: sequential-thinking, git, time
+  - **Search & Information**: perplexity, tavily
+  - **Development tools**: github, git, sequential-thinking, time
+  - **Infrastructure**: context7 (Redis), sentry (monitoring)
+  - **Automation**: zapier (workflow automation)
 - Environment variable templates for secure API key storage
 - Example configurations for new projects
 
