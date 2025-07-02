@@ -44,6 +44,7 @@ nano ~/.claude/.env
   - **Development tools**: github, git, sequential-thinking, time
   - **Infrastructure**: context7 (Redis), sentry (monitoring)
   - **Automation**: zapier (workflow automation)
+  - **AI Assistants**: serena (development assistant)
 - Environment variable templates for secure API key storage
 - Example configurations for new projects
 

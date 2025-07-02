@@ -9,12 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Zapier MCP server configuration for workflow automation
+- Serena MCP server configuration for AI development assistance
 - Enhanced `.env.example` with organized sections and detailed instructions
 - Improved documentation for all MCP server categories
+- Comprehensive Serena setup guide in `docs/serena-setup.md`
+- SSE mode example configuration for Serena
 
 ### Changed
 - Reorganized `.env.example` with clear categories and setup instructions
 - Updated README to categorize MCP servers by function
+- Added AI Assistants category for development helper tools
 
 ## [1.0.0] - 2025-01-02
 
