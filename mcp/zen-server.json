@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "zen": {
+      "command": "/home/byron/.zen-mcp-server/venv/bin/python",
+      "args": ["/home/byron/.zen-mcp-server/server.py"]
+    }
+  }
+}
