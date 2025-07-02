@@ -42,7 +42,7 @@ nano ~/.claude/.env
 - Common MCP server configurations:
   - **Search & Information**: perplexity, tavily
   - **Development tools**: github, git, sequential-thinking, time
-  - **Infrastructure**: context7 (Redis), sentry (monitoring)
+  - **Infrastructure**: context7 (Redis - stdio/HTTP/SSE), sentry (monitoring)
   - **Automation**: zapier (workflow automation)
   - **AI Assistants**: serena (development assistant)
 - Environment variable templates for secure API key storage
@@ -114,6 +114,8 @@ See `docs/project-env-loading.md` for more details on handling project-specific 
 │   └── base-permissions.json     # Common permissions
 ├── mcp/
 │   ├── common-servers.json       # Common MCP servers
+│   ├── context7-http.json        # Context7 via HTTP transport
+│   ├── context7-sse.json         # Context7 via SSE transport
 │   ├── serena-server.json        # Serena with env variables
 │   └── serena-auto-server.json   # Serena with auto project detection
 ├── scripts/
