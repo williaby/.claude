@@ -73,6 +73,32 @@ Your project's `CLAUDE.md` should focus on project-specific information while th
 [Project-specific development processes]
 ```
 
+### Project-Specific MCP Servers
+
+For MCP servers that need project-specific paths (like Serena), create a `.mcp.json` in your project:
+
+```json
+{
+  "mcpServers": {
+    "serena": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "/home/your-username/dev/serena",
+        "serena-mcp-server",
+        "--context",
+        "ide-assistant",
+        "--project",
+        "."
+      ]
+    }
+  }
+}
+```
+
+See `docs/project-env-loading.md` for more details on handling project-specific configurations.
+
 ## File Structure
 
 ```
@@ -87,10 +113,16 @@ Your project's `CLAUDE.md` should focus on project-specific information while th
 │   ├── base-settings.json        # Template settings
 │   └── base-permissions.json     # Common permissions
 ├── mcp/
-│   └── common-servers.json       # Common MCP servers
+│   ├── common-servers.json       # Common MCP servers
+│   ├── serena-server.json        # Serena with env variables
+│   └── serena-auto-server.json   # Serena with auto project detection
 ├── scripts/
 │   ├── setup-env.sh              # Environment setup script
-│   └── update.sh                 # Update helper script
+│   ├── update.sh                 # Update helper script
+│   └── serena-wrapper.sh         # Serena wrapper for current directory
+├── docs/
+│   ├── serena-setup.md           # Serena configuration guide
+│   └── project-env-loading.md    # Project-specific env guide
 └── .env.example                  # Template for API keys (DO NOT COMMIT .env!)
 ```
 
