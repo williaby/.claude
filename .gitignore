@@ -1,0 +1,41 @@
+# Global Claude Configuration .gitignore
+
+# Ignore local development files
+.DS_Store
+Thumbs.db
+
+# Ignore temporary files
+*.tmp
+*.temp
+*~
+
+# Ignore editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Ignore local configuration overrides
+settings.local.json
+*.local.*
+
+# Ignore logs
+*.log
+
+# Ignore environment-specific files
+.env
+.env.*
+
+# Ignore backup files
+*.bak
+*.backup
+
+# Ignore test output
+coverage/
+.coverage
+.pytest_cache/
+htmlcov/
+
+# Don't ignore the template settings
+!settings/base-settings.json
+!mcp/common-servers.json
