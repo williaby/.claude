@@ -9,10 +9,17 @@ This repository provides universal Claude Code configuration and standards for a
 cd ~
 git clone https://github.com/your-username/.claude.git
 
+# Set up environment variables for MCP servers
+~/.claude/scripts/setup-env.sh
+
+# Edit the .env file to add your API keys
+nano ~/.claude/.env
+
 # That's it! Claude Code will automatically:
 # - Load ~/.claude/CLAUDE.md for global standards
 # - Make ~/.claude/commands/ slash commands available
 # - Apply global development practices across all projects
+# - Use your API keys for MCP server configurations
 ```
 
 ## What's Included
@@ -32,7 +39,10 @@ git clone https://github.com/your-username/.claude.git
 
 ### Template Configurations (`settings/`, `mcp/`)
 - Base settings templates for common tool permissions
-- Common MCP server configurations (perplexity, tavily, context7, sentry)
+- Common MCP server configurations:
+  - **API-based servers**: perplexity, tavily, context7, sentry, github
+  - **Development tools**: sequential-thinking, git, time
+- Environment variable templates for secure API key storage
 - Example configurations for new projects
 
 ## Updates
@@ -75,8 +85,10 @@ Your project's `CLAUDE.md` should focus on project-specific information while th
 │   └── base-permissions.json     # Common permissions
 ├── mcp/
 │   └── common-servers.json       # Common MCP servers
-└── scripts/
-    └── update.sh                 # Update helper script
+├── scripts/
+│   ├── setup-env.sh              # Environment setup script
+│   └── update.sh                 # Update helper script
+└── .env.example                  # Template for API keys (DO NOT COMMIT .env!)
 ```
 
 ## Benefits

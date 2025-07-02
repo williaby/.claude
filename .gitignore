@@ -25,6 +25,8 @@ settings.local.json
 # Ignore environment-specific files
 .env
 .env.*
+# But don't ignore the example
+!.env.example
 
 # Ignore backup files
 *.bak
