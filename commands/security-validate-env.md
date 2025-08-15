@@ -19,7 +19,19 @@ Check and validate all required security components for safe development:
 # Check for GPG secret keys (required for .env encryption)
 gpg --list-secret-keys
 
-# Expected: At least one secret key should be listed
+# Check for non-expired keys with signing capability
+gpg --list-secret-keys --with-colons | awk -F: '/^sec/ {print $2, $7}' | while read type expiry; do
+    if [[ $expiry == "" ]] || [[ $expiry -gt $(date +%s) ]]; then
+        echo "✅ Valid signing key found"
+    else
+        echo "⚠️  Key expired: $(date -d @$expiry)"
+    fi
+done
+
+# Verify signing capability
+gpg --list-secret-keys --with-colons | grep -q "^sec.*S" && echo "✅ Signing capability confirmed" || echo "❌ No signing capability"
+
+# Expected: At least one valid, non-expired secret key with signing capability
 # If no keys found: Must set up GPG key for encryption
 ```
 

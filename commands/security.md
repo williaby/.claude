@@ -346,8 +346,11 @@ uname -a >> incident-info.txt
 whoami >> incident-info.txt
 env >> incident-info.txt
 
-# Create memory dump (if necessary)
-sudo dd if=/dev/mem of=memory-dump.img
+# Create memory dump (if necessary - WARNING: Use with caution)
+# Note: Direct /dev/mem access may be restricted by modern kernel protections
+# Consider using specialized tools like LiME or AVML for memory acquisition
+# sudo dd if=/dev/mem of=memory-dump.img  # Legacy approach - use with extreme caution
+echo "Memory dump skipped - use specialized forensic tools for production systems"
 
 # Archive logs
 tar -czf incident-logs-$(date +%Y%m%d).tar.gz /var/log/

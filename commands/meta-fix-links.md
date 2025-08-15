@@ -320,8 +320,13 @@ calculate_similarity() {
         fi
     done
     
-    # Calculate similarity score
-    local similarity=$(echo "scale=2; $matches / $max_len" | bc)
+    # Calculate similarity score using bash arithmetic
+    local similarity
+    if [[ $max_len -gt 0 ]]; then
+        similarity=$((100 * matches / max_len))
+    else
+        similarity=0
+    fi
     echo "$similarity"
 }
 
@@ -335,8 +340,8 @@ find_best_matches() {
         local candidate_name=$(basename "$candidate")
         local similarity=$(calculate_similarity "$broken_file" "$candidate_name")
         
-        # Only suggest if similarity is above threshold
-        if (( $(echo "$similarity > 0.6" | bc -l) )); then
+        # Only suggest if similarity is above threshold (60%)
+        if (( similarity > 60 )); then
             local rel_path=$(realpath --relative-to="$source_dir" "$candidate")
             echo "$similarity:$rel_path"
         fi

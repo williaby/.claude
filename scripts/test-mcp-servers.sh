@@ -68,10 +68,14 @@ test_server() {
             ;;
         "zapier")
             # Test HTTP endpoint
-            if curl -s -H "Authorization: Bearer YjhhOTBkZWEtNTI4YS00YWFhLTk2M2EtNTgzNzE4NWEzNzA1OjZiYWYwMWE5LWIyMzYtNDIwNS1hN2Y0LTg4ZWNmZTY5ZjIxMQ==" https://mcp.zapier.com/api/mcp/mcp -o /dev/null; then
-                echo -e "${GREEN}✓ Available (HTTP endpoint reachable)${NC}"
+            if [ -n "$ZAPIER_API_KEY" ]; then
+                if curl -s -H "Authorization: Bearer $ZAPIER_API_KEY" https://mcp.zapier.com/api/mcp/mcp -o /dev/null; then
+                    echo -e "${GREEN}✓ Available (HTTP endpoint reachable)${NC}"
+                else
+                    echo -e "${YELLOW}⚠ HTTP endpoint check failed${NC}"
+                fi
             else
-                echo -e "${YELLOW}⚠ HTTP endpoint check failed${NC}"
+                echo -e "${YELLOW}⚠ ZAPIER_API_KEY not set${NC}"
             fi
             ;;
     esac
