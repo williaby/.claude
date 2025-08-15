@@ -1,80 +1,154 @@
 # Global Claude Code Configuration
 
-This repository provides universal Claude Code configuration and standards for all development projects.
+This repository provides universal Claude Code configuration and standards for all development projects, with automated MCP server management.
 
 ## Quick Setup
 
 ```bash
 # Initial setup - clone directly to ~/.claude/
 cd ~
-git clone https://github.com/your-username/.claude.git
+git clone https://github.com/williaby/.claude.git .claude
 
-# Set up environment variables for MCP servers
+# Set up environment variables and install MCP servers
 ~/.claude/scripts/setup-env.sh
 
 # Edit the .env file to add your API keys
 nano ~/.claude/.env
 
+# Install MCP servers at user level (available globally)
+~/.claude/scripts/mcp-manager.sh
+
 # That's it! Claude Code will automatically:
 # - Load ~/.claude/CLAUDE.md for global standards
 # - Make ~/.claude/commands/ slash commands available
 # - Apply global development practices across all projects
-# - Use your API keys for MCP server configurations
+# - Use MCP servers you installed across all projects
 ```
 
-## What's Included
+## Directory Structure
 
-### Global Standards (`CLAUDE.md`)
-- Universal development commands (formatting, linting, testing)
-- Security validation requirements (GPG/SSH keys)
-- Code quality standards (Python, Markdown, YAML, JSON)
-- Git workflow patterns (branch naming, commit messages)
-- Pre-commit checklist and best practices
+```
+~/.claude/
+├── README.md                     # This file - configuration guide
+├── CLAUDE.md                     # Global development standards (auto-loaded)
+├── commands/                     # Universal slash commands (flat structure)
+│   ├── quality-*.md             # Code quality and formatting commands
+│   ├── security-*.md            # Security validation and checks
+│   ├── workflow-*.md            # Development workflow helpers
+│   └── meta-*.md               # Command management utilities
+├── settings/                     # Claude Code settings templates
+│   ├── base-settings.json       # Common configuration template
+│   └── base-permissions.json    # Security permissions template
+├── mcp/                         # MCP server configurations
+│   ├── common-servers.json      # Common MCP servers
+│   ├── context7-*.json          # Context7 transport options
+│   └── serena-*.json           # Serena configurations
+├── scripts/                     # Automation and setup scripts
+│   ├── setup-env.sh            # Environment setup
+│   ├── mcp-manager.sh          # MCP server installer
+│   └── check-mcp-env.sh        # Validation utilities
+├── docs/                        # Additional documentation
+│   ├── serena-setup.md         # Serena configuration guide
+│   └── project-env-loading.md  # Project-specific env guide
+├── projects/                    # Project-specific configurations
+├── ide/                         # IDE-specific settings
+├── statsig/                     # Statsig configuration
+└── todos/                       # Todo tracking storage
+```
 
-### Universal Slash Commands (`commands/`)
-- `/universal:lint-check` - Run appropriate linter for any file type
-- `/universal:security-validate` - Validate GPG/SSH keys and security setup
-- `/universal:format-code` - Format code according to project standards
-- `/universal:git-workflow` - Git workflow helpers and validation
+## Command Categories
 
-### Template Configurations (`settings/`, `mcp/`)
-- Base settings templates for common tool permissions
-- Common MCP server configurations:
-  - **Search & Information**: perplexity, tavily
-  - **Development tools**: github, git, sequential-thinking, time
-  - **Infrastructure**: context7 (Redis - stdio/HTTP/SSE), sentry (monitoring)
-  - **Automation**: zapier (workflow automation)
-  - **AI Assistants**: serena (development assistant)
-- Environment variable templates for secure API key storage
-- Example configurations for new projects
+### Quality Commands (`quality-*.md`)
+**Code formatting and quality validation across file types**
 
-## Updates
+#### `/universal:quality-format-code`
+**Purpose**: Format code files according to project standards  
+**Usage**: `/universal:quality-format-code src/main.py` or `/universal:quality-format-code *.md`  
+**Description**: Detects file type and applies appropriate formatting (Black for Python, markdownlint for Markdown, etc.)
 
+#### `/universal:quality-lint-check`
+**Purpose**: Run appropriate linter for any file type  
+**Usage**: `/universal:quality-lint-check src/` or `/universal:quality-lint-check README.md`  
+**Description**: Automatically detects file types and runs corresponding linters with project-standard configurations
+
+### Security Commands (`security-*.md`)
+**Security validation and environment checks**
+
+#### `/universal:security-validate-env`
+**Purpose**: Validate security requirements for development environment  
+**Usage**: `/universal:security-validate-env`  
+**Description**: Checks GPG keys, SSH keys, Git signing configuration, and dependency security
+
+### Workflow Commands (`workflow-*.md`)
+**Development workflow helpers and validation**
+
+#### `/universal:workflow-git-helpers`
+**Purpose**: Git workflow validation and helpers  
+**Usage**: `/universal:workflow-git-helpers branch-check` or `/universal:workflow-git-helpers pr-ready`  
+**Description**: Validates branch naming, commit messages, and provides PR readiness checks
+
+### Meta Commands (`meta-*.md`)
+**Command management and discovery utilities**
+
+(Future: Add command discovery and help utilities similar to project-level)
+
+## Configuration Levels
+
+### Global Configuration (`~/.claude/CLAUDE.md`)
+The `CLAUDE.md` file in this directory provides:
+- **Universal development standards** across all projects
+- **Security requirements** (GPG/SSH keys, encryption)
+- **Code quality standards** (linting, formatting, testing)
+- **Git workflow standards** (branch naming, commit messages)
+- **Pre-commit linting requirements** for all file types
+
+This file is automatically loaded by Claude Code and applies to all projects.
+
+### Project Configuration (`./CLAUDE.md`)
+Each project can have its own `CLAUDE.md` that:
+- **Extends** global standards (doesn't replace them)
+- **Adds project-specific** requirements and patterns
+- **Defines unique** development workflows
+- **Specifies project** architecture and context
+
+### Local Settings (`settings.json`)
+User preferences and MCP server configurations:
+```json
+{
+  "command_defaults": {
+    "quality_preference": "strict",
+    "security_level": "high",
+    "workflow_mode": "standard"
+  },
+  "mcpServers": {
+    // MCP server configurations
+  }
+}
+```
+
+## MCP Server Management
+
+### Available MCP Servers
+**Current Working Servers**:
+- **Core**: zen (orchestration server)
+- **Development**: git, sequential-thinking, time, github
+- **Search**: tavily (web search), context7-sse (SSE transport)
+- **Automation**: zapier (HTTP-based workflows)
+- **Project-Level**: serena (advanced NLP, project-specific)
+
+### Installation
 ```bash
-# Get latest global standards
-cd ~/.claude
-git pull
-```
+# Interactive installer for user-level MCP servers
+~/.claude/scripts/mcp-manager.sh
 
-## Project Integration
+# Install project-specific MCP servers
+~/.claude/scripts/setup-project-mcp.sh
 
-Your project's `CLAUDE.md` should focus on project-specific information while the global standards are automatically applied:
-
-```markdown
-# My Project Claude Configuration
-
-## Project Overview
-[Your project-specific architecture and context]
-
-## Domain-Specific Standards  
-[Any project-specific conventions and requirements]
-
-## Development Workflows
-[Project-specific development processes]
+# Validate environment variables and API keys
+~/.claude/scripts/check-mcp-env.sh
 ```
 
 ### Project-Specific MCP Servers
-
 For MCP servers that need project-specific paths (like Serena), create a `.mcp.json` in your project:
 
 ```json
@@ -97,58 +171,133 @@ For MCP servers that need project-specific paths (like Serena), create a `.mcp.j
 }
 ```
 
-See `docs/project-env-loading.md` for more details on handling project-specific configurations.
+## Command Development Standards
 
-## File Structure
+### Naming Convention
+```
+{category}-{action}-{object}.md
+```
+**Examples**:
+- `quality-format-code.md`
+- `security-validate-env.md`
+- `workflow-git-helpers.md`
 
+### Categories
+- **quality**: Code formatting and linting (< 5 min)
+- **security**: Security validation and checks (< 5 min)
+- **workflow**: Development workflow helpers (5-15 min)
+- **meta**: Command management utilities (< 5 min)
+
+### Command Structure Template
+```markdown
+---
+category: quality|security|workflow|meta
+complexity: low|medium|high
+estimated_time: "5-15 minutes"
+dependencies: []
+version: "1.0"
+---
+
+# {Category} {Action} {Object}
+
+Brief description of command purpose: $ARGUMENTS
+
+## Usage Options
+[Specific usage patterns]
+
+## Instructions
+[Detailed command logic]
+
+## Error Handling
+[Recovery strategies]
+
+## Examples
+[Usage examples]
 ```
-~/.claude/
-├── CLAUDE.md                     # Global standards (auto-loaded)
-├── commands/                     # Universal slash commands (auto-loaded)
-│   ├── lint-check.md
-│   ├── security-validate.md
-│   ├── format-code.md
-│   └── git-workflow.md
-├── settings/
-│   ├── base-settings.json        # Template settings
-│   └── base-permissions.json     # Common permissions
-├── mcp/
-│   ├── common-servers.json       # Common MCP servers
-│   ├── context7-http.json        # Context7 via HTTP transport
-│   ├── context7-sse.json         # Context7 via SSE transport
-│   ├── serena-server.json        # Serena with env variables
-│   └── serena-auto-server.json   # Serena with auto project detection
-├── scripts/
-│   ├── setup-env.sh              # Environment setup script
-│   ├── update.sh                 # Update helper script
-│   └── serena-wrapper.sh         # Serena wrapper for current directory
-├── docs/
-│   ├── serena-setup.md           # Serena configuration guide
-│   └── project-env-loading.md    # Project-specific env guide
-└── .env.example                  # Template for API keys (DO NOT COMMIT .env!)
+
+## Security Best Practices
+
+### Required Security Components
+1. **GPG Key**: For .env file encryption/decryption
+2. **SSH Key**: For signed commits to GitHub
+3. **Git Signing**: Properly configured commit signing
+4. **Dependency Scanning**: Regular vulnerability checks
+
+### Validation Command
+```bash
+/universal:security-validate-env
 ```
+
+This command checks all security requirements and provides setup instructions for any missing components.
+
+## Updates and Maintenance
+
+### Getting Updates
+```bash
+# Update global standards and commands
+cd ~/.claude
+git pull
+
+# Re-run setup if new MCP servers are added
+~/.claude/scripts/mcp-manager.sh
+```
+
+### Version History
+Check [CHANGELOG.md](CHANGELOG.md) for:
+- New features and commands
+- Breaking changes
+- Bug fixes
+- MCP server updates
 
 ## Benefits
 
-- **No Duplication**: Universal standards shared across all projects
-- **Automatic Loading**: Leverages Claude Code's built-in global support
-- **Version Controlled**: Global standards are versioned and updatable
-- **Simple Setup**: One `git clone` command sets up everything
-- **Team Consistency**: Shared standards across all team members
+- **Universal Standards**: Consistent development practices across all projects
+- **Automatic Loading**: Claude Code automatically applies global configuration
+- **Command Discovery**: Easy-to-find commands with clear categorization
+- **Security First**: Built-in security validation and best practices
+- **MCP Integration**: Centralized management of AI model integrations
+- **Team Consistency**: Shared standards for all team members
+
+## Troubleshooting
+
+### Common Issues
+- **Commands not found**: Ensure ~/.claude/commands/ exists
+- **MCP servers not working**: Run `~/.claude/scripts/check-mcp-env.sh`
+- **Security validation fails**: Follow setup instructions from validation command
+- **Settings not applied**: Check that CLAUDE.md is properly formatted
+
+### Debug Commands
+```bash
+# Check MCP server status
+~/.claude/scripts/check-mcp-env.sh
+
+# Validate environment setup
+/universal:security-validate-env
+
+# Test command loading
+ls ~/.claude/commands/
+```
 
 ## Contributing
 
 1. Fork this repository
-2. Create a feature branch: `git checkout -b feature/improve-standards`
-3. Make your changes to global standards
-4. Test with multiple projects to ensure compatibility
-5. Submit a pull request with clear description of changes
+2. Create a feature branch: `git checkout -b feature/new-command`
+3. Add your command following naming conventions
+4. Test across multiple projects
+5. Submit a pull request with clear description
 
-## Versioning
+## Resources
 
-This repository uses semantic versioning:
-- **Major** (1.0.0): Breaking changes to global standards
-- **Minor** (1.1.0): New features or non-breaking improvements
-- **Patch** (1.1.1): Bug fixes and minor corrections
+### Claude Code Documentation
+- [Settings Configuration](https://docs.anthropic.com/en/docs/claude-code/settings)
+- [Memory Management](https://docs.anthropic.com/en/docs/claude-code/memory)
+- [Best Practices](https://www.anthropic.com/engineering/claude-code-best-practices)
 
-Check the [CHANGELOG.md](CHANGELOG.md) for version history and upgrade notes.
+### MCP Server Documentation
+- Individual server docs in `mcp/` directory
+- API key requirements in `.env.example`
+- Project-specific setup in `docs/project-env-loading.md`
+
+---
+
+*This configuration is automatically loaded by Claude Code. For project-specific instructions, see the project's CLAUDE.md file.*

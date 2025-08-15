@@ -28,6 +28,16 @@ settings.local.json
 # But don't ignore the example
 !.env.example
 
+# Ignore sensitive credentials
+.credentials.json
+
+# Ignore local directories and data
+/ide/
+/statsig/
+/todos/
+/projects/
+/shell-snapshots/
+
 # Ignore backup files
 *.bak
 *.backup

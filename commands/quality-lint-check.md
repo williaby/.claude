@@ -1,4 +1,12 @@
-# Universal Lint Check
+---
+category: quality
+complexity: low
+estimated_time: "< 5 minutes"
+dependencies: []
+version: "1.0"
+---
+
+# Quality Lint Check
 
 Run appropriate linter for file: $ARGUMENTS
 

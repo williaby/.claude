@@ -1,15 +1,19 @@
-# MCP Server Configuration
+# MCP Server Configuration Templates
 
-This directory contains Model Context Protocol (MCP) server configurations for Claude Code's global setup.
+This directory contains Model Context Protocol (MCP) server configuration templates for reference and documentation purposes.
 
 ## Overview
 
-Each JSON file defines one or more MCP servers that provide specialized capabilities to Claude Code. When `enableAllProjectMcpServers: true` is set in `settings/base-settings.json`, all configurations in this directory should be loaded automatically.
+**IMPORTANT**: These JSON files are templates only. The current setup uses `claude mcp add` commands to install servers directly.
+
+- **User-level servers**: Use `~/.claude/scripts/mcp-manager.sh` to install globally
+- **Project-level servers**: Use `~/.claude/scripts/setup-project-mcp.sh` per project
+- **Manual installation**: Use `claude mcp add -s user|project <name> <command>`
 
 ## Configuration Files
 
 ### Core Servers
-- `zen-server.json` - Central orchestration server (⚠️ **MISSING FROM GIT**)
+- `zen-server.json` - Central orchestration server
 - `dev-tools-servers.json` - Development utilities (sequential-thinking, git, time)
 - `github-server.json` - GitHub API integration
 
@@ -56,12 +60,12 @@ export SENTRY_PROJECT="your-project"
 ## Installation Requirements
 
 ### Zen MCP Server
-The zen-server.json configuration assumes zen-mcp-server is installed at:
+The zen-server.json configuration points to the zen-mcp-server installation at:
 ```
-/home/byron/.zen-mcp-server/venv/bin/python
+/home/byron/dev/zen-mcp-server/.zen_venv/bin/python
 ```
 
-If installed elsewhere (e.g., `/home/byron/dev/zen-mcp-server/`), update the path accordingly.
+The path has been updated to match the actual installation location.
 
 ### Docker-based Servers
 Some servers like GitHub MCP run via Docker and require Docker to be installed and running.
@@ -83,16 +87,35 @@ Various servers use `uvx`, `npx`, or `uv run` commands and require the respectiv
 3. Check if paths in the configuration file exist
 
 ### Common Issues
-- **Missing zen-server.json**: This file should exist and be tracked in git
+- **Consolidated config not found**: Ensure `~/.claude/mcp-servers.json` exists
+- **Individual configs not merged**: Changes to individual JSON files won't take effect until merged into `mcp-servers.json`
 - **Incorrect paths**: Server installation paths may differ from configuration
 - **Missing API keys**: External services require valid API credentials
 - **Permission issues**: Ensure execute permissions on server binaries
 
-## Validation
+## Configuration Management
 
+### Updating MCP Servers
+1. Edit individual JSON files in `/mcp` directory for organization
+2. Merge changes into `~/.claude/mcp-servers.json` for Claude Code to load them
+3. Test with `claude mcp list`
+
+### Validation Script
+Run the validation script to check your environment:
+```bash
+~/.claude/scripts/validate-mcp-env.sh
+```
+
+This will verify:
+- Required executables are installed
+- Environment variables are set
+- File paths exist
+- Claude Code configuration is correct
+
+### Testing
 Test MCP server loading with:
 ```bash
 claude mcp list
 ```
 
-Should show all configured and available servers, not just zen.
+Should show all configured and available servers from `mcp-servers.json`.

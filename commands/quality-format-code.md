@@ -1,4 +1,12 @@
-# Format Code
+---
+category: quality
+complexity: low
+estimated_time: "< 5 minutes"
+dependencies: []
+version: "1.0"
+---
+
+# Quality Format Code
 
 Format code files according to project standards: $ARGUMENTS
 

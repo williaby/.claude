@@ -1,4 +1,12 @@
-# Security Validation
+---
+category: security
+complexity: low
+estimated_time: "< 5 minutes"
+dependencies: []
+version: "1.0"
+---
+
+# Security Validate Environment
 
 Validate security requirements for current development environment.
 

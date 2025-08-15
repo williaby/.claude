@@ -1,4 +1,12 @@
-# Git Workflow Helpers
+---
+category: workflow
+complexity: medium
+estimated_time: "5-15 minutes"
+dependencies: []
+version: "1.0"
+---
+
+# Workflow Git Helpers
 
 Git workflow validation and helpers: $ARGUMENTS
 
