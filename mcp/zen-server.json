@@ -1,8 +1,15 @@
 {
   "mcpServers": {
-    "zen": {
+    "zen-hub": {
       "command": "/home/byron/dev/zen-mcp-server/.zen_venv/bin/python",
-      "args": ["/home/byron/dev/zen-mcp-server/server.py"]
+      "args": ["/home/byron/dev/zen-mcp-server/hub_server.py"],
+      "env": {
+        "ZEN_HUB_ENABLED": "true",
+        "ZEN_HUB_FILTERING": "true",
+        "ZEN_HUB_MAX_TOOLS": "25",
+        "ZEN_HUB_DETECTION_TIMEOUT": "5",
+        "ZEN_HUB_LOGGING": "true"
+      }
     }
   }
 }
