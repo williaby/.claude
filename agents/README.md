@@ -1,3 +1,8 @@
+---
+name: agents-architecture
+description: Context-optimized agent system documentation and development guidelines
+---
+
 # Claude Code Agents Architecture
 
 > **Context-Optimized Agent System** - Specialized agents with shared context for maximum effectiveness and minimal token usage.
