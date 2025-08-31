@@ -5,7 +5,7 @@
 ## Project-Specific Standards
 
 > **Reference**: Global standards from `~/.claude/standards/` apply unless overridden below.
-> 
+>
 > - **Python Standards**: See `~/.claude/standards/python.md`
 > - **Security Standards**: See `~/.claude/standards/security.md`  
 > - **Git Workflow**: See `~/.claude/standards/git-workflow.md`
@@ -14,6 +14,7 @@
 ### Python Configuration
 
 #### Project Structure
+
 ```
 project-name/
 ├── src/
@@ -36,6 +37,7 @@ project-name/
 ```
 
 #### Poetry Configuration
+
 ```toml
 [tool.poetry]
 name = "project-name"
@@ -62,6 +64,7 @@ bandit = "^1.7.5"
 ### Project-Specific Requirements
 
 #### Environment Variables
+
 ```bash
 # .env.example
 DATABASE_URL=postgresql://user:password@localhost/database
@@ -71,6 +74,7 @@ LOG_LEVEL=INFO
 ```
 
 #### Custom Commands
+
 ```bash
 # Development setup
 poetry install
@@ -89,6 +93,7 @@ poetry run alembic upgrade head
 ## Testing Configuration
 
 ### Project-Specific Test Settings
+
 ```toml
 [tool.pytest.ini_options]
 minversion = "7.0"
@@ -110,6 +115,7 @@ markers = [
 ```
 
 ### Test Environment
+
 ```bash
 # Test with coverage
 poetry run pytest -v --cov=src/project_name --cov-report=html
@@ -123,11 +129,13 @@ poetry run pytest -m "not slow"
 ## Project-Specific Security
 
 ### Sensitive Files
+
 - `.env` - Environment variables (encrypted with GPG)
 - `secrets/` - Directory for secret files (if any)
 - `certificates/` - SSL certificates (if any)
 
 ### Security Commands
+
 ```bash
 # Encrypt environment file
 gpg --symmetric .env
@@ -140,11 +148,13 @@ poetry run bandit -r src/project_name
 ## Documentation
 
 ### API Documentation (if applicable)
+
 - **Framework**: FastAPI/Flask auto-docs or Sphinx
 - **Location**: `docs/api/`
 - **Generation**: `poetry run sphinx-build docs docs/_build`
 
 ### Code Documentation
+
 - **Docstring Style**: Google format
 - **Type Hints**: Required for all public functions
 - **Examples**: Include usage examples in docstrings
@@ -152,6 +162,7 @@ poetry run bandit -r src/project_name
 ## Deployment
 
 ### Docker Configuration (if applicable)
+
 ```dockerfile
 FROM python:3.11-slim
 
@@ -164,6 +175,7 @@ CMD ["poetry", "run", "python", "-m", "project_name"]
 ```
 
 ### Environment-Specific Settings
+
 - **Development**: Local database, debug enabled
 - **Staging**: Staging database, reduced logging
 - **Production**: Production database, error tracking
@@ -171,12 +183,14 @@ CMD ["poetry", "run", "python", "-m", "project_name"]
 ## Performance Requirements
 
 ### Performance Targets (customize as needed)
+
 - **API Response Time**: p95 < 200ms
 - **Memory Usage**: < 512MB in production
 - **Startup Time**: < 10 seconds
 - **Test Suite**: < 30 seconds
 
 ### Monitoring (if applicable)
+
 - **Metrics**: Prometheus/Grafana
 - **Logging**: Structured logging with correlation IDs
 - **Health Checks**: `/health` and `/ready` endpoints
@@ -184,12 +198,14 @@ CMD ["poetry", "run", "python", "-m", "project_name"]
 ## Architecture Notes
 
 ### Design Patterns
+
 - **Dependency Injection**: Using dependency-injector or similar
 - **Repository Pattern**: For data access abstraction
 - **Service Layer**: Business logic separation
 - **Event-Driven**: If using async processing
 
 ### External Dependencies
+
 - **Database**: PostgreSQL/MySQL/SQLite
 - **Cache**: Redis (if applicable)
 - **Message Queue**: RabbitMQ/Celery (if applicable)
@@ -198,6 +214,7 @@ CMD ["poetry", "run", "python", "-m", "project_name"]
 ## Development Workflow
 
 ### Branch Strategy
+
 ```bash
 # Feature development
 git checkout -b feat/feature-name
@@ -210,6 +227,7 @@ git commit -m "fix: resolve bug"
 ```
 
 ### Pre-commit Checklist
+
 - [ ] All tests pass: `poetry run pytest`
 - [ ] Code formatted: `poetry run black .`
 - [ ] Linting clean: `poetry run ruff check .`
@@ -218,6 +236,7 @@ git commit -m "fix: resolve bug"
 - [ ] Dependencies secure: `poetry run safety check`
 
 ### Code Review Checklist
+
 - [ ] Functionality works as expected
 - [ ] Tests cover new code (minimum 80% coverage)
 - [ ] Documentation updated if needed
@@ -229,6 +248,7 @@ git commit -m "fix: resolve bug"
 ## Troubleshooting
 
 ### Common Issues
+
 ```bash
 # Poetry dependency conflicts
 poetry lock --no-update
@@ -246,6 +266,7 @@ poetry run python -m cProfile -s cumulative script.py
 ```
 
 ### Debug Configuration
+
 ```python
 # Enable debug logging
 import logging
@@ -261,12 +282,14 @@ import ipdb; ipdb.set_trace()
 ## Additional Resources
 
 ### Development Tools
+
 - **IDE**: VS Code with Python extension
 - **Database Tools**: pgAdmin, DBeaver
 - **API Testing**: Postman, httpie
 - **Profiling**: py-spy, memory_profiler
 
 ### External Documentation
+
 - [Project Documentation](./docs/)
 - [API Documentation](./docs/api/)
 - [Deployment Guide](./docs/deployment.md)

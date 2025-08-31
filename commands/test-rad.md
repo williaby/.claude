@@ -58,6 +58,7 @@ function updateProfile(userData) {
 ### 2. Demonstrate Assumption Detection
 
 Use Bash to find the assumptions:
+
 ```bash
 echo "=== RAD Test Results ==="
 echo ""
@@ -89,6 +90,7 @@ echo "   /list-assumptions"
 ### 4. Demonstrate Model Selection Logic
 
 Explain which models would be used:
+
 - **Line 3 (payment)**: Gemini 2.5 Pro or O3-Mini (critical payment logic)
 - **Line 8 (auth state)**: DeepSeek-R1 via dynamic selection (state management)
 - **Line 13 (clipboard)**: Gemini Flash Lite (edge case browser compatibility)  
@@ -107,8 +109,9 @@ echo "RAD system test complete!"
 ```
 
 This test demonstrates:
+
 1. ✅ Assumption tagging methodology
-2. ✅ Risk-based categorization 
+2. ✅ Risk-based categorization
 3. ✅ Model selection logic
 4. ✅ Integration with verification workflow
 5. ✅ Command-line interface

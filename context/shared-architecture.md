@@ -3,12 +3,14 @@
 ## Core Development Architecture
 
 ### Technology Stack
+
 - **Python**: 3.11+ with Poetry dependency management
 - **Testing**: pytest with 80%+ coverage requirements
 - **Code Quality**: Black (88 chars), Ruff linting, MyPy type checking
 - **Security**: GPG/SSH key validation, encrypted secrets, dependency scanning
 
 ### Security-First Development
+
 - GPG keys required for .env encryption
 - SSH keys required for signed commits
 - Git signing key must be configured
@@ -16,12 +18,14 @@
 - No hardcoded secrets or credentials
 
 ### File Structure Conventions
+
 - **Python**: snake_case naming for files and functions
 - **Markdown**: 120-char line length, consistent formatting
 - **YAML**: 2-space indentation, 120-char line length
 - **Tests**: Mirror source structure in tests/ directory
 
 ### Quality Gates
+
 - All code formatted with Black (88-character line length)
 - All code must pass Ruff linting checks
 - Type hints required for all functions (MyPy validation)
@@ -31,6 +35,7 @@
 ## PromptCraft-Specific Architecture
 
 ### Core Components
+
 - **External Qdrant**: Vector database at 192.168.1.16:6333
 - **Zen MCP Server**: Real-time agent orchestration and communication
 - **C.R.E.A.T.E. Framework**: Context, Request, Examples, Augmentations, Tone & Format, Evaluation
@@ -38,6 +43,7 @@
 - **Knowledge Base**: Structured files in knowledge/ directory with YAML frontmatter
 
 ### Integration Points
+
 - **src/core/query_counselor.py**: Query enhancement and routing
 - **src/core/hyde_processor.py**: HyDE query transformation
 - **src/core/vector_store.py**: External Qdrant integration
@@ -46,6 +52,7 @@
 - **knowledge/**: Structured knowledge base with YAML frontmatter
 
 ### Performance Requirements
+
 - API response p95 < 2s for all endpoints
 - Vector search < 200ms response times
 - Agent processing < 5s for complex workflows
@@ -55,6 +62,7 @@
 ## Common Design Patterns
 
 ### Error Handling
+
 ```python
 try:
     result = risky_operation()
@@ -64,6 +72,7 @@ except SpecificError as e:
 ```
 
 ### Async Patterns
+
 ```python
 async def process_data(data: List[Item]) -> List[Result]:
     async with async_database() as db:
@@ -74,6 +83,7 @@ async def process_data(data: List[Item]) -> List[Result]:
 ```
 
 ### Configuration Management
+
 - Environment-specific config files
 - Encrypted .env files for secrets
 - Service account at .gcp/service-account.json

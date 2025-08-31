@@ -11,6 +11,7 @@ version: "1.0"
 Perform comprehensive pre-commit validation and compliance checking with automatic corrections for all file types: $ARGUMENTS
 
 ## Usage Options
+
 - `staged` - Validate only staged files (default)
 - `all` - Validate all files in repository
 - `path/to/files` - Validate specific files or directories
@@ -30,13 +31,16 @@ Perform comprehensive pre-commit validation and compliance checking with automat
 ## Pre-commit Hook Coverage
 
 ### Universal Hooks (All Files)
+
 **Auto-Corrections Applied**:
+
 - **trailing-whitespace**: Remove trailing whitespace from all lines
 - **end-of-file-fixer**: Ensure files end with newline
 - **mixed-line-ending**: Standardize line endings to LF
 - **fix-byte-order-marker**: Remove byte order markers
 
 **Manual Review Flagged**:
+
 - **check-added-large-files**: Files over 1MB (suggest alternatives)
 - **detect-private-key**: Private key detection (security critical)
 - **check-case-conflict**: Flag case conflicts
@@ -45,42 +49,55 @@ Perform comprehensive pre-commit validation and compliance checking with automat
 ### File-Type Specific Hooks
 
 #### Python Files (.py)
+
 **Auto-Corrections Applied**:
+
 - **black**: Code formatting (88 character line length)
 - **ruff --fix**: Auto-fixable linting violations
 - **debug-statements**: Remove debug imports and statements
 
 **Manual Review Flagged**:
+
 - **mypy**: Type checking errors
 - **bandit**: Security vulnerabilities
 - **ruff**: Non-auto-fixable linting issues
 
 #### Markdown Files (.md)
+
 **Auto-Corrections Applied**:
+
 - **markdownlint**: Apply auto-fixes for formatting
 - Line length, heading spacing, list formatting
 
 **Manual Review Flagged**:
+
 - Content structure violations requiring human judgment
 
 #### YAML Files (.yml, .yaml)
+
 **Auto-Corrections Applied**:
+
 - **yamllint**: Indentation, line length, syntax corrections
 
 **Manual Review Flagged**:
+
 - Complex configuration issues
 
 #### JSON/TOML/XML Files
+
 **Auto-Corrections Applied**:
+
 - **syntax validation**: Fix syntax and formatting
 - **structure validation**: Basic structural fixes
 
 **Manual Review Flagged**:
+
 - Complex structural issues requiring content understanding
 
 ## Implementation Strategy
 
 ### 1. Environment Validation
+
 ```bash
 # Check required tools are available
 if command -v git &> /dev/null; then
@@ -96,6 +113,7 @@ ssh-add -l > /dev/null 2>&1 && echo "✅ SSH key loaded" || echo "⚠️  No SSH
 ```
 
 ### 2. File Detection and Processing
+
 ```bash
 # Determine files to check
 if [ "$1" = "staged" ] || [ -z "$1" ]; then
@@ -119,6 +137,7 @@ done
 ```
 
 ### 3. Python File Validation
+
 ```bash
 validate_python_file() {
     local file="$1"
@@ -145,6 +164,7 @@ validate_python_file() {
 ```
 
 ### 4. Markdown File Validation
+
 ```bash
 validate_markdown_file() {
     local file="$1"
@@ -170,6 +190,7 @@ validate_markdown_file() {
 ```
 
 ### 5. Universal Rules Validation
+
 ```bash
 validate_universal_rules() {
     local file="$1"
@@ -241,7 +262,9 @@ generate_final_report() {
 ## Configuration Options
 
 ### Project-Specific Settings
+
 Create `.precommit-config.yaml` in project root:
+
 ```yaml
 # Universal pre-commit validation settings
 universal_precommit:
@@ -266,7 +289,9 @@ universal_precommit:
 ```
 
 ### Tool Requirements
+
 The command automatically detects and uses available tools:
+
 - **Required**: git
 - **Recommended**: black, ruff, mypy, markdownlint, yamllint
 - **Optional**: bandit, safety
@@ -290,6 +315,7 @@ The command automatically detects and uses available tools:
 ## Integration with Development Workflow
 
 This command complements existing quality commands:
+
 ```bash
 # Complete quality workflow
 /universal:security-validate-env        # Ensure keys are configured

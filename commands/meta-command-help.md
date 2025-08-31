@@ -11,6 +11,7 @@ version: "1.0"
 Interactive command discovery and smart suggestion system for Claude Code slash commands: $ARGUMENTS
 
 ## Usage Options
+
 - `"I need to [description]"` - Natural language command suggestion
 - `auto` - Context-aware suggestions based on current git status
 - `category [workflow|quality|security|meta]` - Browse commands by category
@@ -19,6 +20,7 @@ Interactive command discovery and smart suggestion system for Claude Code slash 
 ## Interactive Command Discovery
 
 ### Natural Language Queries
+
 Describe what you need to do and get smart command suggestions:
 
 ```bash
@@ -30,12 +32,14 @@ Describe what you need to do and get smart command suggestions:
 ```
 
 **Expected Responses**:
+
 - **Link fixing**: Suggests `/universal:meta-fix-links docs/`
 - **Pre-commit validation**: Suggests `/universal:quality-precommit-validate`
 - **Naming conventions**: Suggests `/universal:quality-naming-conventions src/`
 - **Code formatting**: Suggests `/universal:quality-format-code src/`
 
 ### Context-Aware Suggestions
+
 Get recommendations based on your current development context:
 
 ```bash
@@ -43,6 +47,7 @@ Get recommendations based on your current development context:
 ```
 
 **Context Analysis**:
+
 - **Modified .md files**: Suggests document linting and link validation
 - **Modified code files**: Suggests formatting and linting commands
 - **Git staging area**: Suggests pre-commit validation
@@ -50,6 +55,7 @@ Get recommendations based on your current development context:
 - **Multiple file types**: Suggests comprehensive validation workflow
 
 ### Category Browsing
+
 Explore commands by category with examples:
 
 ```bash
@@ -63,6 +69,7 @@ Explore commands by category with examples:
 ## Smart Suggestion Logic
 
 ### Based on File Types
+
 - **`.py` files**: Code formatting, linting, naming conventions
 - **`.md` files**: Document linting, link fixing, frontmatter validation
 - **`.yml/.yaml` files**: YAML validation, formatting
@@ -70,12 +77,14 @@ Explore commands by category with examples:
 - **Mixed types**: Comprehensive validation workflows
 
 ### Based on Git Status
+
 - **Staged files**: Pre-commit validation
 - **Modified files**: Quality checks appropriate to file types
 - **Untracked files**: Naming convention validation
 - **Clean working directory**: Suggests maintenance commands
 
 ### Based on Directory Context
+
 - **`src/` directory**: Code quality and formatting commands
 - **`docs/` directory**: Documentation validation and link fixing
 - **`tests/` directory**: Test-specific quality checks
@@ -90,6 +99,7 @@ Explore commands by category with examples:
 **Common Task Shortcuts**:
 
 ### Daily Development Tasks
+
 ```bash
 # Before committing any changes
 /universal:quality-precommit-validate
@@ -106,6 +116,7 @@ Explore commands by category with examples:
 ```
 
 ### Code Quality Workflow
+
 ```bash
 # Comprehensive quality check
 /universal:quality-precommit-validate all --auto-fix
@@ -116,6 +127,7 @@ Explore commands by category with examples:
 ```
 
 ### Git Integration
+
 ```bash
 # Validate environment setup
 /universal:security-validate-env
@@ -128,24 +140,29 @@ Explore commands by category with examples:
 ## Advanced Features
 
 ### Command Chaining Suggestions
+
 Based on your query, suggest sequences of commands:
 
 **Example**: "I need to prepare my code for commit"
 **Suggested Sequence**:
+
 1. `/universal:quality-format-code src/`
 2. `/universal:quality-naming-conventions src/`
 3. `/universal:quality-precommit-validate --auto-fix`
 
 ### Error Recovery Assistance
+
 When commands fail, suggest recovery actions:
 
 **Example**: Pre-commit validation fails
 **Suggested Recovery**:
+
 1. Fix specific issues highlighted in validation
 2. Re-run `/universal:quality-precommit-validate`
 3. Use `/universal:quality-format-code` if formatting issues persist
 
 ### Progressive Disclosure
+
 Start with simple suggestions and offer more advanced options:
 
 **Level 1**: Basic command suggestion
@@ -155,6 +172,7 @@ Start with simple suggestions and offer more advanced options:
 ## Command Categories
 
 ### Quality Commands
+
 - **quality-format-code**: Apply code formatting (Black, Prettier, etc.)
 - **quality-lint-check**: Run comprehensive linting checks
 - **quality-lint-document**: Validate and fix documentation
@@ -163,12 +181,15 @@ Start with simple suggestions and offer more advanced options:
 - **quality-frontmatter-validate**: Validate YAML front matter
 
 ### Workflow Commands
+
 - **workflow-git-helpers**: Git workflow assistance and validation
 
 ### Security Commands
+
 - **security-validate-env**: Validate GPG/SSH keys and environment
 
 ### Meta Commands
+
 - **meta-command-help**: This command - interactive discovery
 - **meta-fix-links**: Analyze and fix broken internal links
 
@@ -271,6 +292,7 @@ analyze_current_context() {
 ## Integration Features
 
 This command integrates with:
+
 - **Git status analysis** for context-aware suggestions
 - **File type detection** for appropriate command recommendations
 - **Command metadata** for complexity and time estimates

@@ -7,12 +7,15 @@ Response-Aware Development is a systematic approach to identifying and mitigatin
 ## Problem Statement
 
 ### The Hidden Assumption Crisis
+
 AI coding assistants (including Claude) make implicit assumptions that:
+
 - Pass initial testing in development environments
 - Work correctly under ideal conditions
 - Fail catastrophically in production under load, concurrency, or edge cases
 
 ### Common Failure Patterns
+
 1. **Timing Assumptions**: State updates assumed to complete instantly
 2. **Resource Availability**: External services assumed always available
 3. **Data Integrity**: Input validation assumed handled elsewhere
@@ -20,6 +23,7 @@ AI coding assistants (including Claude) make implicit assumptions that:
 5. **Type Safety**: Runtime type mismatches at boundaries
 
 ### Real-World Impact
+
 ```javascript
 // This code killed production at 3 AM:
 setUserData(newData);
@@ -34,9 +38,11 @@ setUserData(newData, () => {
 ## Solution Architecture
 
 ### Core Innovation: Context Isolation
+
 The key insight is that **the same context that made an assumption cannot effectively review it**. We need fresh eyes (a different AI context) to spot blind spots.
 
 ### Three-Tier Risk Model
+
 We classify assumptions by potential impact and route them to appropriate models:
 
 | Tier | Tag | Risk Level | Model Selection | Cost |
@@ -46,7 +52,9 @@ We classify assumptions by potential impact and route them to appropriate models
 | 3 | #EDGE | Rare scenarios, optimizations | Fast free (Flash-lite) | Free |
 
 ### Dynamic Model Selection
+
 Leverages Zen MCP Server's intelligent routing to:
+
 - Select the best free model for each assumption type
 - Learn from patterns over time
 - Optimize cost while maintaining quality
@@ -54,16 +62,19 @@ Leverages Zen MCP Server's intelligent routing to:
 ## Implementation Strategy
 
 ### Phase 1: Tagging (Current)
+
 - Claude adds assumption tags during code generation
 - Developers can manually add tags during review
 - Tags include risk level and verification hints
 
 ### Phase 2: Verification (Automated)
+
 - Slash command triggers multi-model verification
 - Parallel processing for efficiency
 - Fresh context prevents confirmation bias
 
 ### Phase 3: Remediation (Guided)
+
 - Verification agent generates defensive code
 - Fixes applied automatically or via review
 - Assumptions marked as verified
@@ -71,6 +82,7 @@ Leverages Zen MCP Server's intelligent routing to:
 ## Evaluation Metrics
 
 ### Quantitative Metrics
+
 To evaluate effectiveness after 30-60 days:
 
 1. **Assumption Detection Rate**
@@ -113,16 +125,19 @@ To evaluate effectiveness after 30-60 days:
 ## Success Criteria
 
 ### Short-term (30 days)
+
 - [ ] 80% of critical assumptions caught before production
 - [ ] <$0.01 average cost per file verified
 - [ ] <2 minute verification time for typical PR
 
 ### Medium-term (60 days)
+
 - [ ] 50% reduction in assumption-related production incidents
 - [ ] Pattern database with >100 common assumptions
 - [ ] Automated fix rate >70% for standard assumptions
 
 ### Long-term (90+ days)
+
 - [ ] Claude proactively avoids learned assumption patterns
 - [ ] Organization-specific assumption knowledge base
 - [ ] Near-zero critical assumptions reaching production
@@ -150,18 +165,21 @@ To evaluate effectiveness after 30-60 days:
 ## Implementation Checklist
 
 ### Setup Requirements
+
 - [ ] Zen MCP Server configured and accessible
 - [ ] User-level CLAUDE.md updated with RAD standards
 - [ ] Slash command added to user configuration
 - [ ] Pre-commit hooks configured (optional)
 
 ### Verification Points
+
 - [ ] Test with synthetic assumption examples
 - [ ] Verify model routing works correctly
 - [ ] Confirm cost tracking functioning
 - [ ] Validate parallel execution
 
 ### Monitoring Setup
+
 - [ ] Assumption tracking database/log
 - [ ] Cost monitoring dashboard
 - [ ] Incident correlation tracking
@@ -189,11 +207,13 @@ $ git commit -m "feat: user profile update with verified assumptions"
 ## Future Enhancements
 
 ### Phase 2 Features (Q2 2025)
+
 - Machine learning for assumption risk scoring
 - Production feedback loop integration
 - Cross-project pattern sharing
 
 ### Phase 3 Features (Q3 2025)
+
 - Proactive assumption prevention in Claude
 - Industry-specific assumption libraries
 - Compliance-oriented verification modes

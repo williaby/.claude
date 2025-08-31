@@ -15,6 +15,7 @@ Format code files according to project standards: $ARGUMENTS
 Format code files based on their type and apply consistent styling:
 
 ### Python Code Formatting
+
 ```bash
 # Format Python files with Black (88 char line length)
 poetry run black $ARGUMENTS
@@ -28,6 +29,7 @@ poetry run ruff check $ARGUMENTS
 ```
 
 ### Markdown Formatting
+
 ```bash
 # Format markdown files (if markdownlint has --fix capability)
 markdownlint --fix $ARGUMENTS 2>/dev/null || markdownlint $ARGUMENTS
@@ -40,6 +42,7 @@ markdownlint --fix $ARGUMENTS 2>/dev/null || markdownlint $ARGUMENTS
 ```
 
 ### YAML Formatting
+
 ```bash
 # Check YAML formatting
 yamllint $ARGUMENTS
@@ -52,6 +55,7 @@ yamllint $ARGUMENTS
 ```
 
 ### JSON Formatting
+
 ```bash
 # Format JSON files with proper indentation
 python -c "
@@ -70,7 +74,9 @@ for file in sys.argv[1:]:
 ```
 
 ### Multi-File Formatting
+
 When processing directories or multiple files:
+
 1. Detect each file type automatically
 2. Apply appropriate formatter for each type
 3. Report which files were formatted
@@ -79,24 +85,28 @@ When processing directories or multiple files:
 ## Formatting Standards
 
 **Python**:
+
 - Line length: 88 characters (Black standard)
 - Use double quotes for strings
 - Trailing commas in multi-line structures
 - Import sorting per Ruff rules
 
 **Markdown**:
+
 - Line length: 120 characters
 - ATX-style headers (# ## ###)
 - Consistent list markers
 - Code blocks with language specification
 
 **YAML**:
+
 - 2-space indentation
 - No tabs
 - Quoted strings when necessary
 - Consistent structure
 
 **JSON**:
+
 - 2-space indentation
 - Sorted keys
 - No trailing commas
@@ -105,6 +115,7 @@ When processing directories or multiple files:
 ## Post-Formatting Validation
 
 After formatting, automatically run appropriate linters to verify:
+
 ```bash
 # Verify Python formatting
 poetry run black --check $ARGUMENTS

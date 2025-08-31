@@ -3,6 +3,7 @@
 ## Code Quality Standards
 
 ### Formatting & Linting
+
 ```bash
 # Format and lint commands
 poetry run black .                    # 88-character line length
@@ -13,6 +14,7 @@ yamllint **/*.{yml,yaml}              # YAML validation
 ```
 
 ### Security Validation
+
 ```bash
 # Required security checks
 gpg --list-secret-keys                # GPG key validation
@@ -23,6 +25,7 @@ poetry run bandit -r src             # Security static analysis
 ```
 
 ### Testing Standards
+
 ```bash
 # Testing commands by tier
 poetry run pytest tests/unit/ --maxfail=3 -n auto                    # Fast feedback
@@ -33,12 +36,14 @@ poetry run pytest --cov=src --cov-report=html --cov-report=term-missing         
 ## Naming Conventions
 
 ### File Naming
+
 - **Python**: snake_case.py (e.g., user_service.py, query_counselor.py)
 - **Test Files**: test_*.py (e.g., test_user_service.py)
 - **Configuration**: lowercase with hyphens (e.g., docker-compose.yml)
 - **Documentation**: lowercase with hyphens (e.g., api-reference.md)
 
 ### Code Naming
+
 - **Functions/Variables**: snake_case (e.g., process_user_data, user_id)
 - **Classes**: PascalCase (e.g., UserService, QueryCounselor)
 - **Constants**: UPPER_SNAKE_CASE (e.g., MAX_RETRY_COUNT, API_BASE_URL)
@@ -47,6 +52,7 @@ poetry run pytest --cov=src --cov-report=html --cov-report=term-missing         
 ## Documentation Standards
 
 ### Code Documentation
+
 ```python
 def process_user_data(user_data: dict) -> User:
     """
@@ -66,6 +72,7 @@ def process_user_data(user_data: dict) -> User:
 ```
 
 ### Markdown Standards
+
 - Use sentence case for headings
 - 120-character line length maximum
 - Include table of contents for documents > 100 lines
@@ -73,6 +80,7 @@ def process_user_data(user_data: dict) -> User:
 - Include examples for complex concepts
 
 ### Git Standards
+
 - Conventional commits (feat:, fix:, docs:, test:, refactor:)
 - All commits must be signed (GPG key required)
 - Branch naming: feature/description, fix/description, docs/description
@@ -81,18 +89,21 @@ def process_user_data(user_data: dict) -> User:
 ## Environment Standards
 
 ### Required Environment Setup
+
 - Python 3.11+ with Poetry installed
 - GPG key configured for secret encryption
 - SSH key configured for Git signing
 - Pre-commit hooks installed and active
 
 ### Security Requirements
+
 - All .env files must be encrypted with GPG
 - No secrets in code or configuration files
 - Service accounts stored securely (.gcp/service-account.json)
 - Regular dependency vulnerability scanning
 
 ### Development Workflow
+
 1. Create feature branch from main
 2. Implement changes following standards
 3. Run quality checks (format, lint, test)

@@ -3,12 +3,14 @@
 ## Key Management Requirements
 
 ### GPG Key Requirements
+
 - **Purpose**: Encrypt `.env` files and sensitive configuration
 - **Key Type**: RSA 4096-bit minimum or Ed25519
 - **Expiration**: Keys must have expiration dates (max 2 years)
 - **Backup**: Secure backup of private keys required
 
 ### GPG Key Validation
+
 ```bash
 # Check GPG keys are available
 gpg --list-secret-keys
@@ -26,12 +28,14 @@ gpg --cipher-algo AES256 --compress-algo 1 --s2k-cipher-algo AES256 \
 ```
 
 ### SSH Key Requirements
+
 - **Purpose**: Sign Git commits and authenticate to repositories
 - **Key Type**: Ed25519 preferred, RSA 4096-bit minimum
 - **Passphrase**: All SSH keys must be passphrase-protected
 - **Agent**: Use SSH agent for key management
 
 ### SSH Key Validation
+
 ```bash
 # Check SSH keys are loaded
 ssh-add -l
@@ -49,11 +53,13 @@ ssh-keygen -t ed25519 -C "email@example.com"
 ## Git Security Configuration
 
 ### Signed Commits
+
 - **Requirement**: All commits must be GPG signed
 - **Configuration**: Git signing key must be configured
 - **Verification**: Commits show "Verified" badge in GitHub
 
 ### Git Configuration
+
 ```bash
 # Configure signing key
 git config --global user.signingkey KEYID
@@ -69,6 +75,7 @@ git config --get user.signingkey  # Must return key ID
 ```
 
 ### Pre-commit Security Hooks
+
 ```yaml
 # .pre-commit-config.yaml
 repos:
@@ -89,11 +96,13 @@ repos:
 ## Dependency Security
 
 ### Vulnerability Scanning
+
 - **Safety**: Check Python dependencies for known vulnerabilities
 - **Bandit**: Static security analysis for Python code
 - **Audit**: Regular dependency audits (monthly minimum)
 
 ### Security Scanning Commands
+
 ```bash
 # Python dependency vulnerability check
 poetry run safety check
@@ -109,6 +118,7 @@ poetry run safety check --full-report
 ```
 
 ### Dependency Management
+
 ```bash
 # Update dependencies to latest secure versions
 poetry update
@@ -123,12 +133,14 @@ poetry add "requests>=2.28.0,<3.0.0"
 ## Secrets Management
 
 ### Environment Variables
+
 - **No Hardcoding**: Never hardcode secrets in source code
 - **Environment Files**: Use `.env` files for local development
 - **Encryption**: Encrypt `.env` files with GPG
 - **Templates**: Provide `.env.example` with dummy values
 
 ### Secrets Best Practices
+
 ```bash
 # Create encrypted environment file
 cp .env.example .env
@@ -138,6 +150,7 @@ rm .env  # Remove unencrypted file
 ```
 
 ### Secret Detection
+
 ```bash
 # Scan for accidentally committed secrets
 git log --all --full-history --grep="password\|secret\|key\|token"
@@ -149,12 +162,14 @@ detect-secrets scan --all-files --baseline .secrets.baseline
 ## Application Security
 
 ### Input Validation
+
 - **Sanitization**: All user inputs must be validated and sanitized
 - **SQL Injection**: Use parameterized queries or ORM
 - **XSS Prevention**: Escape output in web applications
 - **CSRF Protection**: Implement CSRF tokens for state-changing operations
 
 ### Security Headers
+
 ```python
 # Flask/FastAPI security headers
 app.add_middleware(
@@ -176,6 +191,7 @@ async def add_security_headers(request, call_next):
 ```
 
 ### Authentication and Authorization
+
 - **Strong Passwords**: Enforce password complexity requirements
 - **MFA**: Multi-factor authentication for admin accounts
 - **Session Management**: Secure session handling with proper expiration
@@ -184,6 +200,7 @@ async def add_security_headers(request, call_next):
 ## Environment Security
 
 ### Development Environment
+
 ```bash
 # Secure file permissions
 chmod 600 .env*
@@ -195,6 +212,7 @@ ls -la .env* ~/.ssh/
 ```
 
 ### Production Security
+
 - **Environment Isolation**: Separate dev/staging/prod environments
 - **Access Control**: Restrict production access to authorized personnel
 - **Monitoring**: Log security events and monitor for anomalies
@@ -203,6 +221,7 @@ ls -la .env* ~/.ssh/
 ## Incident Response
 
 ### Security Event Logging
+
 ```python
 import logging
 import structlog
@@ -220,6 +239,7 @@ security_logger.warning(
 ```
 
 ### Breach Response
+
 1. **Immediate**: Isolate affected systems
 2. **Assessment**: Determine scope and impact
 3. **Notification**: Inform stakeholders within 24 hours
@@ -229,12 +249,14 @@ security_logger.warning(
 ## Compliance Requirements
 
 ### Data Protection
+
 - **GDPR**: Implement data protection by design
 - **PCI DSS**: Follow standards for payment card data
 - **HIPAA**: Protect health information if applicable
 - **SOC 2**: Implement controls for security and availability
 
 ### Audit Requirements
+
 - **Access Logs**: Maintain detailed access logs
 - **Change Management**: Document all security-related changes
 - **Regular Reviews**: Quarterly security reviews minimum
@@ -243,6 +265,7 @@ security_logger.warning(
 ## Security Validation Checklist
 
 Before any deployment:
+
 - [ ] GPG key available and configured
 - [ ] SSH key loaded and configured for signed commits
 - [ ] All dependencies scanned for vulnerabilities
@@ -257,6 +280,7 @@ Before any deployment:
 ## Emergency Procedures
 
 ### Key Compromise
+
 ```bash
 # Revoke compromised GPG key
 gpg --gen-revoke KEYID > revoke.asc
@@ -268,6 +292,7 @@ ssh-keygen -t ed25519 -C "email@example.com"
 ```
 
 ### Security Incident
+
 1. **Isolate**: Disconnect affected systems
 2. **Preserve**: Save logs and evidence
 3. **Notify**: Contact security team immediately

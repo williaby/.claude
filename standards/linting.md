@@ -5,6 +5,7 @@
 ### Python Files
 
 #### Ruff Configuration
+
 ```toml
 # pyproject.toml
 [tool.ruff]
@@ -59,6 +60,7 @@ known-first-party = ["your_package"]
 ```
 
 #### Black Configuration
+
 ```toml
 # pyproject.toml
 [tool.black]
@@ -82,6 +84,7 @@ exclude = '''
 ```
 
 #### Python Linting Commands
+
 ```bash
 # Format with Black
 poetry run black .
@@ -102,6 +105,7 @@ poetry run mypy src
 ### Markdown Files
 
 #### Markdownlint Configuration
+
 ```json
 {
   "default": true,
@@ -126,6 +130,7 @@ poetry run mypy src
 ```
 
 #### Markdown Standards
+
 - **Line Length**: 120 characters maximum
 - **Heading Style**: ATX headers (`# Header` not `Header\n======`)
 - **List Style**: Consistent dash `-` for unordered lists
@@ -133,6 +138,7 @@ poetry run mypy src
 - **Links**: Use reference-style for repeated links
 
 #### Markdown Linting Commands
+
 ```bash
 # Lint markdown files
 markdownlint **/*.md
@@ -147,6 +153,7 @@ markdownlint README.md docs/*.md
 ### YAML Files
 
 #### Yamllint Configuration
+
 ```yaml
 # .yamllint.yml
 extends: default
@@ -195,6 +202,7 @@ rules:
 ```
 
 #### YAML Standards
+
 - **Indentation**: 2 spaces consistently
 - **Line Length**: 120 characters maximum
 - **Boolean Values**: Use `true/false` or `yes/no`
@@ -202,6 +210,7 @@ rules:
 - **Key Ordering**: Alphabetical where logical
 
 #### YAML Linting Commands
+
 ```bash
 # Lint YAML files
 yamllint **/*.{yml,yaml}
@@ -216,12 +225,14 @@ yamllint -d '{extends: default, rules: {line-length: {max: 120}}}' file.yml
 ### JSON Files
 
 #### JSON Standards
+
 - **Indentation**: 2 spaces
 - **Trailing Commas**: Not allowed (invalid JSON)
 - **Key Ordering**: Alphabetical where possible
 - **String Quotes**: Double quotes only
 
 #### JSON Validation Commands
+
 ```bash
 # Validate JSON syntax
 python -m json.tool file.json > /dev/null
@@ -236,6 +247,7 @@ find . -name "*.json" -exec python -m json.tool {} \; > /dev/null
 ### Configuration Files
 
 #### EditorConfig
+
 ```ini
 # .editorconfig
 root = true
@@ -261,6 +273,7 @@ indent_style = tab
 ```
 
 #### Pre-commit Configuration
+
 ```yaml
 # .pre-commit-config.yaml
 repos:
@@ -309,6 +322,7 @@ repos:
 ## IDE Integration
 
 ### VS Code Settings
+
 ```json
 {
   "python.formatting.provider": "black",
@@ -332,6 +346,7 @@ repos:
 ```
 
 ### PyCharm/IntelliJ Settings
+
 - Enable Black formatter
 - Configure Ruff as external tool
 - Set line length to 88 for Python, 120 for Markdown
@@ -340,6 +355,7 @@ repos:
 ## Linting Workflow
 
 ### Development Workflow
+
 ```bash
 # Before making changes
 poetry run pre-commit install
@@ -357,6 +373,7 @@ git commit -m "fix: resolve linting issues"
 ```
 
 ### CI/CD Integration
+
 ```yaml
 # .github/workflows/lint.yml
 name: Lint
@@ -398,6 +415,7 @@ jobs:
 ## Error Resolution
 
 ### Common Python Issues
+
 ```bash
 # Fix import sorting
 poetry run ruff check --fix --select I .
@@ -410,6 +428,7 @@ poetry run ruff check --fix --select F401 .  # Remove unused imports
 ```
 
 ### Common Markdown Issues
+
 ```bash
 # Fix line length issues
 markdownlint --fix MD013 **/*.md
@@ -419,6 +438,7 @@ markdownlint --fix MD041 **/*.md
 ```
 
 ### Common YAML Issues
+
 ```bash
 # Check indentation
 yamllint -d '{rules: {indentation: {spaces: 2}}}' file.yml
@@ -430,6 +450,7 @@ yamllint -d '{rules: {indentation: {spaces: 2}}}' file.yml
 ## Custom Rules
 
 ### Project-Specific Rules
+
 ```toml
 # pyproject.toml - Custom Ruff rules
 [tool.ruff.lint]
@@ -446,6 +467,7 @@ ignore = [
 ```
 
 ### Custom Markdownlint Rules
+
 ```json
 {
   "MD033": {
@@ -469,6 +491,7 @@ ignore = [
 ## Performance Optimization
 
 ### Linting Performance
+
 ```bash
 # Run linting in parallel
 poetry run black . & poetry run ruff check . & wait
@@ -481,6 +504,7 @@ git diff --name-only --cached | grep '\.py$' | xargs poetry run ruff check
 ```
 
 ### Pre-commit Optimization
+
 ```yaml
 # .pre-commit-config.yaml - Optimized hooks
 repos:

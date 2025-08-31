@@ -11,6 +11,7 @@ version: "1.0"
 Perform comprehensive document linting and compliance checking with automatic corrections: $ARGUMENTS
 
 ## Usage Options
+
 - `file.md` - Lint specific markdown file
 - `directory/` - Lint all markdown files in directory
 - `--auto-fix` - Apply automatic corrections where safe
@@ -30,7 +31,9 @@ Perform comprehensive document linting and compliance checking with automatic co
 ## Document Type Detection
 
 ### Documentation Files (README, docs/, guides/)
+
 **Auto-Corrections Applied**:
+
 - Fix heading hierarchy (no skipping levels)
 - Apply standard markdown formatting
 - Correct list style inconsistencies
@@ -38,36 +41,44 @@ Perform comprehensive document linting and compliance checking with automatic co
 - Standardize code block language tags
 
 **Manual Review Flagged**:
+
 - Structural reorganization suggestions
 - Missing sections (installation, usage, etc.)
 - Broken external links
 - Outdated information
 
 ### Configuration Files (with YAML front matter)
+
 **Auto-Corrections Applied**:
+
 - Generate/fix YAML front matter structure
 - Standardize metadata fields
 - Fix heading structure violations
 - Apply markdown formatting rules
 
 **Manual Review Flagged**:
+
 - Metadata inconsistencies
 - Content scope issues
 - Missing cross-references
 
 ### Project-Specific Files
+
 **Auto-Corrections Applied**:
+
 - Apply project-specific formatting rules
 - Fix common heading issues
 - Standardize list formatting
 
 **Manual Review Flagged**:
+
 - Project convention violations
 - Content organization suggestions
 
 ## Implementation
 
 ### 1. File Detection and Analysis
+
 ```bash
 analyze_document() {
     local file="$1"
@@ -103,6 +114,7 @@ analyze_document() {
 ```
 
 ### 2. Document Type Detection
+
 ```bash
 detect_document_type() {
     local file="$1"
@@ -128,6 +140,7 @@ detect_document_type() {
 ```
 
 ### 3. YAML Front Matter Validation
+
 ```bash
 validate_yaml_frontmatter() {
     local file="$1"
@@ -165,6 +178,7 @@ validate_yaml_frontmatter() {
 ```
 
 ### 4. Heading Structure Validation
+
 ```bash
 validate_heading_structure() {
     local file="$1"
@@ -204,6 +218,7 @@ validate_heading_structure() {
 ```
 
 ### 5. Markdown Formatting Validation
+
 ```bash
 validate_markdown_formatting() {
     local file="$1"
@@ -233,6 +248,7 @@ validate_markdown_formatting() {
 ```
 
 ### 6. Link Validation
+
 ```bash
 validate_links() {
     local file="$1"

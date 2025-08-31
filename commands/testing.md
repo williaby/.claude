@@ -28,6 +28,7 @@ poetry run pytest --cov=src --cov-report=html --cov-report=term-missing --cov-fa
 ## Test Execution
 
 ### Basic Test Running
+
 ```bash
 # Run all tests
 poetry run pytest
@@ -49,6 +50,7 @@ poetry run pytest -k "test_user"
 ```
 
 ### Test Categories and Markers
+
 ```bash
 # Run only unit tests
 poetry run pytest tests/unit/
@@ -68,6 +70,7 @@ poetry run pytest -m "unit and not slow"
 ```
 
 ### Parallel Test Execution
+
 ```bash
 # Install pytest-xdist for parallel execution
 poetry add --group dev pytest-xdist
@@ -83,6 +86,7 @@ poetry run pytest -n auto --cov=src --cov-report=html
 ## Coverage Analysis
 
 ### Coverage Reports
+
 ```bash
 # Basic coverage
 poetry run pytest --cov=src
@@ -101,6 +105,7 @@ poetry run pytest --cov=src --cov-report=html --cov-report=term-missing --cov-re
 ```
 
 ### Coverage Thresholds
+
 ```bash
 # Fail if coverage below threshold
 poetry run pytest --cov=src --cov-fail-under=80
@@ -113,6 +118,7 @@ poetry run pytest --cov=src.module --cov-report=term-missing
 ```
 
 ### Coverage Configuration
+
 ```toml
 # pyproject.toml
 [tool.coverage.run]
@@ -145,6 +151,7 @@ directory = "htmlcov"
 ## Test Discovery and Organization
 
 ### Test Structure
+
 ```bash
 # Standard test directory structure
 tests/
@@ -157,6 +164,7 @@ tests/
 ```
 
 ### Test Discovery
+
 ```bash
 # Show collected tests without running
 poetry run pytest --collect-only
@@ -171,6 +179,7 @@ poetry run pytest tests/unit/ --collect-only
 ## Test Output and Reporting
 
 ### Output Formats
+
 ```bash
 # Detailed output
 poetry run pytest -v
@@ -189,6 +198,7 @@ poetry run pytest --tb=long
 ```
 
 ### JUnit XML Reports
+
 ```bash
 # Generate JUnit XML for CI
 poetry run pytest --junitxml=reports/junit.xml
@@ -201,6 +211,7 @@ poetry run pytest --junitxml=test-results/results.xml
 ```
 
 ### Test Result Caching
+
 ```bash
 # Run only failed tests from last run
 poetry run pytest --lf  # last-failed
@@ -215,6 +226,7 @@ poetry run pytest --cache-clear
 ## Advanced Testing Features
 
 ### Test Fixtures and Data
+
 ```bash
 # Show available fixtures
 poetry run pytest --fixtures
@@ -227,6 +239,7 @@ poetry run pytest --setup-show
 ```
 
 ### Debugging Tests
+
 ```bash
 # Drop into debugger on failure
 poetry run pytest --pdb
@@ -240,6 +253,7 @@ poetry run pytest --pdb --pdbcls=IPython.terminal.debugger:TerminalPdb
 ```
 
 ### Performance Testing
+
 ```bash
 # Install pytest-benchmark
 poetry add --group dev pytest-benchmark
@@ -258,6 +272,7 @@ poetry run pytest --benchmark-compare=baseline
 ## Continuous Integration
 
 ### GitHub Actions Integration
+
 ```yaml
 # .github/workflows/test.yml
 - name: Run tests with coverage
@@ -277,6 +292,7 @@ poetry run pytest --benchmark-compare=baseline
 ```
 
 ### Test Matrix
+
 ```yaml
 strategy:
   matrix:
@@ -290,6 +306,7 @@ steps:
 ## Test Environment Management
 
 ### Environment Variables
+
 ```bash
 # Set test environment
 export TESTING=true
@@ -305,6 +322,7 @@ DATABASE_URL = "sqlite:///:memory:"
 ```
 
 ### Test Database Setup
+
 ```bash
 # Run tests with test database
 export DATABASE_URL="postgresql://test:test@localhost/test_db"
@@ -318,6 +336,7 @@ poetry run pytest
 ## Specialized Testing
 
 ### Mutation Testing
+
 ```bash
 # Install mutmut for mutation testing
 poetry add --group dev mutmut
@@ -329,6 +348,7 @@ poetry run mutmut html
 ```
 
 ### Property-Based Testing
+
 ```bash
 # Install hypothesis
 poetry add --group dev hypothesis
@@ -341,6 +361,7 @@ poetry run pytest --hypothesis-show-statistics
 ```
 
 ### Load Testing
+
 ```bash
 # Install locust for load testing
 poetry add --group dev locust
@@ -352,6 +373,7 @@ poetry run locust -f tests/load/locustfile.py
 ## Test Cleanup and Maintenance
 
 ### Test Data Cleanup
+
 ```bash
 # Clean test artifacts
 rm -rf htmlcov/
@@ -365,6 +387,7 @@ find . -name "__pycache__" -type d -exec rm -rf {} +
 ```
 
 ### Test Quality Checks
+
 ```bash
 # Check test coverage quality
 poetry run pytest --cov=src --cov-report=term-missing | grep -E "TOTAL.*[0-9]+%"
@@ -379,6 +402,7 @@ poetry run pytest --profile
 ## pytest Configuration
 
 ### pyproject.toml Configuration
+
 ```toml
 [tool.pytest.ini_options]
 minversion = "7.0"
@@ -405,6 +429,7 @@ filterwarnings = [
 ```
 
 ### Custom Markers
+
 ```python
 # tests/conftest.py
 import pytest
@@ -425,6 +450,7 @@ def pytest_configure(config):
 ## Testing Best Practices
 
 ### Test Naming Conventions
+
 ```python
 def test_should_return_true_when_user_is_valid():
     """Test should follow naming convention: test_should_[expected]_when_[condition]."""
@@ -436,6 +462,7 @@ def test_user_creation_with_valid_email():
 ```
 
 ### Test Organization
+
 ```python
 class TestUserAuthentication:
     """Group related tests in classes."""

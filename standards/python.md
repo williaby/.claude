@@ -3,11 +3,13 @@
 ## Code Quality Requirements
 
 ### Line Length and Formatting
+
 - **Maximum Line Length**: 88 characters (Black default)
 - **Formatter**: Black (mandatory for all Python files)
 - **Import Sorting**: Use Black's import handling or compatible isort configuration
 
 ### Code Style Standards
+
 - **Indentation**: 4 spaces (never tabs)
 - **String Quotes**: Consistent quote style (Black will normalize)
 - **Trailing Commas**: Required in multi-line structures
@@ -16,6 +18,7 @@
 ## Linting and Analysis
 
 ### Ruff Configuration
+
 - **Rules**: Comprehensive rule set including:
   - `E` (pycodestyle errors)
   - `F` (Pyflakes)
@@ -27,6 +30,7 @@
   - `C4` (flake8-comprehensions)
 
 ### Essential Commands
+
 ```bash
 # Format code
 poetry run black .
@@ -44,12 +48,14 @@ poetry run black --check .
 ## Type Checking
 
 ### MyPy Requirements
+
 - **Type Hints**: Required for all public functions and methods
 - **Configuration**: Use `pyproject.toml` for MyPy settings
 - **Strictness**: Minimum `--strict` mode for new projects
 - **Coverage**: Target 100% type annotation coverage
 
 ### Type Annotation Standards
+
 ```python
 # Function signatures
 def process_data(input_data: list[str], limit: int = 100) -> dict[str, Any]:
@@ -67,6 +73,7 @@ class DataProcessor:
 ```
 
 ### Essential Commands
+
 ```bash
 # Type check entire project
 poetry run mypy src
@@ -81,11 +88,13 @@ poetry run mypy --html-report mypy-report src
 ## Testing Standards
 
 ### Coverage Requirements
+
 - **Minimum Coverage**: 80% overall
 - **Branch Coverage**: Required (not just line coverage)
 - **Missing Coverage Reports**: Must identify uncovered areas
 
 ### Test Organization
+
 ```
 tests/
 ├── unit/           # Unit tests (fast, isolated)
@@ -95,6 +104,7 @@ tests/
 ```
 
 ### Test Naming Conventions
+
 ```python
 def test_should_return_valid_result_when_given_valid_input():
     """Test function with descriptive name following pattern."""
@@ -109,6 +119,7 @@ class TestDataProcessor:
 ```
 
 ### Essential Commands
+
 ```bash
 # Run all tests with coverage
 poetry run pytest -v --cov=src --cov-report=html --cov-report=term-missing
@@ -125,11 +136,13 @@ poetry run pytest -m "not integration"
 ## Dependency Management
 
 ### Poetry Configuration
+
 - **Dependency Specification**: Use semantic versioning constraints
 - **Development Dependencies**: Separate from production dependencies
 - **Lock File**: Always commit `poetry.lock`
 
 ### Version Constraints
+
 ```toml
 [tool.poetry.dependencies]
 python = "^3.11"
@@ -144,6 +157,7 @@ mypy = "^1.5.0"
 ```
 
 ### Essential Commands
+
 ```bash
 # Install dependencies
 poetry install
@@ -164,6 +178,7 @@ poetry show --tree
 ## Project Structure
 
 ### Standard Layout
+
 ```
 project/
 ├── src/
@@ -179,6 +194,7 @@ project/
 ```
 
 ### Configuration Files
+
 - **pyproject.toml**: Primary configuration for all tools
 - **py.typed**: Mark package as typed
 - **.env.example**: Template for environment variables
@@ -186,11 +202,13 @@ project/
 ## Security Requirements
 
 ### Code Security
+
 - **Bandit Scanning**: Required for all security-sensitive code
 - **Dependency Scanning**: Use Safety to check for vulnerabilities
 - **Secret Detection**: No hardcoded secrets or API keys
 
 ### Essential Commands
+
 ```bash
 # Security scanning
 poetry run bandit -r src
@@ -205,12 +223,14 @@ poetry run pre-commit run detect-private-key --all-files
 ## Performance Guidelines
 
 ### Best Practices
+
 - **Lazy Loading**: Use generators and lazy evaluation where appropriate
 - **Memory Efficiency**: Avoid loading large datasets into memory unnecessarily
 - **Async/Await**: Use for I/O-bound operations
 - **Caching**: Implement appropriate caching strategies
 
 ### Profiling
+
 ```bash
 # Profile with cProfile
 python -m cProfile -s cumulative script.py
@@ -223,11 +243,13 @@ python -m memory_profiler script.py
 ## Environment Setup
 
 ### Python Version
+
 - **Minimum**: Python 3.11+
 - **Recommended**: Latest stable Python version
 - **Virtual Environment**: Always use Poetry or similar
 
 ### IDE Configuration
+
 - **VS Code**: Recommended extensions and settings
 - **PyCharm**: Configuration for Black, Ruff, MyPy integration
 - **Editor Config**: Consistent formatting across editors

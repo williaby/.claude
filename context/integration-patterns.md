@@ -3,6 +3,7 @@
 ## External Service Integration
 
 ### Qdrant Vector Database
+
 ```python
 # Connection pattern for external Qdrant at 192.168.1.16:6333
 from qdrant_client import QdrantClient
@@ -26,6 +27,7 @@ async def search_vectors(query_vector: List[float], limit: int = 10):
 ```
 
 ### MCP Server Communication
+
 ```python
 # MCP client pattern for Zen server integration
 async def call_mcp_tool(tool_name: str, params: dict):
@@ -42,6 +44,7 @@ async def call_mcp_tool(tool_name: str, params: dict):
 ## API Integration Patterns
 
 ### FastAPI Endpoints
+
 ```python
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
@@ -65,6 +68,7 @@ async def endpoint_handler(
 ```
 
 ### Authentication Patterns
+
 ```python
 # JWT token validation
 from fastapi.security import HTTPBearer
@@ -86,6 +90,7 @@ async def get_current_user(token: str = Depends(security)):
 ## Data Processing Patterns
 
 ### Async Batch Processing
+
 ```python
 import asyncio
 from typing import List, TypeVar
@@ -107,6 +112,7 @@ async def process_batch(items: List[T], processor: Callable[[T], Awaitable[R]],
 ```
 
 ### Error Recovery Patterns
+
 ```python
 import asyncio
 from functools import wraps
@@ -132,6 +138,7 @@ def with_retry(max_attempts: int = 3, delay: float = 1.0):
 ## Configuration Integration
 
 ### Environment-Based Configuration
+
 ```python
 from pydantic import BaseSettings
 from typing import Optional
@@ -151,6 +158,7 @@ settings = Settings()
 ```
 
 ### Service Integration Factory
+
 ```python
 from typing import Protocol
 

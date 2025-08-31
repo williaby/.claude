@@ -38,6 +38,7 @@ Instead of relying on environment variables for project paths, override the MCP 
 Create a wrapper script that sets project-specific variables:
 
 1. Create `~/.claude/scripts/serena-wrapper.sh`:
+
 ```bash
 #!/bin/bash
 # Serena wrapper script that uses current directory as project
@@ -56,6 +57,7 @@ exec uv run --directory "$SERENA_INSTALL" serena-mcp-server \
 ```
 
 2. Update the global configuration to use the wrapper:
+
 ```json
 // In ~/.claude/mcp/serena-server.json
 {
@@ -131,6 +133,7 @@ Then use `claude-project` instead of `claude` when starting from a project direc
 3. **Document Project Setup**: Add a `.claude/README.md` in your project explaining any special configuration
 
 4. **Git Ignore Local Configs**: Add to `.gitignore`:
+
    ```
    .mcp.json
    .env.local
@@ -156,6 +159,7 @@ my-project/
 To verify environment variables are loaded:
 
 1. Check Claude Code's environment:
+
    ```bash
    # In Claude, ask it to run:
    echo $SERENA_INSTALL_PATH
@@ -163,6 +167,7 @@ To verify environment variables are loaded:
    ```
 
 2. Test MCP server directly:
+
    ```bash
    # Test if the configuration works
    uv run --directory $SERENA_INSTALL_PATH serena-mcp-server \

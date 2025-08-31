@@ -15,6 +15,7 @@ Git workflow validation and helpers: $ARGUMENTS
 Provide git workflow assistance based on the command or validation requested:
 
 ### Branch Name Validation
+
 ```bash
 # Check current branch name follows conventions
 current_branch=$(git branch --show-current)
@@ -35,6 +36,7 @@ fi
 ```
 
 ### Commit Message Validation
+
 ```bash
 # Check last commit message follows Conventional Commits
 last_commit=$(git log -1 --pretty=format:"%s")
@@ -51,6 +53,7 @@ fi
 ```
 
 ### Pre-Commit Validation
+
 ```bash
 # Run pre-commit checks before committing
 echo "Running pre-commit validation..."
@@ -81,6 +84,7 @@ fi
 ```
 
 ### PR Readiness Check
+
 ```bash
 # Check if branch is ready for pull request
 echo "Checking PR readiness..."
@@ -117,6 +121,7 @@ fi
 ```
 
 ### Git Status Summary
+
 ```bash
 # Provide comprehensive git status
 echo "=== Git Status Summary ==="
@@ -139,22 +144,26 @@ END {
 ## Workflow Commands
 
 **Create Feature Branch**:
+
 ```bash
 git checkout -b feature/<issue-number>-<short-description>
 ```
 
 **Commit with Conventional Format**:
+
 ```bash
 git commit -m "type(scope): description"
 ```
 
 **Update Branch with Latest Main**:
+
 ```bash
 git fetch origin
 git rebase origin/main
 ```
 
 **Push Feature Branch**:
+
 ```bash
 git push -u origin feature/<issue-number>-<short-description>
 ```

@@ -11,32 +11,40 @@ This command provides comprehensive validation and setup of AI coding CLI tools 
 ## Usage Patterns
 
 ### Basic Validation
+
 ```bash
 /tools:ai-validate
 ```
+
 - Validates all AI tools in current project
 - Shows detailed installation and configuration status
 - Provides setup instructions for missing tools
 
 ### Quick Status Check
+
 ```bash
 /tools:ai-validate --quiet
 ```
+
 - Returns summary: "AI Tools: 3/5 installed, 2/5 configured"
 - Minimal output for scripting or quick checks
 
 ### Project Setup
+
 ```bash
 /tools:ai-validate --setup
 ```
+
 - Creates configuration templates for all supported tools
 - Sets up VS Code integration (tasks and settings)
 - Configures project-specific AI tool settings
 
 ### Installation Mode
+
 ```bash
 /tools:ai-validate --install
 ```
+
 - Attempts automatic installation of missing tools
 - Shows manual installation instructions when auto-install isn't available
 - Re-validates after installation attempts
@@ -64,6 +72,7 @@ The command automatically detects project characteristics and creates appropriat
 ## Configuration Templates
 
 ### Claude Code Configuration
+
 ```json
 {
   "project": {
@@ -79,6 +88,7 @@ The command automatically detects project characteristics and creates appropriat
 ```
 
 ### GitHub Copilot Configuration
+
 ```yaml
 suggestions:
   enabled: true
@@ -97,6 +107,7 @@ exclude:
 The command automatically configures VS Code when `.vscode/` directory exists:
 
 **Settings Integration**:
+
 ```json
 {
   "ai-tools": {
@@ -111,6 +122,7 @@ The command automatically configures VS Code when `.vscode/` directory exists:
 ```
 
 **Task Integration**:
+
 ```json
 {
   "label": "Validate AI Tools",
@@ -241,16 +253,19 @@ fi
 ## Troubleshooting
 
 ### Tool Not Detected
+
 - Verify tool is installed: `which <command>`
 - Check PATH environment variable
 - Restart terminal/VS Code after installation
 
 ### Configuration Issues  
+
 - Check API keys in environment variables
 - Verify configuration file syntax (JSON/YAML)
 - Ensure proper file permissions
 
 ### VS Code Integration
+
 - Confirm `.vscode/` directory exists
 - Check `tasks.json` and `settings.json` syntax
 - Restart VS Code after configuration changes

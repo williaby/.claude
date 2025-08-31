@@ -15,6 +15,7 @@ Validate security requirements for current development environment.
 Check and validate all required security components for safe development:
 
 ### 1. GPG Key Validation
+
 ```bash
 # Check for GPG secret keys (required for .env encryption)
 gpg --list-secret-keys
@@ -36,6 +37,7 @@ gpg --list-secret-keys --with-colons | grep -q "^sec.*S" && echo "✅ Signing ca
 ```
 
 ### 2. SSH Key Validation  
+
 ```bash
 # Check for loaded SSH keys (required for signed commits)
 ssh-add -l
@@ -45,6 +47,7 @@ ssh-add -l
 ```
 
 ### 3. Git Signing Configuration
+
 ```bash
 # Check Git signing key configuration
 git config --get user.signingkey
@@ -54,6 +57,7 @@ git config --get user.signingkey
 ```
 
 ### 4. Environment Security Check
+
 ```bash
 # Check for .env files in project root (should be encrypted)
 ls -la .env* 2>/dev/null || echo "No .env files found"
@@ -63,7 +67,9 @@ git log --oneline -n 10 | grep -i -E "(password|secret|key|token)" && echo "⚠�
 ```
 
 ### 5. Dependency Security
+
 For Python projects:
+
 ```bash
 # Check for known vulnerabilities
 poetry run safety check
@@ -77,12 +83,14 @@ poetry run bandit -r src
 Report the status of each security requirement:
 
 **✅ PASS Requirements**:
+
 - GPG key present and accessible
 - SSH key loaded and configured  
 - Git signing properly configured
 - No obvious security issues found
 
 **❌ FAIL Requirements**:
+
 - Missing GPG key (provide setup instructions)
 - Missing SSH key (provide setup instructions)
 - Git signing not configured (provide fix commands)
@@ -93,18 +101,21 @@ Report the status of each security requirement:
 If validation fails, provide specific setup commands:
 
 **GPG Key Setup**:
+
 ```bash
 gpg --full-generate-key
 # Follow prompts to generate key
 ```
 
 **SSH Key Setup**:
+
 ```bash
 ssh-keygen -t ed25519 -C "your_email@example.com"
 ssh-add ~/.ssh/id_ed25519
 ```
 
 **Git Signing Setup**:
+
 ```bash
 git config --global user.signingkey <your-gpg-key-id>
 git config --global commit.gpgsign true

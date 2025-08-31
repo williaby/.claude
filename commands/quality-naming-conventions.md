@@ -11,6 +11,7 @@ version: "1.0"
 Check and validate naming convention compliance across project files and code: $ARGUMENTS
 
 ## Usage Options
+
 - `directory/` - Check naming conventions in specific directory
 - `--language python|javascript|typescript|go|rust` - Language-specific rules
 - `--type files|functions|variables|classes|all` - What to validate
@@ -20,7 +21,9 @@ Check and validate naming convention compliance across project files and code: $
 ## Naming Convention Standards
 
 ### Universal File Naming
+
 **Rules Applied**:
+
 - **kebab-case** for documentation files (`user-guide.md`, `api-reference.md`)
 - **snake_case** for code files (`main_module.py`, `user_service.py`)
 - **PascalCase** for class/component files (`UserController.js`, `PaymentService.go`)
@@ -29,76 +32,97 @@ Check and validate naming convention compliance across project files and code: $
 ### Language-Specific Conventions
 
 #### Python
+
 **File Names**: `snake_case.py`
+
 - ✅ `user_service.py`, `payment_processor.py`
 - ❌ `UserService.py`, `payment-processor.py`
 
 **Class Names**: `PascalCase`
+
 - ✅ `UserService`, `PaymentProcessor`
 - ❌ `userService`, `payment_processor`
 
 **Function Names**: `snake_case`
+
 - ✅ `get_user_data()`, `process_payment()`
 - ❌ `getUserData()`, `processPayment()`
 
 **Variable Names**: `snake_case`
+
 - ✅ `user_id`, `payment_amount`
 - ❌ `userId`, `paymentAmount`
 
 **Constants**: `UPPER_SNAKE_CASE`
+
 - ✅ `MAX_RETRIES`, `DEFAULT_TIMEOUT`
 - ❌ `maxRetries`, `defaultTimeout`
 
 #### JavaScript/TypeScript
+
 **File Names**: `kebab-case.js/ts` or `PascalCase.jsx/tsx`
+
 - ✅ `user-service.js`, `UserComponent.tsx`
 - ❌ `user_service.js`, `userComponent.jsx`
 
 **Class Names**: `PascalCase`
+
 - ✅ `UserService`, `PaymentProcessor`
 - ❌ `userService`, `payment_processor`
 
 **Function Names**: `camelCase`
+
 - ✅ `getUserData()`, `processPayment()`
 - ❌ `get_user_data()`, `ProcessPayment()`
 
 **Variable Names**: `camelCase`
+
 - ✅ `userId`, `paymentAmount`
 - ❌ `user_id`, `PaymentAmount`
 
 **Constants**: `UPPER_SNAKE_CASE`
+
 - ✅ `MAX_RETRIES`, `DEFAULT_TIMEOUT`
 - ❌ `maxRetries`, `defaultTimeout`
 
 #### Go
+
 **File Names**: `snake_case.go`
+
 - ✅ `user_service.go`, `payment_processor.go`
 - ❌ `UserService.go`, `payment-processor.go`
 
 **Package Names**: `lowercase`
+
 - ✅ `userservice`, `paymentprocessor`
 - ❌ `UserService`, `payment_processor`
 
 **Function/Method Names**: `PascalCase` (public) or `camelCase` (private)
+
 - ✅ `GetUserData()`, `processPayment()`
 - ❌ `getUserData()`, `ProcessPayment()` (for private)
 
 #### Rust
+
 **File Names**: `snake_case.rs`
+
 - ✅ `user_service.rs`, `payment_processor.rs`
 - ❌ `UserService.rs`, `payment-processor.rs`
 
 **Function Names**: `snake_case`
+
 - ✅ `get_user_data()`, `process_payment()`
 - ❌ `getUserData()`, `ProcessPayment()`
 
 **Struct Names**: `PascalCase`
+
 - ✅ `UserService`, `PaymentProcessor`
 - ❌ `userService`, `payment_processor`
 
 ## Implementation
 
 ### 1. File Detection and Analysis
+
 ```bash
 analyze_naming_conventions() {
     local target="$1"
@@ -148,6 +172,7 @@ analyze_directory() {
 ```
 
 ### 2. Language Detection
+
 ```bash
 detect_language() {
     local file="$1"
@@ -166,6 +191,7 @@ detect_language() {
 ```
 
 ### 3. File Name Validation
+
 ```bash
 validate_file_naming() {
     local file="$1"
@@ -231,6 +257,7 @@ validate_file_naming() {
 ```
 
 ### 4. Code Content Analysis
+
 ```bash
 analyze_code_naming() {
     local file="$1"
@@ -296,6 +323,7 @@ analyze_python_naming() {
 ```
 
 ### 5. Suggestion Generation
+
 ```bash
 suggest_python_filename() {
     local name="$1"
@@ -355,6 +383,7 @@ suggest_function_name() {
 ```
 
 ### 6. Configuration Support
+
 ```bash
 load_naming_config() {
     local config_file="$1"

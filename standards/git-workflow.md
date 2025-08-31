@@ -3,6 +3,7 @@
 ## Branch Strategy
 
 ### Branch Naming Conventions
+
 - **Feature branches**: `feat/feature-description`
 - **Bug fixes**: `fix/bug-description`
 - **Hotfixes**: `hotfix/critical-issue`
@@ -11,6 +12,7 @@
 - **Refactoring**: `refactor/component-name`
 
 ### Branch Lifecycle
+
 ```bash
 # Create feature branch from main
 git checkout main
@@ -26,6 +28,7 @@ git push -u origin feat/new-feature
 ```
 
 ### Main Branch Protection
+
 - **Direct commits prohibited**: All changes via Pull Request
 - **Required reviews**: Minimum 1 reviewer for changes
 - **Status checks**: All CI/CD checks must pass
@@ -34,9 +37,10 @@ git push -u origin feat/new-feature
 ## Commit Standards
 
 ### Conventional Commits Format
+
 All commits must follow the Conventional Commits specification:
 
-```
+```text
 <type>[optional scope]: <description>
 
 [optional body]
@@ -45,6 +49,7 @@ All commits must follow the Conventional Commits specification:
 ```
 
 ### Commit Types
+
 - **feat**: New feature for the user
 - **fix**: Bug fix for the user
 - **docs**: Documentation only changes
@@ -57,6 +62,7 @@ All commits must follow the Conventional Commits specification:
 - **chore**: Other changes that don't modify src or test files
 
 ### Commit Examples
+
 ```bash
 # Feature commit
 git commit -m "feat(auth): add OAuth2 integration with Google"
@@ -77,6 +83,7 @@ git commit -m "refactor(database): extract query logic into separate module"
 ```
 
 ### Commit Message Guidelines
+
 - **Imperative mood**: "add feature" not "added feature"
 - **Lowercase**: Type and description start with lowercase
 - **No period**: Don't end the description with a period
@@ -86,11 +93,13 @@ git commit -m "refactor(database): extract query logic into separate module"
 ## Signed Commits
 
 ### Requirements
+
 - **All commits must be signed**: Use GPG signing
 - **Verification**: Commits must show "Verified" in GitHub
 - **Key management**: Maintain current GPG key
 
 ### Configuration
+
 ```bash
 # Set signing key
 git config --global user.signingkey YOUR_GPG_KEY_ID
@@ -106,6 +115,7 @@ git config --get user.signingkey
 ```
 
 ### Signing Commands
+
 ```bash
 # Sign individual commit
 git commit -S -m "feat: add new feature"
@@ -120,6 +130,7 @@ git log --show-signature
 ## Pull Request Workflow
 
 ### PR Requirements
+
 - **Descriptive title**: Follow conventional commit format
 - **Detailed description**: Explain what and why
 - **Link to issue**: Reference related GitHub issues
@@ -127,6 +138,7 @@ git log --show-signature
 - **Testing instructions**: How to test the changes
 
 ### PR Template
+
 ```markdown
 ## Summary
 Brief description of changes
@@ -151,6 +163,7 @@ Closes #123
 ```
 
 ### Review Process
+
 1. **Author creates PR**: With descriptive title and body
 2. **CI checks run**: All automated checks must pass
 3. **Code review**: At least one approval required
@@ -159,6 +172,7 @@ Closes #123
 6. **Merge**: Squash and merge to main
 
 ### Merge Strategies
+
 - **Squash and merge**: Preferred for feature branches
 - **Merge commit**: For release branches
 - **Rebase and merge**: For simple changes with clean history
@@ -166,6 +180,7 @@ Closes #123
 ## Code Review Standards
 
 ### Reviewer Responsibilities
+
 - **Functionality**: Does the code work as intended?
 - **Code quality**: Is the code readable and maintainable?
 - **Testing**: Are there adequate tests?
@@ -173,6 +188,7 @@ Closes #123
 - **Performance**: Any performance implications?
 
 ### Review Checklist
+
 - [ ] Code follows project conventions
 - [ ] Tests cover new functionality
 - [ ] Documentation updated if needed
@@ -181,6 +197,7 @@ Closes #123
 - [ ] Breaking changes documented
 
 ### Review Comments
+
 ```markdown
 # Constructive feedback
 Consider using a more descriptive variable name here
@@ -195,11 +212,12 @@ processed_user_data = process_user_input(user_input)
 ```
 
 # Question for clarification
+
 Why did you choose this approach over using the existing utility function?
 
 # Approval
+
 LGTM! Great implementation of the new feature.
-```
 
 ## Release Management
 
@@ -232,6 +250,7 @@ git push -u origin release/v1.2.0
 ```
 
 ### Changelog Maintenance
+
 ```markdown
 # Changelog
 
@@ -262,6 +281,7 @@ git push -u origin release/v1.2.0
 ## Hotfix Workflow
 
 ### Emergency Fixes
+
 ```bash
 # Create hotfix branch from main
 git checkout main
@@ -283,6 +303,7 @@ git push origin v1.1.1
 ```
 
 ### Hotfix Criteria
+
 - **Security vulnerabilities**: Immediate security threats
 - **Critical bugs**: System-breaking issues in production
 - **Data loss prevention**: Issues that could cause data corruption
@@ -290,6 +311,7 @@ git push origin v1.1.1
 ## Git Configuration
 
 ### User Setup
+
 ```bash
 # Configure identity
 git config --global user.name "Your Name"
@@ -304,6 +326,7 @@ git config --global difftool.vscode.cmd "code --wait --diff $LOCAL $REMOTE"
 ```
 
 ### Useful Aliases
+
 ```bash
 # Configure helpful aliases
 git config --global alias.co checkout
@@ -316,6 +339,7 @@ git config --global alias.last "log -1 HEAD"
 ```
 
 ### .gitignore Standards
+
 ```gitignore
 # Python
 __pycache__/
@@ -346,6 +370,7 @@ node_modules/
 ## Security and Git
 
 ### Sensitive Data Prevention
+
 ```bash
 # Pre-commit hooks for security
 pre-commit install
@@ -360,6 +385,7 @@ git filter-branch --force --index-filter \
 ```
 
 ### GPG Integration
+
 ```bash
 # Verify all commits in branch are signed
 git log --show-signature origin/main..HEAD

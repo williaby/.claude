@@ -7,7 +7,9 @@ Context7 provides intelligent documentation and library search capabilities thro
 Context7 offers multiple transport options for different use cases:
 
 ### 1. Standard stdio (via npm)
+
 Best for local development with Redis credentials:
+
 ```json
 {
   "mcpServers": {
@@ -24,7 +26,9 @@ Best for local development with Redis credentials:
 ```
 
 ### 2. HTTP Transport
+
 Direct HTTP connection to Context7 cloud service:
+
 ```json
 {
   "mcpServers": {
@@ -39,7 +43,9 @@ Direct HTTP connection to Context7 cloud service:
 ```
 
 ### 3. SSE Transport (Server-Sent Events)
+
 Real-time streaming connection:
+
 ```json
 {
   "mcpServers": {
@@ -98,12 +104,14 @@ UPSTASH_REDIS_REST_TOKEN=your_redis_token_here
 ## Troubleshooting
 
 ### HTTP/SSE Connection Issues
+
 ```bash
 # Test connectivity
 curl -s https://mcp.context7.com/mcp
 ```
 
 ### stdio Transport Issues
+
 ```bash
 # Verify npm package installation
 npx @upstash/context7-mcp --help
@@ -114,6 +122,7 @@ curl -H "Authorization: Bearer $UPSTASH_REDIS_REST_TOKEN" \
 ```
 
 ### Claude Code Integration
+
 ```bash
 # List active MCP servers
 claude mcp list

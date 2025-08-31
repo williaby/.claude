@@ -38,6 +38,7 @@ The command is now installed in your user-level Claude configuration:
 ### Sample Output
 
 #### Full Report
+
 ```
 🤖 AI Coding Tools Validation Report - PromptCraft
 ============================================================
@@ -58,6 +59,7 @@ Languages: python, javascript
 ```
 
 #### Quiet Mode
+
 ```
 AI Tools: 3/5 installed, 2/5 configured
 ```
@@ -77,28 +79,33 @@ AI Tools: 3/5 installed, 2/5 configured
 The command automatically detects project characteristics:
 
 ### Python Projects
+
 - **Detection**: `pyproject.toml`, `setup.py`, `requirements.txt`
 - **Package Managers**: Poetry, pip
 - **Frameworks**: FastAPI, Django, Flask, Gradio
 - **Config Focus**: Python-specific linting, formatting, testing
 
 ### JavaScript/Node.js Projects
+
 - **Detection**: `package.json`, `yarn.lock`
 - **Package Managers**: npm, yarn, pnpm
 - **Frameworks**: React, Vue, Express, Next.js
 - **Config Focus**: ESLint, Prettier, TypeScript support
 
 ### Rust Projects
+
 - **Detection**: `Cargo.toml`
 - **Package Manager**: Cargo
 - **Config Focus**: Rust toolchain, clippy, rustfmt
 
 ### Go Projects
+
 - **Detection**: `go.mod`, `go.sum`
 - **Package Manager**: go modules
 - **Config Focus**: gofmt, golint, go tools
 
 ### Generic Projects
+
 - **Detection**: Git repository without specific language markers
 - **Config Focus**: Basic AI tool setup with common exclusions
 
@@ -109,6 +116,7 @@ The command automatically detects project characteristics:
 Each tool receives project-appropriate configuration:
 
 #### Claude Code (`.claude/settings.json`)
+
 ```json
 {
   "project": {
@@ -124,6 +132,7 @@ Each tool receives project-appropriate configuration:
 ```
 
 #### GitHub Copilot (`.github/copilot.yml`)
+
 ```yaml
 suggestions:
   enabled: true
@@ -140,6 +149,7 @@ exclude:
 ```
 
 #### Gemini CLI (`.gemini/config.json`)
+
 ```json
 {
   "project": "project-name",
@@ -165,6 +175,7 @@ exclude:
 When a `.vscode/` directory exists, the command automatically:
 
 ### Updates Settings (`.vscode/settings.json`)
+
 ```json
 {
   "ai-tools": {
@@ -179,6 +190,7 @@ When a `.vscode/` directory exists, the command automatically:
 ```
 
 ### Adds Validation Task (`.vscode/tasks.json`)
+
 ```json
 {
   "label": "Validate AI Tools",
@@ -214,6 +226,7 @@ The slash command works through a three-layer architecture:
 3. **Validator** (`ai_tools_validator.py`): Core validation and setup logic
 
 ### Command Flow
+
 ```
 /tools:ai-validate --setup
     ↓
@@ -274,6 +287,7 @@ echo "AI tools configuration complete!"
 ### Common Issues
 
 #### Tool Not Detected
+
 ```bash
 # Check if tool is in PATH
 which claude
@@ -287,6 +301,7 @@ openai --version
 ```
 
 #### Configuration Issues
+
 ```bash
 # Re-create templates
 /tools:ai-validate --setup
@@ -300,6 +315,7 @@ python -m yaml tool check .github/copilot.yml
 ```
 
 #### VS Code Integration Problems
+
 ```bash
 # Check VS Code configuration
 cat .vscode/settings.json

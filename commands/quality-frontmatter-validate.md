@@ -11,6 +11,7 @@ version: "1.0"
 Validate and fix YAML front matter in documentation files with intelligent content analysis: $ARGUMENTS
 
 ## Usage Options
+
 - `file.md` - Validate specific markdown file
 - `directory/` - Validate all markdown files in directory
 - `--auto-fix` - Apply automatic corrections
@@ -28,7 +29,9 @@ Validate and fix YAML front matter in documentation files with intelligent conte
 ## File Type Detection and Rules
 
 ### Knowledge Files (knowledge/ directory)
+
 **Required YAML Structure**:
+
 ```yaml
 ---
 title: [String - must match H1 heading exactly]
@@ -41,7 +44,9 @@ purpose: [Single sentence ending with period]
 ```
 
 ### Documentation Files (docs/ directory)
+
 **Required YAML Structure**:
+
 ```yaml
 ---
 title: [String - must match H1 heading exactly]
@@ -55,7 +60,9 @@ purpose: [Single sentence ending with period]
 ```
 
 ### General Files (other locations)
+
 **Basic YAML Structure**:
+
 ```yaml
 ---
 title: [String - must match H1 heading]
@@ -69,6 +76,7 @@ purpose: [Single sentence ending with period]
 ## Validation Implementation
 
 ### 1. File Type Detection
+
 ```bash
 detect_file_type() {
     local file_path="$1"
@@ -94,6 +102,7 @@ extract_agent_id_from_path() {
 ```
 
 ### 2. YAML Front Matter Extraction
+
 ```bash
 extract_frontmatter() {
     local file="$1"
@@ -122,6 +131,7 @@ parse_yaml_field() {
 ```
 
 ### 3. Field Validation Functions
+
 ```bash
 validate_title_consistency() {
     local yaml_title="$1"
@@ -226,6 +236,7 @@ validate_purpose_format() {
 ```
 
 ### 4. Auto-Generation Functions
+
 ```bash
 generate_missing_frontmatter() {
     local file_path="$1"
@@ -377,6 +388,7 @@ classify_doc_component() {
 ```
 
 ### 5. Auto-Correction Functions
+
 ```bash
 fix_frontmatter_issues() {
     local file_path="$1"

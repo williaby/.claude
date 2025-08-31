@@ -11,6 +11,7 @@ Generate a comprehensive inventory of all assumption tags in the project to help
 ## Task Overview
 
 Scan the project (or specified directory) for all assumption tags and provide organized summary for:
+
 - Development workflow planning
 - Technical debt assessment  
 - Code review preparation
@@ -23,6 +24,7 @@ Directory to scan: `$ARGUMENTS` (defaults to current directory if empty)
 ## Implementation Steps
 
 ### 1. Determine Scan Scope
+
 ```bash
 SCAN_DIR=${ARGUMENTS:-"."}
 echo "Scanning directory: $SCAN_DIR"
@@ -31,17 +33,20 @@ echo "Scanning directory: $SCAN_DIR"
 ### 2. Find All Assumption Tags
 
 Use Grep tool to find all assumption patterns:
+
 - `#CRITICAL:` - Production blockers requiring immediate attention
 - `#ASSUME:` - Standard assumptions needing verification
 - `#EDGE:` - Edge cases for future consideration
 
 Search in relevant source file types:
+
 - `.py`, `.js`, `.ts`, `.tsx`, `.jsx`, `.go`, `.rs`, `.java`, `.cpp`, `.c`
 - Exclude: `node_modules`, `.git`, `__pycache__`, `venv`, `build`, `dist`
 
 ### 3. Parse and Categorize Results
 
 For each found assumption, extract:
+
 - **File path** and **line number**
 - **Tag type** (CRITICAL/ASSUME/EDGE)  
 - **Category** (payment/security/timing/state/etc.)
@@ -51,6 +56,7 @@ For each found assumption, extract:
 ### 4. Generate Inventory Report
 
 Create comprehensive report with:
+
 - **Executive Summary**: Total counts by risk level
 - **Risk Distribution**: Breakdown by category and file
 - **Verification Status**: Which assumptions have been verified
@@ -120,14 +126,17 @@ Files with highest assumption density:
 ```
 
 ### For Code Review Process
+
 1. **Pre-PR**: Ensure no unverified critical assumptions
 2. **Review**: Check assumption verification status
 3. **Merge**: All blocking assumptions resolved
 
 ### For Technical Debt
+
 - Schedule verification sprints for standard assumptions
 - Prioritize by file hotspot analysis  
 - Track verification progress over time
+
 ```
 
 ## Implementation Notes
@@ -148,6 +157,7 @@ Extract category from assumption text:
 ```
 
 ### File Density Calculation
+
 ```bash
 # Assumptions per file = (assumption_count / file_size_lines) * 100
 # Highlight files with >2% assumption density
@@ -156,6 +166,7 @@ Extract category from assumption text:
 ## Error Handling
 
 If no assumptions found:
+
 ```
 # Project Assumption Inventory
 
@@ -177,9 +188,11 @@ Consider adding assumption tags during development:
 ```
 
 ## Resources
+
 - RAD Methodology: /docs/response-aware-development.md
 - Verification Command: /verify-assumptions-smart
 - Tagging Standards: Global CLAUDE.md > Response-Aware Development
+
 ```
 
 The goal is to provide clear visibility into assumption technical debt and guide systematic verification efforts.

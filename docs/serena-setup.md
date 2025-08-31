@@ -5,6 +5,7 @@ Serena is an AI-powered development assistant that integrates with Claude Code t
 ## Installation Prerequisites
 
 1. Install Serena locally:
+
    ```bash
    git clone https://github.com/oraios/serena.git ~/dev/serena
    cd ~/dev/serena
@@ -12,6 +13,7 @@ Serena is an AI-powered development assistant that integrates with Claude Code t
    ```
 
 2. Configure environment variables in `~/.claude/.env`:
+
    ```bash
    # Path to your Serena installation
    SERENA_INSTALL_PATH=/home/your-username/dev/serena
@@ -39,6 +41,7 @@ echo "SERENA_PROJECT_PATH=$(pwd)" >> .env.local
 For SSE mode, you need to:
 
 1. Start Serena server manually:
+
    ```bash
    uv run --directory ~/dev/serena serena-mcp-server \
      --transport sse \
@@ -48,6 +51,7 @@ For SSE mode, you need to:
    ```
 
 2. Use the SSE configuration:
+
    ```bash
    # Copy the SSE example to your project
    cp ~/.claude/mcp/serena-sse-server.json.example .mcp.json
@@ -56,6 +60,7 @@ For SSE mode, you need to:
 ## Context Options
 
 Serena supports different contexts for different use cases:
+
 - `ide-assistant` - Best for Claude Code integration
 - `desktop-app` - For desktop application development
 - `agent` - For autonomous agent workflows
@@ -65,6 +70,7 @@ Serena supports different contexts for different use cases:
 To override the global Serena configuration for a specific project:
 
 1. Create a project-specific `.mcp.json`:
+
    ```json
    {
      "mcpServers": {
@@ -86,6 +92,7 @@ To override the global Serena configuration for a specific project:
    ```
 
 2. Or use a project-specific environment variable:
+
    ```bash
    # In your project directory
    echo "SERENA_PROJECT_PATH=$(pwd)" > .env.serena
@@ -101,21 +108,26 @@ To override the global Serena configuration for a specific project:
 ## Troubleshooting
 
 ### Serena not starting
+
 - Check if `SERENA_INSTALL_PATH` is correct
 - Verify Serena is installed: `uv run --directory $SERENA_INSTALL_PATH serena-mcp-server --help`
 
 ### Project not found
+
 - Ensure `SERENA_PROJECT_PATH` points to a valid directory
 - Use absolute paths instead of relative paths
 
 ### Connection issues
+
 - Check if another instance is running on the same port (for SSE mode)
 - Verify Claude Code has permission to execute the command
 
 ## Advanced Usage
 
 ### Multiple Projects
+
 Create aliases for different projects:
+
 ```bash
 # In ~/.bashrc or ~/.zshrc
 alias serena-project1='export SERENA_PROJECT_PATH=/path/to/project1'
@@ -123,13 +135,16 @@ alias serena-project2='export SERENA_PROJECT_PATH=/path/to/project2'
 ```
 
 ### Custom Modes
+
 Serena supports multiple modes that can be combined:
+
 - `planning` - For project planning and architecture
 - `editing` - For code editing assistance
 - `one-shot` - For single-task execution
 - `interactive` - For ongoing conversation (default)
 
 Example:
+
 ```json
 "args": [
   "...",

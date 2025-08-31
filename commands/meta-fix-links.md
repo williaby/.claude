@@ -11,6 +11,7 @@ version: "1.0"
 Analyze and fix broken internal links in documentation files with intelligent path resolution: $ARGUMENTS
 
 ## Usage Options
+
 - `file.md` - Fix links in specific markdown file
 - `directory/` - Fix links in all markdown files in directory
 - `--dry-run` - Show fixes without applying them
@@ -28,16 +29,19 @@ Analyze and fix broken internal links in documentation files with intelligent pa
 ## Link Types Supported
 
 ### Internal File Links
+
 - **Relative**: `[text](./file.md)`, `[text](../dir/file.md)`
 - **Absolute**: `[text](/docs/file.md)`
 - **Cross-directory**: `[text](../../other/file.md)`
 
 ### Anchor Links
+
 - **Same file**: `[text](#heading-name)`
 - **Other files**: `[text](./other.md#section)`
 - **Cross-references**: `[text](/docs/guide.md#installation)`
 
 ### Common Patterns
+
 - Documentation cross-references
 - Project structure navigation
 - Table of contents links
@@ -46,6 +50,7 @@ Analyze and fix broken internal links in documentation files with intelligent pa
 ## Implementation Strategy
 
 ### 1. Link Extraction and Analysis
+
 ```bash
 extract_links() {
     local file="$1"
@@ -96,6 +101,7 @@ validate_link() {
 ```
 
 ### 2. File Link Validation
+
 ```bash
 validate_file_link() {
     local source_dir="$1"
@@ -152,6 +158,7 @@ suggest_file_fix() {
 ```
 
 ### 3. Anchor Link Validation
+
 ```bash
 validate_anchor() {
     local file="$1"
@@ -197,6 +204,7 @@ validate_anchor_in_file() {
 ```
 
 ### 4. Intelligent Path Correction
+
 ```bash
 fix_broken_links() {
     local file="$1"
@@ -239,6 +247,7 @@ fix_broken_links() {
 ```
 
 ### 5. Common Pattern Recognition
+
 ```bash
 check_common_patterns() {
     local source_dir="$1"

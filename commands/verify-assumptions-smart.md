@@ -11,15 +11,17 @@ You are implementing the **Response-Aware Development (RAD)** methodology to sys
 ## Task Overview
 
 Analyze code for assumption tags and route them to appropriate AI models:
-- **#CRITICAL:** → Premium models (Gemini 2.5 Pro, O3-Mini) 
+
+- **#CRITICAL:** → Premium models (Gemini 2.5 Pro, O3-Mini)
 - **#ASSUME:** → Dynamic free model selection (DeepSeek-R1, Qwen-Coder)
 - **#EDGE:** → Fast batch processing (Gemini Flash Lite)
 
 ## Arguments Processing
 
 Parse the following arguments from `$ARGUMENTS`:
+
 - `--strategy`: `tiered` (default), `uniform`, `critical-only`
-- `--budget`: `premium`, `balanced` (default), `free-only` 
+- `--budget`: `premium`, `balanced` (default), `free-only`
 - `--scope`: `current-file`, `changed-files` (default), `all-files`
 - `--explain`: Show model selection reasoning
 - `--apply-fixes`: `auto`, `review` (default), `none`
@@ -27,6 +29,7 @@ Parse the following arguments from `$ARGUMENTS`:
 ## Implementation Steps
 
 ### 1. Parse Arguments and Set Defaults
+
 ```bash
 # Extract arguments, default to balanced tiered approach
 STRATEGY=$(echo "$ARGUMENTS" | grep -o '\--strategy=\w*' | cut -d'=' -f2 || echo "tiered")
@@ -37,11 +40,13 @@ SCOPE=$(echo "$ARGUMENTS" | grep -o '\--scope=[\w-]*' | cut -d'=' -f2 || echo "c
 ### 2. Collect Assumptions by Scope
 
 Based on scope parameter:
+
 - **changed-files**: Use `git diff --name-only HEAD` and `git diff --name-only --cached`
 - **current-file**: Focus on file in current context (if available)
 - **all-files**: Search entire project for source files
 
 Search for assumption patterns:
+
 - `#CRITICAL:` - Production blockers, security, payments
 - `#ASSUME:` - Standard assumptions, state management, APIs  
 - `#EDGE:` - Edge cases, browser compatibility, performance
@@ -49,6 +54,7 @@ Search for assumption patterns:
 ### 3. Categorize and Route Assumptions
 
 **Critical Assumptions (Use Premium Models):**
+
 - Payment/Financial → OpenAI O3-Mini or Gemini 2.5 Pro
 - Security/Auth → Gemini 2.5 Pro
 - Concurrency/Race → DeepSeek-R1 (free) or Gemini 2.5 Pro (paid)
@@ -56,6 +62,7 @@ Search for assumption patterns:
 
 **Standard Assumptions (Use Dynamic Free Selection):**
 Use `mcp__zen__dynamic_model_selector` with:
+
 ```
 requirements: "Analyze code assumptions for [category]. Add defensive programming patterns and error handling."
 model: "auto" 
@@ -69,22 +76,26 @@ Batch process with `mcp__zen__chat` using `gemini-2.0-flash-lite`.
 ### 4. Execute Verification Strategy
 
 **Tiered Strategy:**
+
 1. Process critical assumptions individually with premium models
 2. Batch standard assumptions by category with free models  
 3. Bulk process edge cases with fast models
 
 **Critical-Only Strategy:**
+
 1. Only process #CRITICAL: tagged assumptions
 2. Use premium models exclusively
 3. Skip standard and edge cases
 
 **Uniform Strategy:**
+
 1. Use same model for all assumptions
 2. Model selection based on budget parameter
 
 ### 5. Generate Verification Report
 
 Create comprehensive report with:
+
 - **Summary**: Count of assumptions by category and processing time
 - **Critical Issues**: Must fix before deploy (❌ BLOCKING status)
 - **Standard Issues**: Should fix before PR (⚠️ REVIEW status)  
@@ -96,6 +107,7 @@ Create comprehensive report with:
 ### 6. Apply Fixes (If Requested)
 
 Based on `--apply-fixes` parameter:
+
 - **review**: Stage fixes for manual review with `git add -p`
 - **auto**: Apply non-critical fixes automatically with backup
 - **none**: Only report, no fixes applied
@@ -103,6 +115,7 @@ Based on `--apply-fixes` parameter:
 ## Example Verification Prompts
 
 ### For Critical Assumptions
+
 ```
 You are a senior security engineer reviewing production-critical code. You have NO knowledge of the original developer's intent.
 
@@ -121,6 +134,7 @@ Focus on production failures, not theoretical issues.
 ```
 
 ### For Standard Assumptions  
+
 ```
 You are a code reviewer focused on preventing bugs. Analyze this assumption under production stress conditions.
 
@@ -151,6 +165,7 @@ def select_model(assumption_text, category, budget):
 ## Success Criteria
 
 Generate report showing:
+
 - All assumptions found and categorized
 - Appropriate model used for each risk level
 - Concrete fixes for critical issues
@@ -160,6 +175,7 @@ Generate report showing:
 ## Error Handling
 
 If no assumptions found:
+
 ```
 # Assumption Verification Report
 
@@ -172,6 +188,7 @@ No assumption tags found in scope. Start using RAD methodology:
 ```
 
 See: /docs/response-aware-development.md for complete guidance.
+
 ```
 
 The goal is to catch production-breaking assumptions before they reach deployment while optimizing cost through intelligent model selection.

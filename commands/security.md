@@ -27,6 +27,7 @@ poetry run safety check --full-report
 ## Environment Security Validation
 
 ### GPG Key Validation
+
 ```bash
 # Check for GPG secret keys (required for .env encryption)
 gpg --list-secret-keys
@@ -44,6 +45,7 @@ echo $GPG_TTY
 ```
 
 ### SSH Key Validation
+
 ```bash
 # Check SSH keys loaded in agent (required for signed commits)
 ssh-add -l
@@ -62,6 +64,7 @@ ssh -T git@github.com
 ```
 
 ### Git Security Configuration
+
 ```bash
 # Check Git signing configuration
 git config --get user.signingkey
@@ -82,6 +85,7 @@ git commit --allow-empty -S -m "test: verify GPG signing"
 ## Dependency Security Scanning
 
 ### Python Dependency Vulnerability Check
+
 ```bash
 # Basic vulnerability check
 poetry run safety check
@@ -103,6 +107,7 @@ poetry run safety --update
 ```
 
 ### Static Security Analysis
+
 ```bash
 # Basic Bandit security scan
 poetry run bandit -r src
@@ -124,6 +129,7 @@ poetry run bandit -r src --exclude tests/,migrations/
 ```
 
 ### Advanced Security Scanning
+
 ```bash
 # Check for secrets in code
 poetry run detect-secrets scan --all-files
@@ -141,6 +147,7 @@ git log --all --full-history --grep="password\|secret\|key\|token"
 ## Key Management Commands
 
 ### GPG Operations
+
 ```bash
 # Generate new GPG key
 gpg --full-generate-key
@@ -163,6 +170,7 @@ echo "default-key KEYID" >> ~/.gnupg/gpg.conf
 ```
 
 ### SSH Key Management
+
 ```bash
 # Generate new SSH key
 ssh-keygen -t ed25519 -C "email@example.com"
@@ -184,6 +192,7 @@ cat ~/.ssh/id_ed25519.pub | pbcopy
 ```
 
 ### File Encryption
+
 ```bash
 # Encrypt .env file with GPG
 gpg --cipher-algo AES256 --compress-algo 1 \
@@ -203,6 +212,7 @@ gpg --sign --encrypt --armor --recipient email@example.com file.txt
 ## File and Directory Security
 
 ### Permission Management
+
 ```bash
 # Set secure permissions for sensitive files
 chmod 600 .env*
@@ -221,6 +231,7 @@ chmod -R o-rwx .
 ```
 
 ### Sensitive File Detection
+
 ```bash
 # Find potential sensitive files
 find . -name "*.key" -o -name "*.pem" -o -name "*.p12" -o -name "*.pfx"
@@ -238,6 +249,7 @@ git ls-files | xargs file | grep -v text
 ## Network and Connection Security
 
 ### SSL/TLS Verification
+
 ```bash
 # Check SSL certificate
 openssl s_client -connect example.com:443 -servername example.com
@@ -253,6 +265,7 @@ curl -I --insecure https://example.com
 ```
 
 ### Network Security Checks
+
 ```bash
 # Check open ports
 netstat -tlnp
@@ -273,6 +286,7 @@ sudo pfctl -sr
 ## Application Security Testing
 
 ### Web Application Security
+
 ```bash
 # Install and run security testing tools
 pip install bandit semgrep
@@ -288,6 +302,7 @@ grep -r -E "(SELECT|INSERT|UPDATE|DELETE).*\+.*\$" .
 ```
 
 ### API Security Testing
+
 ```bash
 # Test API endpoints with curl
 curl -X GET "https://api.example.com/users" \
@@ -303,6 +318,7 @@ curl -I https://example.com | grep -E "(X-|Strict|Content-Security)"
 ## Container Security
 
 ### Docker Security
+
 ```bash
 # Scan Docker image for vulnerabilities
 docker run --rm -v /var/run/docker.sock:/var/run/docker.sock \
@@ -319,6 +335,7 @@ docker system prune -a
 ## Incident Response Commands
 
 ### Emergency Response
+
 ```bash
 # Check recent login attempts
 last -n 20
@@ -337,6 +354,7 @@ sudo iptables -A INPUT -s suspicious.ip.address -j DROP
 ```
 
 ### Evidence Collection
+
 ```bash
 # Create security incident log
 echo "$(date): Security incident detected" >> security-incident.log
@@ -359,6 +377,7 @@ tar -czf incident-logs-$(date +%Y%m%d).tar.gz /var/log/
 ## Automation Scripts
 
 ### Security Validation Script
+
 ```bash
 #!/bin/bash
 # ~/.claude/scripts/validate-security.sh
@@ -395,6 +414,7 @@ echo "✅ Security validation passed"
 ```
 
 ### Pre-commit Security Hook
+
 ```bash
 #!/bin/bash
 # .git/hooks/pre-commit
@@ -417,6 +437,7 @@ fi
 ## CI/CD Security Integration
 
 ### GitHub Actions Security
+
 ```yaml
 # .github/workflows/security.yml
 - name: Run security scans
@@ -434,6 +455,7 @@ fi
 ### Security Configuration Files
 
 #### .bandit configuration
+
 ```yaml
 # .bandit
 exclude_dirs:

@@ -5,7 +5,7 @@
 ## Project-Specific Standards
 
 > **Reference**: Global standards from `~/.claude/standards/` apply unless overridden below.
-> 
+>
 > - **Security Standards**: See `~/.claude/standards/security.md`  
 > - **Git Workflow**: See `~/.claude/standards/git-workflow.md`
 > - **Linting Standards**: See `~/.claude/standards/linting.md`
@@ -14,12 +14,14 @@
 ### Technology Stack
 
 #### Primary Technologies
+
 - **Language**: [Specify: JavaScript, TypeScript, Go, Rust, etc.]
 - **Framework**: [Specify: React, Vue, Express, FastAPI, etc.]
 - **Database**: [Specify: PostgreSQL, MongoDB, SQLite, etc.]
 - **Build Tool**: [Specify: npm, yarn, pnpm, cargo, go mod, etc.]
 
 #### Project Structure
+
 ```
 project-name/
 ├── src/                    # Source code
@@ -36,6 +38,7 @@ project-name/
 ## Environment Setup
 
 ### Prerequisites
+
 ```bash
 # Install required tools
 [tool] --version  # e.g., node --version, go version, rustc --version
@@ -45,6 +48,7 @@ project-name/
 ```
 
 ### Environment Variables
+
 ```bash
 # .env.example
 API_URL=http://localhost:3000
@@ -55,6 +59,7 @@ LOG_LEVEL=info
 ```
 
 ### Development Commands
+
 ```bash
 # Setup
 [setup-command]  # e.g., npm install, yarn install, cargo build
@@ -75,6 +80,7 @@ LOG_LEVEL=info
 ## Testing Configuration
 
 ### Test Structure
+
 ```
 tests/
 ├── unit/           # Unit tests
@@ -84,6 +90,7 @@ tests/
 ```
 
 ### Testing Commands
+
 ```bash
 # Run all tests
 [test-command]
@@ -100,6 +107,7 @@ tests/
 ```
 
 ### Test Standards
+
 - **Coverage Target**: Minimum 80%
 - **Test Naming**: Descriptive test names following `should_[expected]_when_[condition]` pattern
 - **Test Organization**: Group related tests in clear modules/suites
@@ -108,6 +116,7 @@ tests/
 ## Code Quality Standards
 
 ### Language-Specific Formatting
+
 ```bash
 # Code formatting
 [format-command]  # e.g., prettier, rustfmt, gofmt
@@ -120,6 +129,7 @@ tests/
 ```
 
 ### Quality Gates
+
 - [ ] All tests pass
 - [ ] Code formatted consistently
 - [ ] Linting passes with no warnings
@@ -130,6 +140,7 @@ tests/
 ## Security Configuration
 
 ### Security Scanning
+
 ```bash
 # Dependency vulnerability scan
 [security-scan-command]  # e.g., npm audit, cargo audit
@@ -142,6 +153,7 @@ git-secrets --scan  # or detect-secrets scan
 ```
 
 ### Secure Development Practices
+
 - **No Hardcoded Secrets**: Use environment variables
 - **Input Validation**: Validate all user inputs
 - **Error Handling**: Don't expose sensitive information in errors
@@ -150,12 +162,14 @@ git-secrets --scan  # or detect-secrets scan
 ## Documentation Standards
 
 ### Code Documentation
+
 - **Comments**: Explain complex business logic and algorithms
 - **API Documentation**: Document public APIs with examples
 - **README**: Keep README.md current with setup and usage instructions
 - **Changelog**: Maintain CHANGELOG.md with version history
 
 ### Documentation Structure
+
 ```
 docs/
 ├── api/              # API documentation
@@ -168,6 +182,7 @@ docs/
 ## Development Workflow
 
 ### Branch Strategy
+
 ```bash
 # Feature development
 git checkout -b feat/feature-name
@@ -184,7 +199,9 @@ git commit -m "docs: update installation instructions"
 ```
 
 ### Commit Message Format
+
 Follow [Conventional Commits](https://www.conventionalcommits.org/):
+
 ```
 <type>[optional scope]: <description>
 
@@ -196,6 +213,7 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/):
 Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`
 
 ### Pre-commit Checklist
+
 - [ ] All tests pass
 - [ ] Code formatted according to project standards
 - [ ] Linting passes without warnings
@@ -207,12 +225,14 @@ Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`
 ## Performance Standards
 
 ### Performance Targets (customize as needed)
+
 - **Build Time**: < 30 seconds for development builds
 - **Test Suite**: < 60 seconds for full test run
 - **Application Startup**: < 5 seconds
 - **Memory Usage**: < 256MB for typical operations
 
 ### Performance Monitoring
+
 ```bash
 # Performance profiling
 [profile-command]  # e.g., node --prof, cargo flamegraph
@@ -227,6 +247,7 @@ Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`
 ## Deployment
 
 ### Build Configuration
+
 ```bash
 # Production build
 [prod-build-command]
@@ -239,11 +260,13 @@ Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`
 ```
 
 ### Environment Configuration
+
 - **Development**: Local development with hot reload
 - **Staging**: Production-like environment for testing
 - **Production**: Optimized build with monitoring
 
 ### Deployment Commands
+
 ```bash
 # Deploy to staging
 [staging-deploy-command]
@@ -258,12 +281,14 @@ Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`
 ## Monitoring and Logging
 
 ### Logging Standards
+
 - **Log Levels**: ERROR, WARN, INFO, DEBUG
 - **Structured Logging**: Use JSON format for structured logs
 - **Correlation IDs**: Include request IDs for tracing
 - **Sensitive Data**: Never log passwords, tokens, or PII
 
 ### Monitoring Setup
+
 ```bash
 # Health check endpoint
 curl [health-endpoint]
@@ -278,6 +303,7 @@ curl [metrics-endpoint]
 ## Troubleshooting
 
 ### Common Issues
+
 ```bash
 # Dependency issues
 [clean-command]  # e.g., rm -rf node_modules && npm install
@@ -293,6 +319,7 @@ curl [metrics-endpoint]
 ```
 
 ### Debug Configuration
+
 ```bash
 # Debug mode
 [debug-command]
@@ -307,6 +334,7 @@ curl [metrics-endpoint]
 ## CI/CD Configuration
 
 ### GitHub Actions Example
+
 ```yaml
 name: CI
 
@@ -337,6 +365,7 @@ jobs:
 ```
 
 ### Quality Gates
+
 - All tests must pass
 - Code coverage above 80%
 - No linting errors
@@ -346,15 +375,19 @@ jobs:
 ## Project-Specific Notes
 
 ### Architecture Decisions
+>
 > Document important architectural decisions and their rationale
 
 ### External Dependencies
+>
 > List and document external services, APIs, and their purposes
 
 ### Known Limitations
+>
 > Document any known limitations or technical debt
 
 ### Future Improvements
+>
 > Track planned improvements and feature additions
 
 ---
@@ -362,5 +395,6 @@ jobs:
 *This template provides project-specific guidance while inheriting all applicable global standards from `~/.claude/`. Update sections as needed for your specific technology stack and requirements.*
 
 *For language-specific templates, see:*
+
 - *Python projects: `~/.claude/templates/python-project.md`*
 - *Add other language templates as needed*

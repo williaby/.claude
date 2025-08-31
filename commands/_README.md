@@ -5,6 +5,7 @@ This directory contains custom slash commands that extend Claude Code's function
 ## Command Structure
 
 Commands are implemented as `.md` files following Claude Code's standard structure:
+
 - **File Location**: `/home/byron/.claude/commands/`
 - **File Format**: Markdown with YAML frontmatter
 - **Naming**: Filename becomes command name (e.g., `verify-assumptions-smart.md` → `/verify-assumptions-smart`)
@@ -16,11 +17,13 @@ Commands are implemented as `.md` files following Claude Code's standard structu
 Intelligent tiered verification of code assumptions using multiple AI models based on risk level.
 
 **Basic Usage:**
+
 ```bash
 /verify-assumptions-smart
 ```
 
 **Advanced Usage:**
+
 ```bash
 # Critical assumptions only (for hotfixes)
 /verify-assumptions-smart --strategy=critical-only --budget=free-only
@@ -33,6 +36,7 @@ Intelligent tiered verification of code assumptions using multiple AI models bas
 ```
 
 **Parameters:**
+
 - `--strategy=`: `tiered` (default), `uniform`, `critical-only`
 - `--budget=`: `premium`, `balanced` (default), `free-only`
 - `--scope=`: `current-file`, `changed-files` (default), `all-files`
@@ -49,6 +53,7 @@ List all assumption tags in the project for review and cleanup.
 ```
 
 **Parameters:**
+
 - `directory`: Optional directory to scan (defaults to current directory)
 
 ## Response-Aware Development (RAD) Workflow
@@ -104,18 +109,21 @@ git add -p  # Selectively stage fixes
 The system automatically routes assumptions to appropriate models:
 
 ### Critical Assumptions → Premium Models
+
 - **Payment/Financial**: OpenAI O3-Mini or Gemini 2.5 Pro
 - **Security/Auth**: Gemini 2.5 Pro (excellent security reasoning)
 - **Concurrency/Race Conditions**: DeepSeek-R1 or Gemini 2.5 Pro
 - **Database Transactions**: DeepSeek-R1 (complex state reasoning)
 
 ### Standard Assumptions → Free Models via Dynamic Selection
+
 - **State Updates**: Qwen-Coder (React/Vue patterns)
 - **API Calls**: DeepSeek-Chat (async patterns)
 - **Validation**: Gemini Flash (pattern matching)
 - **Caching**: Llama 3.3 70B (distributed systems)
 
 ### Edge Cases → Fast Free Models
+
 - **Batch Processing**: Gemini Flash Lite
 - **Documentation**: Any fast free model
 - **Minor Optimizations**: Gemini Flash Lite
@@ -125,6 +133,7 @@ The system automatically routes assumptions to appropriate models:
 Add assumption verification to your development workflow:
 
 **Option 1: Pre-commit Hook (Advanced)**
+
 ```yaml
 # In .pre-commit-config.yaml
 repos:
@@ -153,12 +162,14 @@ repos:
 Track effectiveness after 30-60 days:
 
 ### Quantitative Metrics
+
 - Assumptions detected per 1000 lines of code
 - Production incidents traced to unverified assumptions
 - Cost per verification run
 - Fix application rate
 
 ### Qualitative Assessment
+
 - Developer feedback on workflow integration
 - Quality of generated fixes
 - False positive rate
@@ -167,11 +178,13 @@ Track effectiveness after 30-60 days:
 ## Future Enhancements
 
 ### Phase 2: Machine Learning Integration
+
 - Risk scoring based on historical data
 - Pattern recognition for common failure modes
 - Cross-project assumption sharing
 
 ### Phase 3: IDE Integration
+
 - Real-time assumption highlighting
 - Inline verification suggestions
 - Team analytics dashboard
@@ -179,17 +192,21 @@ Track effectiveness after 30-60 days:
 ## Troubleshooting
 
 ### Command Not Found
+
 Ensure Claude Code is loading slash commands:
+
 1. Check file permissions on `/home/byron/.claude/commands/*.md` files
 2. Verify commands are in correct Markdown format with YAML frontmatter
 3. Restart Claude Code session to reload command definitions
 
 ### Model Selection Issues
+
 - For free-only mode: Relies on DeepSeek-R1, Gemini Flash, Qwen-Coder
 - For premium mode: Uses O3-Mini, Gemini 2.5 Pro
 - Check Zen MCP Server connectivity for dynamic selection
 
 ### Git Integration Problems
+
 - Ensure working directory is a git repository
 - Check git status and permissions
 - Use `--scope all-files` if git commands fail
@@ -197,16 +214,19 @@ Ensure Claude Code is loading slash commands:
 ## Cost Optimization
 
 ### Free-Only Strategy
+
 - Uses only free models (DeepSeek-R1, Gemini Flash, Qwen-Coder)
 - Batch processes similar assumptions
 - Focuses on pattern matching rather than deep reasoning
 
 ### Balanced Strategy (Recommended)
+
 - Premium models only for critical security/payment code
 - Free models for 80-90% of assumptions
 - Estimated cost: $0.001-$0.01 per verification run
 
 ### Premium Strategy
+
 - Uses best available models for all assumptions
 - Maximum accuracy for critical systems
 - Higher cost but comprehensive coverage
