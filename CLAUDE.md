@@ -14,6 +14,43 @@
 - **Security**: GPG/SSH key validation, dependency scanning, encrypted secrets
 - **Testing**: Minimum 80% coverage, tiered testing approach
 - **Git**: Conventional commits, signed commits, feature branch workflow
+- **Response-Aware Development**: Assumption tagging and verification (see `/docs/response-aware-development.md`)
+
+## Response-Aware Development (RAD)
+
+> **Full Documentation**: See `/docs/response-aware-development.md` for complete rationale and evaluation metrics
+
+### Assumption Tagging Standards
+
+When writing code, ALWAYS tag assumptions that could cause production failures:
+
+```javascript
+// #CRITICAL: [category]: [assumption that could cause outages/data loss]
+// #VERIFY: [defensive code required]
+// Example: Payment processing, auth flows, concurrent writes
+
+// #ASSUME: [category]: [assumption that could cause bugs]  
+// #VERIFY: [validation needed]
+// Example: UI state, form validation, API responses
+
+// #EDGE: [category]: [assumption about uncommon scenarios]
+// #VERIFY: [optional improvement]  
+// Example: Browser compatibility, slow networks
+```
+
+### Critical Assumption Categories (MANDATORY tagging)
+- **Timing Dependencies**: State updates, async operations, race conditions
+- **External Resources**: API availability, file existence, network connectivity
+- **Data Integrity**: Type safety at boundaries, null/undefined handling
+- **Concurrency**: Shared state, transaction isolation, deadlock potential
+- **Security**: Authentication, authorization, input validation
+- **Payment/Financial**: Transaction integrity, retry logic, rollback handling
+
+### Verification Workflow
+1. **During Development**: Claude tags assumptions inline with risk level
+2. **Before Commit**: Run `/verify-assumptions-smart` for tiered verification
+3. **Review Results**: Apply critical fixes immediately, defer edge cases
+4. **Mark Verified**: Add verification timestamps to processed assumptions
 
 ### File-Type Standards
 - **Python**: 88-char line length, comprehensive rule compliance
@@ -98,6 +135,8 @@ Before committing ANY changes, ensure:
 - [ ] No linting warnings or errors remain
 - [ ] Code formatting is consistent with project standards
 - [ ] Commits are signed (Git signing key configured)
+- [ ] **RAD**: Critical assumptions verified (`/verify-assumptions-smart --critical-only`)
+- [ ] **RAD**: Unverified assumptions below acceptable threshold
 
 ---
 
