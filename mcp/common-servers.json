@@ -4,7 +4,7 @@
       "command": "npx",
       "args": [
         "-y",
-        "@perplexity-ai/mcp-server-perplexity"
+        "@jschuller/perplexity-mcp"
       ],
       "env": {
         "PERPLEXITY_API_KEY": "${PERPLEXITY_API_KEY}"
@@ -14,7 +14,7 @@
       "command": "npx",
       "args": [
         "-y",
-        "@tavily/mcp-server"
+        "tavily-mcp"
       ],
       "env": {
         "TAVILY_API_KEY": "${TAVILY_API_KEY}"

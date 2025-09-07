@@ -37,6 +37,7 @@ settings.local.json
 /todos/
 /projects/
 /shell-snapshots/
+/data/
 
 # Ignore backup files
 *.bak
@@ -47,6 +48,14 @@ coverage/
 .coverage
 .pytest_cache/
 htmlcov/
+
+# Ignore disabled configuration files
+*.disabled
+
+# Ignore Node.js dependency and build output directories
+/mcp-servers/**/node_modules/
+/mcp-servers/**/dist/
+
 
 # Don't ignore the template settings
 !settings/base-settings.json
