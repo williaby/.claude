@@ -10,5 +10,39 @@
   "model": "opusplan",
   "feedbackSurveyState": {
     "lastShownTime": 1754083719175
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/home/byron/.claude/scripts/tdd-enforcement-hook.sh"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "mcp__*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/home/byron/.claude/scripts/track-mcp-usage.sh"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command", 
+            "command": "/home/byron/.claude/scripts/session-health-check.sh"
+          }
+        ]
+      }
+    ]
   }
 }
