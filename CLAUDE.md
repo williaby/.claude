@@ -46,11 +46,12 @@ When writing code, ALWAYS tag assumptions that could cause production failures:
 - **Security**: Authentication, authorization, input validation
 - **Payment/Financial**: Transaction integrity, retry logic, rollback handling
 
-### Verification Workflow
+### Verification Workflow (AUTOMATED with Agent Integration)
 1. **During Development**: Claude tags assumptions inline with risk level
-2. **Before Commit**: Run `/verify-assumptions-smart` for tiered verification
-3. **Review Results**: Apply critical fixes immediately, defer edge cases
-4. **Mark Verified**: Add verification timestamps to processed assumptions
+2. **On File Save**: Hook triggers assumption-verification-agent scan automatically
+3. **Agent Processing**: Agent categorizes, verifies, and suggests defensive fixes
+4. **Before Commit**: Agent validates critical assumptions are addressed
+5. **Mark Verified**: Agent adds verification timestamps automatically
 
 ### File-Type Standards
 - **Python**: 88-char line length, comprehensive rule compliance
@@ -89,6 +90,21 @@ poetry run pytest -v --cov=src --cov-report=html --cov-report=term-missing
 poetry run pre-commit run --all-files
 ```
 
+### Assumption Verification (Automated via Agent)
+```bash
+# Simplified assumption verification commands (replaces complex tooling)
+/verify-assumptions              # Agent scans and verifies automatically
+/critical-assumptions           # Agent focuses on critical assumptions only  
+/apply-assumption-fixes         # Agent applies safe defensive patterns
+/assumption-report             # Generate comprehensive assumption analysis report
+```
+
+**Agent-Driven Verification Process:**
+- **Automatic Detection**: Scans for #CRITICAL, #ASSUME, #EDGE tags in code
+- **Risk Categorization**: Routes to appropriate verification strategies
+- **Defensive Code Generation**: Creates validation and error handling patterns
+- **Hook Integration**: Triggers verification on file save and pre-commit
+
 ## Project Integration
 
 > **Project Templates**: Use `/templates/python-project.md` or `/templates/general-project.md` for new projects
@@ -115,31 +131,113 @@ Projects create focused `CLAUDE.md` files that **extend** (not duplicate) these 
 - **Architecture**: External Qdrant at 192.168.1.16:6333
 ```
 
+## Claude Code Supervisor Role (CRITICAL)
+
+**Claude Code acts as the SUPERVISOR for all development tasks and MUST:**
+
+1. **Always Use TodoWrite Tool**: Create and maintain TODO lists for ALL tasks to track progress
+2. **Assign Tasks to Agents**: Each TODO item should be assigned to a specialized agent via MCP Server
+3. **Review Agent Work**: Validate all agent outputs before proceeding to next steps
+4. **Use Temporary Reference Files**: Create `.tmp-` prefixed files in `tmp_cleanup/` folder to store detailed context that might be lost during compaction
+5. **Maintain Continuity**: Use reference files to preserve TODO details across conversation compactions
+
+### Agent Assignment Patterns
+
+```bash
+# Always assign TODO items to appropriate agents:
+- Assumption verification → Assumption Verification Agent (via mcp__zen__assumption-verify)
+- Security tasks → Security Agent (via mcp__zen__secaudit)
+- Code reviews → Code Review Agent (via mcp__zen__codereview)  
+- Testing → Test Engineer Agent (via mcp__zen__testgen)
+- Documentation → Documentation Agent (via mcp__zen__docgen)
+- Debugging → Debug Agent (via mcp__zen__debug)
+- Analysis → Analysis Agent (via mcp__zen__analyze)
+- Refactoring → Refactor Agent (via mcp__zen__refactor)
+```
+
+### Temporary Reference Files (Anti-Compaction Strategy)
+
+**ALWAYS create temporary reference files when:**
+- TODO list contains >5 items
+- Complex implementation details need preservation
+- Multi-step workflows span multiple conversation turns
+- Agent assignments and progress need tracking
+
+**Naming Convention**: `tmp_cleanup/.tmp-{task-type}-{timestamp}.md` (e.g., `tmp_cleanup/.tmp-auth4-implementation-20250125.md`)
+
+### Supervisor Workflow Patterns (MANDATORY)
+
+**Every development task MUST follow this pattern:**
+
+1. **Create TODO List**: Use TodoWrite tool to break down the task into specific, actionable items
+2. **Agent Assignment**: Assign each TODO item to the most appropriate specialized agent
+3. **Progress Tracking**: Mark items as in_progress when assigned, completed when validated
+4. **Reference File Creation**: For complex tasks, create `.tmp-` reference files immediately
+5. **Agent Output Validation**: Review all agent work before marking items complete
+
+**For complex tasks requiring multiple agents:**
+
+1. **Sequential Dependencies**: Use TodoWrite to show dependencies between tasks
+2. **Parallel Execution**: Assign independent tasks to multiple agents simultaneously
+3. **Integration Points**: Create specific TODO items for integrating agent outputs
+4. **Quality Gates**: Assign review tasks to appropriate agents after implementation
+
+### PR Preparation Workflow (AUTOMATED)
+
+**Branch Safety and PR Creation MUST follow this pattern:**
+
+1. **Branch Strategy Validation**: Validate current branch strategy and proper targeting
+2. **Dependency Validation**: Update poetry.lock and regenerate requirements files automatically
+3. **Security Scanning**: Run dependency security checks before PR creation
+4. **GitHub Integration**: Push branch and create draft PR with comprehensive description
+5. **Review Assignment**: Auto-assign reviewers based on CODEOWNERS and change patterns
+
+**Branch Safety Checks:**
+- Prevents PRs from main branch (must use feature branches)
+- Validates branch naming conventions and targeting strategy  
+- Provides branch migration assistance for incorrect strategies
+- Confirms user intent for main branch targeting
+
+**Automatic PR Generation:**
+- Analyzes git commit history and change patterns
+- Generates comprehensive PR descriptions with metrics
+- Applies appropriate labels based on change types and size
+- Integrates with GitHub CLI for seamless workflow
+
 ## Development Philosophy
 
 **Security First** → **Quality Standards** → **Documentation** → **Testing** → **Collaboration**
 
 ### Core Principles
 1. **Security First**: Always validate keys, encrypt secrets, scan dependencies
-2. **Quality Standards**: Maintain consistent code quality across all projects  
-3. **Documentation**: Keep documentation current and well-formatted
-4. **Testing**: Maintain high test coverage and run tests before commits
-5. **Collaboration**: Use consistent Git workflows and clear commit messages
+2. **Reuse First**: Check existing repositories for solutions before building new code
+3. **Configure, Don't Build**: Prefer configuration and orchestration over custom implementation
+4. **Quality Standards**: Maintain consistent code quality across all projects  
+5. **Documentation**: Keep documentation current and well-formatted
+6. **Testing**: Maintain high test coverage and run tests before commits
+7. **Collaboration**: Use consistent Git workflows and clear commit messages
 
 ## Pre-Commit Linting Checklist
 
 Before committing ANY changes, ensure:
+- [ ] **TODO Management**: Was TodoWrite used for task tracking?
+- [ ] **Agent Assignment**: Were tasks assigned to appropriate specialized agents?
+- [ ] **Reference Files**: Were temporary reference files created for complex tasks?
+- [ ] **Agent Validation**: Was all agent work reviewed and validated?
+- [ ] **Assumption Verification**: Agent automatically verified critical assumptions
 - [ ] Environment validation passes (GPG and SSH keys present)
 - [ ] File-specific linter has been run and passes
 - [ ] Pre-commit hooks execute successfully
 - [ ] No linting warnings or errors remain
 - [ ] Code formatting is consistent with project standards
 - [ ] Commits are signed (Git signing key configured)
-- [ ] **RAD**: Critical assumptions verified (`/verify-assumptions-smart --critical-only`)
-- [ ] **RAD**: Unverified assumptions below acceptable threshold
+- [ ] **Branch Safety**: PR preparation validates branch strategy if applicable
+- [ ] **Dependency Safety**: Requirements files updated if dependencies changed
 
 ---
 
-*This modular configuration is automatically loaded by Claude Code. For detailed specifications, see referenced files in `/standards/` and `/commands/` directories.*
+*This modular configuration is automatically loaded by Claude Code. For detailed specifications,
+see referenced files in `/standards/` and `/commands/` directories.*
 
-*Modularization complete! All detailed specifications are now available in domain-specific files for maximum token efficiency.*
+*Modularization complete! All detailed specifications are now available in domain-specific files
+for maximum token efficiency.*
