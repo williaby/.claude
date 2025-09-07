@@ -57,6 +57,10 @@ htmlcov/
 /mcp-servers/**/dist/
 temp_commit_message.txt
 
+# Ignore backup directories and permissions file
+mcp-backup-20250816-151435/
+mcp/backup-20250816-115844/
+permissions.txt
 
 # Don't ignore the template settings
 !settings/base-settings.json

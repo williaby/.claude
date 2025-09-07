@@ -1,1 +1,0 @@
-Bash(COVERAGE_FAIL_UNDER*)
