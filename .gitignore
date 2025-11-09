@@ -38,6 +38,7 @@ settings.local.json
 /projects/
 /shell-snapshots/
 /data/
+mcp/data/
 
 # Ignore backup files
 *.bak
@@ -58,10 +59,32 @@ htmlcov/
 temp_commit_message.txt
 
 # Ignore backup directories and permissions file
-mcp-backup-20250816-151435/
-mcp/backup-20250816-115844/
+mcp-backup-*/
+mcp/backup-*/
 permissions.txt
+
+# Cache and temporary files
+.mypy_cache/
+__pycache__/
+
+# MCP Organization - track active configs, ignore disabled by default
+mcp/disabled/
+mcp/examples/
 
 # Don't ignore the template settings
 !settings/base-settings.json
 !mcp/common-servers.json
+
+# Runtime and debug files
+/debug/
+/file-history/
+/session-env/
+history.jsonl
+
+# Local Claude Code configuration
+/.claude/
+.claude.json
+
+# Temporary reference files (anti-compaction strategy)
+/tmp_cleanup/
+.tmp-*

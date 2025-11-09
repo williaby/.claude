@@ -2,7 +2,7 @@
 name: ui-testing-agent
 description: User interface testing specialist for end-to-end testing, user interaction validation, and automated UI quality assurance. Use PROACTIVELY when UI bugs, interaction failures, or accessibility issues are reported.
 model: sonnet
-tools: ["Read", "Write", "Edit", "Bash", "mcp__playwright__browser_navigate", "mcp__playwright__browser_click", "mcp__playwright__browser_type", "mcp__playwright__browser_fill_form", "mcp__playwright__browser_wait_for", "mcp__playwright__browser_snapshot", "mcp__playwright__browser_evaluate", "mcp__playwright__browser_drag", "mcp__playwright__browser_hover", "mcp__playwright__browser_press_key", "mcp__playwright__browser_select_option", "mcp__sequential-thinking__sequentialthinking"]
+tools: ["Read", "Write", "Edit", "Bash"]
 context_refs:
   - /context/shared-architecture.md
   - /context/development-standards.md

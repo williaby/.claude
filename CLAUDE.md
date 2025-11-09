@@ -105,9 +105,54 @@ poetry run pre-commit run --all-files
 - **Defensive Code Generation**: Creates validation and error handling patterns
 - **Hook Integration**: Triggers verification on file save and pre-commit
 
+## OpenSSF Best Practices Compliance
+
+> **Token Optimized**: Existing standards already satisfy most OpenSSF requirements. This section documents compliance mapping and additional requirements.
+
+### Automatic Compliance (Already Configured)
+Our existing standards satisfy core OpenSSF requirements:
+- ✅ **Testing**: 80% coverage requirement + automated test runs
+- ✅ **Static Analysis**: Ruff, MyPy, Bandit already configured
+- ✅ **Security Scanning**: Safety check for dependencies
+- ✅ **Version Control**: Signed commits, branch protection
+- ✅ **Secrets Management**: GPG-encrypted .env files
+
+### Required Project Files (Verify Presence)
+```bash
+# Check OpenSSF required files exist
+ls -1 LICENSE SECURITY.md CONTRIBUTING.md CHANGELOG.md README.md 2>/dev/null | wc -l
+# Should output: 5
+```
+
+### Release Checklist (Manual Verification)
+Before any release:
+- [ ] CHANGELOG.md updated with security fixes (if any)
+- [ ] No known vulnerabilities >60 days old (`poetry run safety check`)
+- [ ] All tests pass with coverage >80%
+- [ ] Version tag follows SemVer (vX.Y.Z)
+- [ ] Release notes include CVE fixes (if applicable)
+
+### New Feature Requirements
+When implementing new functionality:
+1. **Add tests first** (TDD when practical)
+2. **Document security implications** in docstrings
+3. **Update CHANGELOG.md** with user-facing changes
+4. **Use established libraries** (don't roll your own crypto)
+
+### Compliance Verification
+```bash
+# Quick compliance check (available in cookiecutter template)
+./scripts/check-openssf.sh
+
+# Weekly automated scorecard (GitHub Actions)
+# See .github/workflows/openssf-scorecard.yml in project templates
+```
+
 ## Project Integration
 
 > **Project Templates**: Use `/templates/python-project.md` or `/templates/general-project.md` for new projects
+>
+> **Organization Guide**: See `PROJECT-ORGANIZATION-GUIDE.md` for comprehensive guidelines on what should live where in the configuration structure
 
 ### Implementation Pattern
 Projects create focused `CLAUDE.md` files that **extend** (not duplicate) these global standards:
@@ -184,25 +229,52 @@ Projects create focused `CLAUDE.md` files that **extend** (not duplicate) these 
 
 ### PR Preparation Workflow (AUTOMATED)
 
+**ALWAYS use `mcp__zen-core__pr_prepare` tool for PR creation:**
+
+```bash
+# Standard PR creation with What the Diff integration
+mcp__zen-core__pr_prepare --include_wtd=true --target_branch=main
+
+# Force WTD even for large PRs
+mcp__zen-core__pr_prepare --include_wtd=true --force_wtd=true
+
+# Custom parameters
+mcp__zen-core__pr_prepare \
+  --include_wtd=true \
+  --target_branch=main \
+  --change_type=feat \
+  --title="Add new feature"
+```
+
 **Branch Safety and PR Creation MUST follow this pattern:**
 
 1. **Branch Strategy Validation**: Validate current branch strategy and proper targeting
 2. **Dependency Validation**: Update poetry.lock and regenerate requirements files automatically
 3. **Security Scanning**: Run dependency security checks before PR creation
-4. **GitHub Integration**: Push branch and create draft PR with comprehensive description
-5. **Review Assignment**: Auto-assign reviewers based on CODEOWNERS and change patterns
+4. **What the Diff Integration**: Include `<!-- wtd:summary -->` shortcode in PR description
+5. **GitHub Integration**: Push branch and create draft PR with comprehensive description
+6. **Review Assignment**: Auto-assign reviewers based on CODEOWNERS and change patterns
 
 **Branch Safety Checks:**
 - Prevents PRs from main branch (must use feature branches)
-- Validates branch naming conventions and targeting strategy  
+- Validates branch naming conventions and targeting strategy
 - Provides branch migration assistance for incorrect strategies
 - Confirms user intent for main branch targeting
 
 **Automatic PR Generation:**
 - Analyzes git commit history and change patterns
 - Generates comprehensive PR descriptions with metrics
+- **ALWAYS includes What the Diff shortcode** (`<!-- wtd:summary -->`) unless `include_wtd=false`
 - Applies appropriate labels based on change types and size
 - Integrates with GitHub CLI for seamless workflow
+
+**What the Diff Integration (CRITICAL):**
+- **Default behavior**: `include_wtd=true` - WTD shortcode automatically included
+- **Shortcode syntax**: `<!-- wtd:summary -->` (HTML comment format)
+- **Placement**: Inserted in PR description where AI-generated summary is desired
+- **Additional shortcodes**: `<!-- wtd:joke -->`, `<!-- wtd:poem -->` (optional)
+- **Large PRs**: Use `--force_wtd=true` to override size-based exclusion
+- **Disable WTD**: Set `--include_wtd=false` (rare, only for internal/draft PRs)
 
 ## Development Philosophy
 
@@ -225,14 +297,17 @@ Before committing ANY changes, ensure:
 - [ ] **Reference Files**: Were temporary reference files created for complex tasks?
 - [ ] **Agent Validation**: Was all agent work reviewed and validated?
 - [ ] **Assumption Verification**: Agent automatically verified critical assumptions
+- [ ] **OpenSSF Compliance**: Required files present (LICENSE, SECURITY.md, CONTRIBUTING.md, CHANGELOG.md)
 - [ ] Environment validation passes (GPG and SSH keys present)
 - [ ] File-specific linter has been run and passes
-- [ ] Pre-commit hooks execute successfully
+- [ ] Pre-commit hooks execute successfully (includes credential leak detection)
 - [ ] No linting warnings or errors remain
 - [ ] Code formatting is consistent with project standards
 - [ ] Commits are signed (Git signing key configured)
+- [ ] **Security Scanning**: No known vulnerabilities (`poetry run safety check`)
 - [ ] **Branch Safety**: PR preparation validates branch strategy if applicable
 - [ ] **Dependency Safety**: Requirements files updated if dependencies changed
+- [ ] **PR Creation**: If creating PR, use `mcp__zen-core__pr_prepare` with `--include_wtd=true`
 
 ---
 

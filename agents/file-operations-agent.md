@@ -2,7 +2,7 @@
 name: file-operations-agent
 description: File system operations specialist for reading, writing, and managing files and directories
 model: sonnet
-tools: ["Read", "Write", "Edit", "Bash", "Grep", "Glob", "mcp__filesystem__read_text_file", "mcp__filesystem__write_file", "mcp__filesystem__read_multiple_files", "mcp__filesystem__edit_file", "mcp__filesystem__create_directory", "mcp__filesystem__list_directory", "mcp__filesystem__list_directory_with_sizes", "mcp__filesystem__directory_tree", "mcp__filesystem__move_file", "mcp__filesystem__search_files", "mcp__filesystem__get_file_info"]
+tools: ["Read", "Write", "Edit", "Bash", "Grep", "Glob"]
 context_refs:
   - /context/shared-architecture.md
   - /context/development-standards.md

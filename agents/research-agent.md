@@ -2,7 +2,7 @@
 name: research-agent
 description: Research and information gathering specialist using web search, documentation, and time-sensitive queries
 model: sonnet
-tools: ["Read", "Write", "WebFetch", "WebSearch", "mcp__perplexity__perplexity_research", "mcp__perplexity__perplexity_ask", "mcp__perplexity__perplexity_reason", "mcp__time__get_current_time", "mcp__time__convert_time"]
+tools: ["Read", "Write", "WebFetch", "WebSearch"]
 context_refs:
   - /context/shared-architecture.md
   - /context/development-standards.md

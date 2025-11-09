@@ -2,7 +2,7 @@
 name: frontend-design-agent
 description: Frontend design and visual development specialist for React components, responsive layouts, and design systems
 model: sonnet
-tools: ["Read", "Write", "Edit", "Bash", "Grep", "Glob", "mcp__playwright__browser_navigate", "mcp__playwright__browser_take_screenshot", "mcp__playwright__browser_resize", "mcp__playwright__browser_evaluate", "mcp__playwright__browser_snapshot"]
+tools: ["Read", "Write", "Edit", "Bash", "Grep", "Glob"]
 context_refs:
   - /context/shared-architecture.md
   - /context/development-standards.md

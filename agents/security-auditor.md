@@ -2,7 +2,7 @@
 name: security-auditor
 description: Security analysis specialist for vulnerability detection, threat assessment, and compliance validation. Use PROACTIVELY when security vulnerabilities, compliance issues, or suspicious code patterns are identified.
 model: sonnet
-tools: ["Read", "Grep", "Bash", "mcp__semgrep__semgrep_scan", "mcp__semgrep__semgrep_findings", "mcp__semgrep__security_check", "mcp__zen__secaudit"]
+tools: ["Read", "Grep", "Bash"]
 context_refs:
   - /context/shared-architecture.md
   - /context/development-standards.md

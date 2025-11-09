@@ -2,7 +2,7 @@
 name: github-workflow-agent
 description: GitHub repository workflow specialist for pull requests, issues, and repository management
 model: sonnet
-tools: ["Read", "Write", "Edit", "Bash", "Grep", "Glob", "mcp__github__search_repositories", "mcp__github__get_pull_request", "mcp__github__create_pull_request", "mcp__github__get_pull_request_files", "mcp__github__update_pull_request", "mcp__github__merge_pull_request", "mcp__github__get_issue", "mcp__github__create_issue", "mcp__github__update_issue", "mcp__github__list_issues", "mcp__github__get_file_contents", "mcp__github__create_or_update_file", "mcp__github__list_commits", "mcp__github__get_commit"]
+tools: ["Read", "Write", "Edit", "Bash", "Grep", "Glob"]
 context_refs:
   - /context/shared-architecture.md
   - /context/development-standards.md

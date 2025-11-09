@@ -39,6 +39,7 @@ fi
 
 # Determine if this is an MCP tool
 MCP_SERVER=""
+MCP_TOOL=""
 AGENT_TYPE=""
 if [[ "$TOOL_NAME" =~ ^mcp__([^_]+)__(.+)$ ]]; then
     MCP_SERVER="${BASH_REMATCH[1]}"

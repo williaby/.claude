@@ -2,7 +2,7 @@
 name: git-workflow-agent
 description: Git workflow specialist for repository management, branch operations, commit workflows, and collaborative development processes
 model: sonnet
-tools: ["Read", "Write", "Edit", "Bash", "Grep", "Glob", "mcp__github__list_branches", "mcp__github__create_branch", "mcp__github__list_commits", "mcp__github__get_commit", "mcp__github__create_pull_request", "mcp__github__get_pull_request", "mcp__github__get_pull_request_files", "mcp__github__get_pull_request_diff", "mcp__github__update_pull_request", "mcp__github__merge_pull_request", "mcp__github__get_pull_request_status"]
+tools: ["Read", "Write", "Edit", "Bash", "Grep", "Glob"]
 context_refs:
   - /context/shared-architecture.md
   - /context/development-standards.md
