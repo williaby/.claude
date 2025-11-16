@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Determine the Claude config directory
+CLAUDE_CONFIG_DIR="${CLAUDE_CONFIG_DIR:-$HOME/.claude}"
+
 # TDD Enforcement Hook Script
 # Based on TDD Guard principles, adapted for our hybrid MCP architecture
 # Enforces Test-Driven Development for agent-generated code
@@ -7,8 +10,8 @@
 set -euo pipefail
 
 # Configuration
-TDD_LOG="/home/byron/.claude/logs/tdd-enforcement.log"
-HOOK_DEBUG_LOG="/home/byron/.claude/logs/hook-debug.log"
+TDD_LOG="$HOME/.claude/logs/tdd-enforcement.log"
+HOOK_DEBUG_LOG="$HOME/.claude/logs/hook-debug.log"
 PROJECT_ROOT="${CLAUDE_PROJECT_DIR:-$(pwd)}"
 
 # Create log directories

@@ -201,7 +201,7 @@ Git Global Configuration:
 ├─ user.email: byron@example.com
 ├─ commit.gpgsign: true
 ├─ gpg.format: ssh
-├─ user.signingkey: /home/byron/.ssh/id_ed25519.pub
+├─ user.signingkey: $HOME/.ssh/id_ed25519.pub
 └─ core.editor: vim
 
 Git Local Configuration (Overrides):

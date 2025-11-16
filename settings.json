@@ -19,7 +19,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/home/byron/.claude/scripts/tdd-enforcement-hook.sh"
+            "command": "$HOME/.claude/scripts/tdd-enforcement-hook.sh"
           }
         ]
       }
@@ -30,7 +30,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/home/byron/.claude/scripts/track-mcp-usage.sh"
+            "command": "$HOME/.claude/scripts/track-mcp-usage.sh"
           }
         ]
       }
@@ -40,7 +40,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/home/byron/.claude/scripts/session-health-check.sh"
+            "command": "$HOME/.claude/scripts/session-health-check.sh"
           }
         ]
       }

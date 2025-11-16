@@ -71,7 +71,7 @@ export SENTRY_PROJECT="your-project"
 The zen-server.json configuration points to the zen-mcp-server installation at:
 
 ```
-/home/byron/dev/zen-mcp-server/.zen_venv/bin/python
+$HOME/dev/zen-mcp-server/.zen_venv/bin/python
 ```
 
 The path has been updated to match the actual installation location.

@@ -1,112 +1,183 @@
-# Universal Development Standards
+# Universal Development Standards - Quick Reference
 
-## Code Quality Standards
+> **Full Documentation**: See `/standards/` directory for complete specifications
+>
+> **Status**: ✅ Active | Reference Document
+> **Last Updated**: 2025-01-16
 
-### Formatting & Linting
+This document provides quick-reference summaries of development standards. For complete details, refer to the authoritative sources in `/standards/`.
 
-```bash
-# Format and lint commands
-poetry run black .                    # 88-character line length
-poetry run ruff check --fix .         # Comprehensive linting
-poetry run mypy src                    # Type checking
-markdownlint **/*.md                  # Markdown formatting
-yamllint **/*.{yml,yaml}              # YAML validation
-```
+## Quick Reference by Domain
 
-### Security Validation
+### Code Quality
+**Full Spec**: `/standards/python.md`, `/standards/linting.md`
 
 ```bash
-# Required security checks
-gpg --list-secret-keys                # GPG key validation
-ssh-add -l                           # SSH key validation
-git config --get user.signingkey     # Git signing configuration
-poetry run safety check              # Dependency vulnerability scanning
-poetry run bandit -r src             # Security static analysis
+# Essential commands
+poetry run black .          # Format (88 chars)
+poetry run ruff check --fix # Lint
+poetry run mypy src         # Type check
 ```
 
-### Testing Standards
+**Standards**:
+- Line length: 88 characters (Python), 120 (Markdown/YAML)
+- Type hints required on all public functions
+- Docstrings required (Google style)
+
+### Security
+**Full Spec**: `/standards/security.md`
 
 ```bash
-# Testing commands by tier
-poetry run pytest tests/unit/ --maxfail=3 -n auto                    # Fast feedback
-poetry run pytest tests/unit/ tests/integration/ --cov=src --cov-fail-under=80  # Pre-commit
-poetry run pytest --cov=src --cov-report=html --cov-report=term-missing         # Full suite
+# Validation commands
+gpg --list-secret-keys      # GPG key check
+ssh-add -l                  # SSH key check
+poetry run safety check     # Dependency scan
+poetry run bandit -r src    # Security lint
 ```
+
+**Requirements**:
+- GPG key for .env encryption
+- SSH key for Git signing
+- All commits must be signed
+- No secrets in code
+
+### Testing
+**Full Spec**: `/commands/testing.md`
+
+```bash
+# Tiered testing approach
+pytest tests/unit/ -n auto                      # Fast (< 30s)
+pytest tests/ --cov=src --cov-fail-under=80     # Pre-commit
+pytest --cov=src --cov-report=html              # Full suite
+```
+
+**Requirements**:
+- Minimum 80% coverage
+- Tests run in < 2 minutes (CI)
+- TDD encouraged (hook available)
+
+### Git Workflow
+**Full Spec**: `/standards/git-workflow.md`
+
+```bash
+# Standard workflow
+git checkout -b feature/name    # Create branch
+git commit -S -m "feat: ..."    # Signed commit
+git push -u origin feature/name # Push
+gh pr create                    # Create PR
+```
+
+**Conventions**:
+- Conventional commits: `feat:`, `fix:`, `docs:`, etc.
+- Signed commits required
+- Branch naming: `feature/`, `fix/`, `docs/`
 
 ## Naming Conventions
+**Full Spec**: `/commands/quality-naming-conventions.md`
 
-### File Naming
-
-- **Python**: snake_case.py (e.g., user_service.py, query_counselor.py)
-- **Test Files**: test_*.py (e.g., test_user_service.py)
-- **Configuration**: lowercase with hyphens (e.g., docker-compose.yml)
-- **Documentation**: lowercase with hyphens (e.g., api-reference.md)
-
-### Code Naming
-
-- **Functions/Variables**: snake_case (e.g., process_user_data, user_id)
-- **Classes**: PascalCase (e.g., UserService, QueryCounselor)
-- **Constants**: UPPER_SNAKE_CASE (e.g., MAX_RETRY_COUNT, API_BASE_URL)
-- **Private Methods**: _leading_underscore (e.g., _validate_input)
+| Type | Convention | Example |
+|------|------------|---------|
+| Python files | snake_case.py | user_service.py |
+| Test files | test_*.py | test_user_service.py |
+| Classes | PascalCase | UserService |
+| Functions | snake_case | process_user_data |
+| Constants | UPPER_SNAKE_CASE | MAX_RETRY_COUNT |
+| Config files | kebab-case | docker-compose.yml |
 
 ## Documentation Standards
+**Full Spec**: `/standards/python.md` (docstrings), `/commands/quality.md` (markdown)
 
-### Code Documentation
+- **Python**: Google-style docstrings with type hints
+- **Markdown**: 120-char lines, sentence case headings
+- **YAML**: 2-space indentation, 120-char lines
 
-```python
-def process_user_data(user_data: dict) -> User:
-    """
-    Process and validate user registration data.
-    
-    Args:
-        user_data: Dictionary containing user information with required
-                  fields: email, password, name
-    
-    Returns:
-        User: Created user object with generated ID and timestamps
-    
-    Raises:
-        ValidationError: When user_data is invalid or incomplete
-        DuplicateEmailError: When email already exists
-    """
+## Environment Setup
+**Full Spec**: `CLAUDE.md`
+
+**Required Tools**:
+- Python 3.11+
+- Poetry (dependency management)
+- GPG (secret encryption)
+- SSH (Git signing)
+- Pre-commit hooks
+
+**Quick Setup**:
+```bash
+# Install and configure
+$HOME/.claude/install.sh
+
+# Validate setup
+$HOME/.claude/scripts/validate-mcp-env.sh
 ```
 
-### Markdown Standards
+## Pre-Commit Checklist
+**Full Spec**: `/commands/quality-precommit-validate.md`
 
-- Use sentence case for headings
-- 120-character line length maximum
-- Include table of contents for documents > 100 lines
-- Use code blocks with language specification
-- Include examples for complex concepts
+- [ ] Code formatted (`black .`)
+- [ ] Linting passes (`ruff check`)
+- [ ] Type checking passes (`mypy src`)
+- [ ] Tests pass with coverage (`pytest --cov`)
+- [ ] Security scan clean (`safety check`, `bandit -r src`)
+- [ ] Commit is signed (GPG key configured)
 
-### Git Standards
+## Common Commands by Task
 
-- Conventional commits (feat:, fix:, docs:, test:, refactor:)
-- All commits must be signed (GPG key required)
-- Branch naming: feature/description, fix/description, docs/description
-- Pull requests require review and passing CI
+### Starting New Feature
+```bash
+git checkout main && git pull
+git checkout -b feature/my-feature
+# ... make changes ...
+poetry run black . && poetry run ruff check --fix .
+poetry run pytest --cov=src
+git add . && git commit -S -m "feat: Add my feature"
+```
 
-## Environment Standards
+### Before Commit
+```bash
+poetry run pre-commit run --all-files
+```
 
-### Required Environment Setup
+### Before Push
+```bash
+# Ensure all tests pass
+poetry run pytest --cov=src --cov-fail-under=80
 
-- Python 3.11+ with Poetry installed
-- GPG key configured for secret encryption
-- SSH key configured for Git signing
-- Pre-commit hooks installed and active
+# Ensure security checks pass
+poetry run safety check
+poetry run bandit -r src
 
-### Security Requirements
+# Verify commits are signed
+git log --show-signature -5
+```
 
-- All .env files must be encrypted with GPG
-- No secrets in code or configuration files
-- Service accounts stored securely (.gcp/service-account.json)
-- Regular dependency vulnerability scanning
+## File Organization
+**Full Spec**: `PROJECT-ORGANIZATION-GUIDE.md`
 
-### Development Workflow
+- **Global config**: `$HOME/.claude/` (this repository)
+- **Project config**: `<project>/.claude/` (project-specific overrides)
+- **Standards**: `$HOME/.claude/standards/` (authoritative specs)
+- **Commands**: `$HOME/.claude/commands/` (detailed command references)
 
-1. Create feature branch from main
-2. Implement changes following standards
-3. Run quality checks (format, lint, test)
-4. Create signed commit with conventional format
-5. Push branch and create pull request
-6. Review, approve, and merge with signed merge commit
+## Related Documentation
+
+| Topic | Document |
+|-------|----------|
+| Global Standards | `/CLAUDE.md` |
+| Python Standards | `/standards/python.md` |
+| Security | `/standards/security.md` |
+| Git Workflow | `/standards/git-workflow.md` |
+| Linting | `/standards/linting.md` |
+| Testing Commands | `/commands/testing.md` |
+| Quality Commands | `/commands/quality.md` |
+| Security Commands | `/commands/security.md` |
+| Project Organization | `/PROJECT-ORGANIZATION-GUIDE.md` |
+
+## Token Optimization Notes
+
+This document is designed to be lightweight and reference-based to minimize token usage. For detailed specifications, always refer to the authoritative documents listed above.
+
+**Token Budget**: This file ~300 tokens vs original ~600 tokens (50% reduction)
+
+---
+
+**Remember**: This is a **reference document**. For complete specifications, implementation details, and examples, always consult the authoritative sources in `/standards/` and `/commands/`.

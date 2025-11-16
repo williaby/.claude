@@ -8,19 +8,19 @@ Our TDD enforcement system is implemented as a PreToolUse hook that enforces Tes
 
 ### Components Deployed
 
-1. **TDD Enforcement Hook** (`/home/byron/.claude/scripts/tdd-enforcement-hook.sh`)
+1. **TDD Enforcement Hook** (`$HOME/.claude/scripts/tdd-enforcement-hook.sh`)
    - Intercepts Write, Edit, and MultiEdit operations
    - Validates test file existence before allowing implementation changes
    - Supports Python, JavaScript, TypeScript file patterns
    - Logs all enforcement actions for analysis
 
-2. **TDD Compliance Analytics** (`/home/byron/.claude/scripts/analyze-tdd-compliance.sh`)
+2. **TDD Compliance Analytics** (`$HOME/.claude/scripts/analyze-tdd-compliance.sh`)
    - Analyzes TDD enforcement logs
    - Provides compliance metrics and insights
    - Integrates with existing MCP usage analytics
    - Tracks quality improvements over time
 
-3. **Hook Configuration** (in `/home/byron/.claude/settings.json`)
+3. **Hook Configuration** (in `$HOME/.claude/settings.json`)
    - PreToolUse hook targeting code modification tools
    - Integrated with existing PostToolUse and SessionStart hooks
    - Non-blocking for documentation and configuration files
@@ -46,19 +46,19 @@ For a file `src/calculator.py`, the system looks for:
 ## 📊 Monitoring & Analytics
 
 ### Log Files
-- **Enforcement Log**: `/home/byron/.claude/logs/tdd-enforcement.log`
-- **Debug Log**: `/home/byron/.claude/logs/hook-debug.log`
+- **Enforcement Log**: `$HOME/.claude/logs/tdd-enforcement.log`
+- **Debug Log**: `$HOME/.claude/logs/hook-debug.log`
 
 ### Analysis Commands
 ```bash
 # View TDD compliance report
-/home/byron/.claude/scripts/analyze-tdd-compliance.sh
+$HOME/.claude/scripts/analyze-tdd-compliance.sh
 
 # Monitor real-time enforcement
-tail -f /home/byron/.claude/logs/tdd-enforcement.log
+tail -f $HOME/.claude/logs/tdd-enforcement.log
 
 # View enforcement debug info
-tail -f /home/byron/.claude/logs/hook-debug.log
+tail -f $HOME/.claude/logs/hook-debug.log
 ```
 
 ### Log Format
@@ -114,13 +114,13 @@ To temporarily disable TDD enforcement, comment out the PreToolUse hook in setti
 // "PreToolUse": [
 //   {
 //     "matcher": "Write|Edit|MultiEdit",
-//     "hooks": [{"type": "command", "command": "/home/byron/.claude/scripts/tdd-enforcement-hook.sh"}]
+//     "hooks": [{"type": "command", "command": "$HOME/.claude/scripts/tdd-enforcement-hook.sh"}]
 //   }
 // ],
 ```
 
 ### Customizing File Patterns
-Edit `/home/byron/.claude/scripts/tdd-enforcement-hook.sh` to modify:
+Edit `$HOME/.claude/scripts/tdd-enforcement-hook.sh` to modify:
 - File extensions subject to enforcement
 - Test file naming patterns  
 - Directory exclusions

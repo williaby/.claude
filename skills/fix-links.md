@@ -180,7 +180,7 @@ Categorize issues:
    Suggestion: Use #documentmetadata instead?
 
 3. CONTRIBUTING.md:89
-   Link: [Setup](/home/byron/project/setup.md)
+   Link: [Setup]($HOME/project/setup.md)
    Issue: Absolute path used
    Suggestion: Use ./setup.md (relative path)
 

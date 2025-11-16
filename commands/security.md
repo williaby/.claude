@@ -18,7 +18,7 @@ gpg --list-secret-keys && ssh-add -l && git config --get user.signingkey
 poetry run safety check && poetry run bandit -r src
 
 # Environment setup validation
-./scripts/validate-mcp-env.sh || /home/byron/.claude/scripts/validate-mcp-env.sh
+./scripts/validate-mcp-env.sh || $HOME/.claude/scripts/validate-mcp-env.sh
 
 # Dependency security scan
 poetry run safety check --full-report

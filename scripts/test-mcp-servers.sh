@@ -1,4 +1,7 @@
 #!/bin/bash
+
+# Determine the Claude config directory
+CLAUDE_CONFIG_DIR="${CLAUDE_CONFIG_DIR:-$HOME/.claude}"
 # Test MCP servers availability
 
 GREEN='\033[0;32m'
@@ -20,7 +23,7 @@ test_server() {
     case $server in
         "zen")
             # Check if zen_venv exists
-            if [ -d "/home/byron/dev/zen-mcp-server/.zen_venv" ]; then
+            if [ -d "$HOME/dev/zen-mcp-server/.zen_venv" ]; then
                 echo -e "${GREEN}✓ Available${NC}"
             else
                 echo -e "${RED}✗ Not found${NC}"

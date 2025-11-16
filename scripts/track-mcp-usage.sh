@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Determine the Claude config directory
+CLAUDE_CONFIG_DIR="${CLAUDE_CONFIG_DIR:-$HOME/.claude}"
+
 # MCP Usage Tracker Hook Script
 # Tracks MCP tool usage, agent invocations, and performance metrics
 # for the hybrid MCP architecture
@@ -7,8 +10,8 @@
 set -euo pipefail
 
 # Configuration
-LOG_FILE="/home/byron/.claude/logs/mcp-usage.log"
-HOOK_LOG="/home/byron/.claude/logs/hook-debug.log"
+LOG_FILE="$HOME/.claude/logs/mcp-usage.log"
+HOOK_LOG="$HOME/.claude/logs/hook-debug.log"
 MAX_LOG_SIZE=10485760  # 10MB
 
 # Create log file if it doesn't exist

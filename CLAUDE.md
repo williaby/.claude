@@ -1,5 +1,9 @@
 # Global Claude Development Standards
 
+> **Status**: ✅ Active | Core Standard
+> **Version**: 1.0.0
+> **Last Updated**: 2025-01-16
+>
 > Universal development standards and practices for Claude Code across all projects.
 >
 > **Token Optimized**: This streamlined file references detailed specifications in `/standards/` 

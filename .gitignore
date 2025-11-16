@@ -21,15 +21,40 @@ settings.local.json
 
 # Ignore logs
 *.log
+logs/*.log
+logs/**/*.log
+
+# Specific log files
+logs/mcp-usage.log
+logs/session-health.log
+logs/tdd-enforcement.log
+logs/tdd-warnings.log
+logs/hook-debug.log
+logs/file-monitor.log
 
 # Ignore environment-specific files
 .env
 .env.*
+.env.mcp
+.env.mcp.*
+# Session-specific overrides
+.env.mcp.session
 # But don't ignore the example
 !.env.example
+!.env.mcp.example
 
-# Ignore sensitive credentials
+# Ignore sensitive credentials and security files
 .credentials.json
+*.gpg
+!.env.gpg
+# Secrets baseline (track baseline, ignore audit results)
+.secrets.audit
+# Security scan results
+security-report.json
+security-audit.json
+bandit-report.json
+bandit-report.html
+safety-report.json
 
 # Ignore local directories and data
 /ide/
@@ -70,6 +95,10 @@ __pycache__/
 # MCP Organization - track active configs, ignore disabled by default
 mcp/disabled/
 mcp/examples/
+# MCP session and usage data
+mcp/usage-tracking.json
+mcp/*.session.json
+mcp/project-servers.json
 
 # Don't ignore the template settings
 !settings/base-settings.json
@@ -88,3 +117,46 @@ history.jsonl
 # Temporary reference files (anti-compaction strategy)
 /tmp_cleanup/
 .tmp-*
+
+# Python compiled files and caches
+*.pyc
+*.pyo
+*.pyd
+**/__pycache__/
+**/.pytest_cache/
+**/.mypy_cache/
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv
+.zen_venv/
+
+# IDE and editor specific
+.vscode/settings.json
+.idea/workspace.xml
+*.sublime-project
+*.sublime-workspace
+
+# OS specific
+.DS_Store
+._*
+Thumbs.db
+Desktop.ini

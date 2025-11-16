@@ -1,8 +1,8 @@
 {
   "mcpServers": {
     "zen-core": {
-      "command": "/home/byron/dev/zen-mcp-server/.zen_venv/bin/python",
-      "args": ["/home/byron/dev/zen-mcp-server/server.py"],
+      "command": "$HOME/dev/zen-mcp-server/.zen_venv/bin/python",
+      "args": ["$HOME/dev/zen-mcp-server/server.py"],
       "env": {
         "HYBRID_MODE": "true",
         "CORE_TOOLS_ONLY": "true",

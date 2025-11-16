@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Determine the Claude config directory
+CLAUDE_CONFIG_DIR="${CLAUDE_CONFIG_DIR:-$HOME/.claude}"
+
 # MCP Environment Validation Script
 # Validates that required environment variables and executables are available
 
@@ -107,8 +110,8 @@ echo "📁 Checking Critical Paths"
 echo "---------------------------"
 
 # Zen server paths
-check_path "/home/byron/dev/zen-mcp-server/server.py" "Zen server script"
-check_path "/home/byron/dev/zen-mcp-server/.zen_venv/bin/python" "Zen Python environment"
+check_path "$HOME/dev/zen-mcp-server/server.py" "Zen server script"
+check_path "$HOME/dev/zen-mcp-server/.zen_venv/bin/python" "Zen Python environment"
 
 # Check Serena path if environment variable is set
 if [ -n "$SERENA_INSTALL_PATH" ]; then
@@ -118,12 +121,12 @@ fi
 echo ""
 echo "⚙️  Checking Claude Code Configuration"
 echo "---------------------------------------"
-check_path "/home/byron/.claude/mcp-servers.json" "Consolidated MCP configuration"
-check_path "/home/byron/.claude/settings/base-settings.json" "Base settings file"
+check_path "$HOME/.claude/mcp-servers.json" "Consolidated MCP configuration"
+check_path "$HOME/.claude/settings/base-settings.json" "Base settings file"
 
 # Check if enableAllProjectMcpServers is set
-if [ -f "/home/byron/.claude/settings/base-settings.json" ]; then
-    if grep -q '"enableAllProjectMcpServers": true' "/home/byron/.claude/settings/base-settings.json"; then
+if [ -f "$HOME/.claude/settings/base-settings.json" ]; then
+    if grep -q '"enableAllProjectMcpServers": true' "$HOME/.claude/settings/base-settings.json"; then
         print_status "OK" "enableAllProjectMcpServers is enabled"
     else
         print_status "WARN" "enableAllProjectMcpServers is not enabled"
