@@ -160,3 +160,4 @@ env/
 ._*
 Thumbs.db
 Desktop.ini
+*:Zone.Identifier
