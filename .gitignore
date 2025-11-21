@@ -99,6 +99,7 @@ mcp/examples/
 mcp/usage-tracking.json
 mcp/*.session.json
 mcp/project-servers.json
+mcp.json
 
 # Don't ignore the template settings
 !settings/base-settings.json

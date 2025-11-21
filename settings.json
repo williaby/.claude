@@ -3,7 +3,6 @@
   "permissions": {
     "allow": [
       "Bash(poetry run ruff:*)",
-      "mcp__zen__smart_consensus",
       "WebSearch",
       "WebFetch",
       "Read",
@@ -35,18 +34,12 @@
         ]
       }
     ],
-    "SessionStart": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "$HOME/.claude/scripts/session-health-check.sh"
-          }
-        ]
-      }
-    ]
+    "SessionStart": []
   },
   "feedbackSurveyState": {
     "lastShownTime": 1754083719175
+  },
+  "sandbox": {
+    "enabled": false
   }
 }

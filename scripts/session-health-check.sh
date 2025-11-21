@@ -21,16 +21,21 @@ log_health() {
 }
 
 # Check MCP servers are configured
-MCP_SERVERS=0
-if command -v claude >/dev/null 2>&1; then
-    MCP_SERVERS=$(claude mcp list 2>/dev/null | grep -c "Connected" || echo "0")
-fi
+# DISABLED: Calling 'claude mcp list' during SessionStart hook can cause recursive initialization
+# and corrupt the JSON communication channel with sandbox debug messages
+# MCP_SERVERS=0
+# if command -v claude >/dev/null 2>&1; then
+#     MCP_SERVERS=$(claude mcp list 2>/dev/null | grep -c "Connected" || echo "0")
+# fi
 
-if [[ "$MCP_SERVERS" -gt 0 ]]; then
-    log_health "MCP_SERVERS" "HEALTHY" "$MCP_SERVERS servers connected"
-else
-    log_health "MCP_SERVERS" "WARNING" "No MCP servers connected"
-fi
+# if [[ "$MCP_SERVERS" -gt 0 ]]; then
+#     log_health "MCP_SERVERS" "HEALTHY" "$MCP_SERVERS servers connected"
+# else
+#     log_health "MCP_SERVERS" "WARNING" "No MCP servers connected"
+# fi
+
+# Skip MCP server check to avoid recursive initialization
+log_health "MCP_SERVERS" "SKIPPED" "Check disabled to prevent recursive initialization"
 
 # Check agent files are accessible
 AGENT_FILES=$(find $HOME/.claude/agents -name "*.md" -type f 2>/dev/null | wc -l || echo "0")
