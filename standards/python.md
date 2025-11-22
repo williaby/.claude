@@ -47,12 +47,15 @@ poetry run black --check .
 
 ## Type Checking
 
-### MyPy Requirements
+### BasedPyright Requirements
 
 - **Type Hints**: Required for all public functions and methods
-- **Configuration**: Use `pyproject.toml` for MyPy settings
-- **Strictness**: Minimum `--strict` mode for new projects
+- **Configuration**: Use `pyproject.toml` for BasedPyright settings under `[tool.basedpyright]`
+- **Strictness**: Use `typeCheckingMode = "strict"` for new projects
 - **Coverage**: Target 100% type annotation coverage
+- **Strict Inference**: Enable `strictListInference`, `strictDictionaryInference`, `strictSetInference`
+
+> **Note**: BasedPyright is a stricter fork of Pyright, providing 3-5x faster type checking than MyPy with enhanced type inference.
 
 ### Type Annotation Standards
 
@@ -76,13 +79,13 @@ class DataProcessor:
 
 ```bash
 # Type check entire project
-poetry run mypy src
+poetry run basedpyright src
 
 # Type check specific files
-poetry run mypy src/module.py
+poetry run basedpyright src/module.py
 
-# Generate type coverage report
-poetry run mypy --html-report mypy-report src
+# For UV-based projects
+uv run basedpyright src
 ```
 
 ## Testing Standards
@@ -153,7 +156,7 @@ pydantic = "^2.0.0"
 pytest = "^7.4.0"
 black = "^23.0.0"
 ruff = "^0.1.0"
-mypy = "^1.5.0"
+basedpyright = "^1.28.0"
 ```
 
 ### Essential Commands

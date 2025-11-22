@@ -11,10 +11,10 @@
 
 ## Core Development Standards
 
-> **Detailed Specifications**: See `/standards/python.md`, `/standards/security.md`, `/standards/git-workflow.md`, `/standards/linting.md`
+> **Detailed Specifications**: See `/standards/python.md`, `/standards/security.md`, `/standards/git-workflow.md`, `/standards/git-worktree.md`, `/standards/linting.md`
 
 ### Essential Requirements
-- **Code Quality**: Black formatting (88 chars), Ruff linting, MyPy type checking
+- **Code Quality**: Black formatting (88 chars), Ruff linting (PyStrict-aligned), BasedPyright type checking (strict mode)
 - **Security**: GPG/SSH key validation, dependency scanning, encrypted secrets
 - **Testing**: Minimum 80% coverage, tiered testing approach
 - **Git**: Conventional commits, signed commits, feature branch workflow
@@ -59,9 +59,31 @@ When writing code, ALWAYS tag assumptions that could cause production failures:
 
 ### File-Type Standards
 - **Python**: 88-char line length, comprehensive rule compliance
-- **Markdown**: 120-char line length, consistent formatting  
+- **Markdown**: 120-char line length, consistent formatting
 - **YAML**: 2-space indentation, 120-char line length
 - **Validation**: Pre-commit hooks enforce all standards
+
+### Type Checking with BasedPyright
+BasedPyright replaces MyPy as the standard type checker (3-5x faster, stricter analysis):
+- **Mode**: `strict` (recommended) - enables all strict type checking without excessive noise
+- **Strict Inference**: `strictListInference`, `strictDictionaryInference`, `strictSetInference` enabled
+- **Configuration**: In `pyproject.toml` under `[tool.basedpyright]`
+- **Reference**: https://docs.basedpyright.com
+
+### PyStrict-Aligned Ruff Rules
+Ruff configuration includes PyStrict-aligned rules for ultra-strict code quality:
+- **BLE**: Blind except detection (no bare `except:` or `except Exception:`)
+- **EM**: Error message best practices
+- **SLF**: Private member access violations
+- **INP**: Require `__init__.py` in packages
+- **ISC**: Implicit string concatenation
+- **PGH**: Deprecated type comments, blanket ignores
+- **RSE**: Raise statement best practices
+- **TID**: Banned imports, relative import rules
+- **YTT**: Python version checks
+- **FA**: Future annotations
+- **T10**: Debugger statements (no `breakpoint()`, `pdb`)
+- **G**: Logging format strings
 
 ## Essential Commands
 
@@ -72,7 +94,7 @@ When writing code, ALWAYS tag assumptions that could cause production failures:
 # Format and lint (see /commands/quality.md for full details)
 poetry run black .
 poetry run ruff check --fix .
-poetry run mypy src
+poetry run basedpyright src  # Strict mode type checking (replaces mypy)
 markdownlint **/*.md
 yamllint **/*.{yml,yaml}
 ```
@@ -116,7 +138,7 @@ poetry run pre-commit run --all-files
 ### Automatic Compliance (Already Configured)
 Our existing standards satisfy core OpenSSF requirements:
 - ✅ **Testing**: 80% coverage requirement + automated test runs
-- ✅ **Static Analysis**: Ruff, MyPy, Bandit already configured
+- ✅ **Static Analysis**: Ruff (PyStrict-aligned), BasedPyright, Bandit already configured
 - ✅ **Security Scanning**: Safety check for dependencies
 - ✅ **Version Control**: Signed commits, branch protection
 - ✅ **Secrets Management**: GPG-encrypted .env files
@@ -288,10 +310,38 @@ mcp__zen-core__pr_prepare \
 1. **Security First**: Always validate keys, encrypt secrets, scan dependencies
 2. **Reuse First**: Check existing repositories for solutions before building new code
 3. **Configure, Don't Build**: Prefer configuration and orchestration over custom implementation
-4. **Quality Standards**: Maintain consistent code quality across all projects  
+4. **Quality Standards**: Maintain consistent code quality across all projects
 5. **Documentation**: Keep documentation current and well-formatted
 6. **Testing**: Maintain high test coverage and run tests before commits
 7. **Collaboration**: Use consistent Git workflows and clear commit messages
+
+## Git Worktree Workflow
+
+> **Full Documentation**: See `/standards/git-worktree.md` for complete worktree patterns, commands, and best practices.
+
+Git worktrees enable parallel development by maintaining multiple working directories from a single repository. Use for feature development, PR reviews, hotfixes, and experimentation.
+
+**Quick Reference**:
+```bash
+# Create worktree for new feature
+git worktree add ../{project}-worktrees/feature-name -b feature/feature-name
+cd ../{project}-worktrees/feature-name && uv sync --all-extras
+
+# Create worktree for PR review
+git worktree add ../{project}-worktrees/pr-42 origin/feature/pr-branch
+
+# List and cleanup
+git worktree list
+git worktree remove ../{project}-worktrees/feature-name
+git worktree prune
+```
+
+**Key Points**:
+- Worktrees share git history but NOT virtualenvs - run `uv sync` in each
+- Use sibling directory: `../{project}-worktrees/`
+- Cleanup promptly after merging
+
+**Note**: Worktrees are for parallel branch isolation. They do NOT replace `tmp_cleanup/` which serves as development history and anti-compaction storage.
 
 ## Pre-Commit Linting Checklist
 

@@ -55,7 +55,7 @@ pytest = "^7.4.0"
 pytest-cov = "^4.1.0"
 black = "^23.7.0"
 ruff = "^0.0.287"
-mypy = "^1.5.1"
+basedpyright = "^1.28.0"
 pre-commit = "^3.3.3"
 safety = "^2.3.4"
 bandit = "^1.7.5"
@@ -231,7 +231,7 @@ git commit -m "fix: resolve bug"
 - [ ] All tests pass: `poetry run pytest`
 - [ ] Code formatted: `poetry run black .`
 - [ ] Linting clean: `poetry run ruff check .`
-- [ ] Type checking: `poetry run mypy src`
+- [ ] Type checking: `poetry run basedpyright src`
 - [ ] Security scan: `poetry run bandit -r src`
 - [ ] Dependencies secure: `poetry run safety check`
 
@@ -259,7 +259,7 @@ poetry run pytest -v --tb=short
 poetry run pytest --lf  # Run last failed
 
 # Type checking errors
-poetry run mypy src --show-error-codes
+poetry run basedpyright src
 
 # Performance issues
 poetry run python -m cProfile -s cumulative script.py

@@ -98,8 +98,8 @@ poetry run ruff check .
 # Auto-fix with Ruff
 poetry run ruff check --fix .
 
-# Type check with MyPy
-poetry run mypy src
+# Type check with BasedPyright
+poetry run basedpyright src
 ```
 
 ### Markdown Files
@@ -301,11 +301,15 @@ repos:
       - id: ruff
         args: [--fix, --exit-non-zero-on-fix]
 
-  - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.5.1
-    hooks:
-      - id: mypy
-        additional_dependencies: [types-requests]
+  # BasedPyright for type checking (faster than MyPy)
+  # Note: Run via local hook or CI for better performance
+  # - repo: local
+  #   hooks:
+  #     - id: basedpyright
+  #       name: basedpyright
+  #       entry: poetry run basedpyright src
+  #       language: system
+  #       types: [python]
 
   - repo: https://github.com/igorshubovych/markdownlint-cli
     rev: v0.35.0
@@ -328,7 +332,7 @@ repos:
   "python.formatting.provider": "black",
   "python.linting.enabled": true,
   "python.linting.ruffEnabled": true,
-  "python.linting.mypyEnabled": true,
+  "python.analysis.typeCheckingMode": "strict",
   "python.linting.lintOnSave": true,
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
@@ -402,8 +406,8 @@ jobs:
       - name: Lint with Ruff
         run: poetry run ruff check .
       
-      - name: Type check with MyPy
-        run: poetry run mypy src
+      - name: Type check with BasedPyright
+        run: poetry run basedpyright src
       
       - name: Lint Markdown
         run: markdownlint **/*.md
