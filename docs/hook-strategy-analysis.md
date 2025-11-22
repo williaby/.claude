@@ -162,7 +162,7 @@
 **Risk**: Low
 **Implementation Time**: 2 hours
 
-Creates `/home/byron/.claude/logs/mcp-usage.log` with:
+Creates `$HOME/.claude/logs/mcp-usage.log` with:
 - Tool usage frequency
 - Agent invocation patterns  
 - Context usage metrics

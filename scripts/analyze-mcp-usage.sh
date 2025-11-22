@@ -1,12 +1,15 @@
 #!/bin/bash
 
+# Determine the Claude config directory
+CLAUDE_CONFIG_DIR="${CLAUDE_CONFIG_DIR:-$HOME/.claude}"
+
 # MCP Usage Analysis Script
 # Analyzes the MCP usage logs to provide insights into hybrid architecture performance
 
 set -euo pipefail
 
-LOG_FILE="/home/byron/.claude/logs/mcp-usage.log"
-HEALTH_LOG="/home/byron/.claude/logs/session-health.log"
+LOG_FILE="$HOME/.claude/logs/mcp-usage.log"
+HEALTH_LOG="$HOME/.claude/logs/session-health.log"
 
 if [[ ! -f "$LOG_FILE" ]]; then
     echo "No MCP usage log found at $LOG_FILE"

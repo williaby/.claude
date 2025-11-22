@@ -6,7 +6,7 @@ This directory contains custom slash commands that extend Claude Code's function
 
 Commands are implemented as `.md` files following Claude Code's standard structure:
 
-- **File Location**: `/home/byron/.claude/commands/`
+- **File Location**: `$HOME/.claude/commands/`
 - **File Format**: Markdown with YAML frontmatter
 - **Naming**: Filename becomes command name (e.g., `verify-assumptions-smart.md` → `/verify-assumptions-smart`)
 
@@ -195,7 +195,7 @@ Track effectiveness after 30-60 days:
 
 Ensure Claude Code is loading slash commands:
 
-1. Check file permissions on `/home/byron/.claude/commands/*.md` files
+1. Check file permissions on `$HOME/.claude/commands/*.md` files
 2. Verify commands are in correct Markdown format with YAML frontmatter
 3. Restart Claude Code session to reload command definitions
 

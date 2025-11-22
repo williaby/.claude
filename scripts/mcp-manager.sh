@@ -1,4 +1,7 @@
 #!/bin/bash
+
+# Determine the Claude config directory
+CLAUDE_CONFIG_DIR="${CLAUDE_CONFIG_DIR:-$HOME/.claude}"
 # MCP Server Manager for Claude Code
 # Manages installation and configuration of MCP servers
 
@@ -151,7 +154,7 @@ install_all() {
     print_status "$GREEN" "Installing all recommended MCP servers..."
     
     # Core servers
-    install_stdio_server "zen" "/home/byron/dev/zen-mcp-server/.zen_venv/bin/python" "/home/byron/dev/zen-mcp-server/server.py"
+    install_stdio_server "zen" "$HOME/dev/zen-mcp-server/.zen_venv/bin/python" "$HOME/dev/zen-mcp-server/server.py"
     
     # Development tools
     install_stdio_server "sequential-thinking" "npx" "-y" "@modelcontextprotocol/server-sequential-thinking"

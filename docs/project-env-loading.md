@@ -21,7 +21,7 @@ Instead of relying on environment variables for project paths, override the MCP 
       "args": [
         "run",
         "--directory",
-        "/home/byron/dev/serena",  // Use your actual Serena path
+        "$HOME/dev/serena",  // Use your actual Serena path
         "serena-mcp-server",
         "--context",
         "ide-assistant",
@@ -44,7 +44,7 @@ Create a wrapper script that sets project-specific variables:
 # Serena wrapper script that uses current directory as project
 
 # Get Serena installation path from global env
-SERENA_INSTALL="${SERENA_INSTALL_PATH:-/home/byron/dev/serena}"
+SERENA_INSTALL="${SERENA_INSTALL_PATH:-$HOME/dev/serena}"
 
 # Use current working directory as project path
 PROJECT_PATH="$(pwd)"

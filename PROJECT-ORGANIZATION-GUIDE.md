@@ -4,13 +4,13 @@
 
 ## 🎯 Purpose
 
-This guide outlines **what should live where** in the `/home/byron/.claude/` git-trackable configuration to maintain consistency, avoid duplication, and ensure team collaboration.
+This guide outlines **what should live where** in the `$HOME/.claude/` git-trackable configuration to maintain consistency, avoid duplication, and ensure team collaboration.
 
 ## 📁 Directory Structure & Ownership
 
 ### Core Configuration Files
 ```
-/home/byron/.claude/
+$HOME/.claude/
 ├── .claude.json              # 🎯 Main config: MCP servers, user settings
 ├── settings.json             # 🎯 Project settings: permissions, hooks
 ├── .gitignore               # 🎯 Git exclusions: credentials, cache, backups

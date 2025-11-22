@@ -1,12 +1,15 @@
 #!/bin/bash
 
+# Determine the Claude config directory
+CLAUDE_CONFIG_DIR="${CLAUDE_CONFIG_DIR:-$HOME/.claude}"
+
 # TDD Compliance Analysis Script
 # Analyzes TDD enforcement logs alongside MCP usage for hybrid architecture insights
 
 set -euo pipefail
 
-TDD_LOG="/home/byron/.claude/logs/tdd-enforcement.log"
-MCP_LOG="/home/byron/.claude/logs/mcp-usage.log"
+TDD_LOG="$HOME/.claude/logs/tdd-enforcement.log"
+MCP_LOG="$HOME/.claude/logs/mcp-usage.log"
 
 echo "🧪 TDD Compliance Analysis Report"
 echo "================================="

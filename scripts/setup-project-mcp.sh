@@ -1,4 +1,7 @@
 #!/bin/bash
+
+# Determine the Claude config directory
+CLAUDE_CONFIG_DIR="${CLAUDE_CONFIG_DIR:-$HOME/.claude}"
 # Setup MCP servers for a specific project
 # Usage: ./setup-project-mcp.sh [server-names...]
 
@@ -121,7 +124,7 @@ for server in "${SERVERS_TO_INSTALL[@]}"; do
     
     case $server in
         "zen")
-            claude mcp add -s project "$server" "/home/byron/dev/zen-mcp-server/.zen_venv/bin/python" "/home/byron/dev/zen-mcp-server/server.py"
+            claude mcp add -s project "$server" "$HOME/dev/zen-mcp-server/.zen_venv/bin/python" "$HOME/dev/zen-mcp-server/server.py"
             ;;
         "git")
             # Git server is already in the mcp.json

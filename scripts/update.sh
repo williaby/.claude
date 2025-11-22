@@ -1,4 +1,7 @@
 #!/bin/bash
+
+# Determine the Claude config directory
+CLAUDE_CONFIG_DIR="${CLAUDE_CONFIG_DIR:-$HOME/.claude}"
 # Update Global Claude Configuration
 # This script updates the global Claude configuration to the latest version
 

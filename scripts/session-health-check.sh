@@ -1,12 +1,15 @@
 #!/bin/bash
 
+# Determine the Claude config directory
+CLAUDE_CONFIG_DIR="${CLAUDE_CONFIG_DIR:-$HOME/.claude}"
+
 # Session Health Check Hook Script
 # Verifies MCP servers, agent files, and critical permissions at session start
 # for the hybrid MCP architecture
 
 set -euo pipefail
 
-HEALTH_LOG="/home/byron/.claude/logs/session-health.log"
+HEALTH_LOG="$HOME/.claude/logs/session-health.log"
 TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
 
 # Create log directory if it doesn't exist
@@ -18,19 +21,24 @@ log_health() {
 }
 
 # Check MCP servers are configured
-MCP_SERVERS=0
-if command -v claude >/dev/null 2>&1; then
-    MCP_SERVERS=$(claude mcp list 2>/dev/null | grep -c "Connected" || echo "0")
-fi
+# DISABLED: Calling 'claude mcp list' during SessionStart hook can cause recursive initialization
+# and corrupt the JSON communication channel with sandbox debug messages
+# MCP_SERVERS=0
+# if command -v claude >/dev/null 2>&1; then
+#     MCP_SERVERS=$(claude mcp list 2>/dev/null | grep -c "Connected" || echo "0")
+# fi
 
-if [[ "$MCP_SERVERS" -gt 0 ]]; then
-    log_health "MCP_SERVERS" "HEALTHY" "$MCP_SERVERS servers connected"
-else
-    log_health "MCP_SERVERS" "WARNING" "No MCP servers connected"
-fi
+# if [[ "$MCP_SERVERS" -gt 0 ]]; then
+#     log_health "MCP_SERVERS" "HEALTHY" "$MCP_SERVERS servers connected"
+# else
+#     log_health "MCP_SERVERS" "WARNING" "No MCP servers connected"
+# fi
+
+# Skip MCP server check to avoid recursive initialization
+log_health "MCP_SERVERS" "SKIPPED" "Check disabled to prevent recursive initialization"
 
 # Check agent files are accessible
-AGENT_FILES=$(find /home/byron/.claude/agents -name "*.md" -type f 2>/dev/null | wc -l || echo "0")
+AGENT_FILES=$(find $HOME/.claude/agents -name "*.md" -type f 2>/dev/null | wc -l || echo "0")
 if [[ "$AGENT_FILES" -gt 15 ]]; then
     log_health "AGENT_FILES" "HEALTHY" "$AGENT_FILES agent files found"
 else
@@ -39,11 +47,11 @@ fi
 
 # Check critical directories exist
 CRITICAL_DIRS=(
-    "/home/byron/.claude"
-    "/home/byron/.claude/agents" 
-    "/home/byron/.claude/docs"
-    "/home/byron/.claude/scripts"
-    "/home/byron/.claude/logs"
+    "$HOME/.claude"
+    "$HOME/.claude/agents" 
+    "$HOME/.claude/docs"
+    "$HOME/.claude/scripts"
+    "$HOME/.claude/logs"
 )
 
 MISSING_DIRS=0
@@ -60,12 +68,12 @@ fi
 
 # Check hybrid architecture documentation is current
 DOCS_CURRENT=true
-if [[ ! -f "/home/byron/.claude/docs/agent-context-analysis.md" ]]; then
+if [[ ! -f "$HOME/.claude/docs/agent-context-analysis.md" ]]; then
     log_health "DOCUMENTATION" "WARNING" "Agent context analysis missing"
     DOCS_CURRENT=false
 fi
 
-if [[ ! -f "/home/byron/.claude/docs/hybrid-mcp-conversion-goals.md" ]]; then
+if [[ ! -f "$HOME/.claude/docs/hybrid-mcp-conversion-goals.md" ]]; then
     log_health "DOCUMENTATION" "WARNING" "Hybrid MCP goals documentation missing"
     DOCS_CURRENT=false
 fi
@@ -75,7 +83,7 @@ if [[ "$DOCS_CURRENT" == true ]]; then
 fi
 
 # Check disk space for logs
-LOG_SPACE=$(df /home/byron/.claude/logs 2>/dev/null | awk 'NR==2 {print $4}' || echo "0")
+LOG_SPACE=$(df $HOME/.claude/logs 2>/dev/null | awk 'NR==2 {print $4}' || echo "0")
 LOG_SPACE=$(echo "$LOG_SPACE" | tr -d '\n\r' | grep -o '[0-9]*' || echo "0")
 if [[ "$LOG_SPACE" -gt 1000000 ]]; then  # >1GB free
     log_health "DISK_SPACE" "HEALTHY" "${LOG_SPACE}KB available"

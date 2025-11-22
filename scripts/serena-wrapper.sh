@@ -1,4 +1,7 @@
 #!/bin/bash
+
+# Determine the Claude config directory
+CLAUDE_CONFIG_DIR="${CLAUDE_CONFIG_DIR:-$HOME/.claude}"
 # Serena MCP Server Wrapper Script
 # This script automatically uses the current working directory as the project path
 

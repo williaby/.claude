@@ -2,7 +2,7 @@
 
 ## Problem Summary
 
-The `enableAllProjectMcpServers: true` setting in `/home/byron/.claude/settings/base-settings.json` is not properly loading MCP servers from the global configuration. Only a single zen server loads from project-specific configuration.
+The `enableAllProjectMcpServers: true` setting in `$HOME/.claude/settings/base-settings.json` is not properly loading MCP servers from the global configuration. Only a single zen server loads from project-specific configuration.
 
 ## Root Cause Analysis
 
@@ -12,12 +12,12 @@ The `enableAllProjectMcpServers: true` setting in `/home/byron/.claude/settings/
 - **Expected**: Should be part of the base configuration
 
 ### 2. Incorrect Zen Server Path Configuration
-- **Current Path**: `/home/byron/.zen-mcp-server/venv/bin/python` (in local zen-server.json)
-- **Actual Valid Path**: `/home/byron/dev/zen-mcp-server/.zen_venv/bin/python`
+- **Current Path**: `$HOME/.zen-mcp-server/venv/bin/python` (in local zen-server.json)
+- **Actual Valid Path**: `$HOME/dev/zen-mcp-server/.zen_venv/bin/python`
 - **Problem**: Path points to non-standard installation location
 
 ### 3. Configuration Loading Mechanism
-- **Expected Behavior**: `enableAllProjectMcpServers: true` should load ALL MCP configurations from `/home/byron/.claude/mcp/*.json`
+- **Expected Behavior**: `enableAllProjectMcpServers: true` should load ALL MCP configurations from `$HOME/.claude/mcp/*.json`
 - **Actual Behavior**: Only zen server loads, others are ignored
 - **Missing**: No evidence of a master settings.json that references MCP configurations
 
@@ -30,7 +30,7 @@ Multiple MCP servers require environment variables that may not be set:
 
 ## Affected MCP Servers
 
-Based on `/home/byron/.claude/mcp/` directory:
+Based on `$HOME/.claude/mcp/` directory:
 - ✅ **zen**: Loading (but from wrong path)
 - ❌ **common-servers**: perplexity, tavily, context7, sentry
 - ❌ **dev-tools-servers**: sequential-thinking, git, time
@@ -56,14 +56,14 @@ Based on `/home/byron/.claude/mcp/` directory:
 Before fix:
 ```bash
 claude mcp list
-# Shows: zen: /home/byron/dev/zen-mcp-server/.zen_venv/bin/python /home/byron/dev/zen-mcp-server/server.py
+# Shows: zen: $HOME/dev/zen-mcp-server/.zen_venv/bin/python $HOME/dev/zen-mcp-server/server.py
 ```
 
 After fix should show all configured and available MCP servers.
 
 ## Files to Modify
 
-1. `/home/byron/.claude/mcp/zen-server.json` - Add to git with correct path
+1. `$HOME/.claude/mcp/zen-server.json` - Add to git with correct path
 2. Potentially other MCP configurations if paths are incorrect
 3. Add documentation for environment variable requirements
 

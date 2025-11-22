@@ -3,7 +3,6 @@
   "permissions": {
     "allow": [
       "Bash(poetry run ruff:*)",
-      "mcp__zen__smart_consensus",
       "WebSearch",
       "WebFetch",
       "Read",
@@ -19,7 +18,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/home/byron/.claude/scripts/tdd-enforcement-hook.sh"
+            "command": "$HOME/.claude/scripts/tdd-enforcement-hook.sh"
           }
         ]
       }
@@ -30,23 +29,17 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/home/byron/.claude/scripts/track-mcp-usage.sh"
+            "command": "$HOME/.claude/scripts/track-mcp-usage.sh"
           }
         ]
       }
     ],
-    "SessionStart": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "/home/byron/.claude/scripts/session-health-check.sh"
-          }
-        ]
-      }
-    ]
+    "SessionStart": []
   },
   "feedbackSurveyState": {
     "lastShownTime": 1754083719175
+  },
+  "sandbox": {
+    "enabled": false
   }
 }

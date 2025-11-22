@@ -20,4 +20,5 @@ The security skill activates on: validate security, security check, security env
 2025-12-09 (30 days)
 
 ---
+
 *See `~/.claude/skills/security/SKILL.md` for new security skill documentation.*
