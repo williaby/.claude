@@ -1,10 +1,5 @@
 {
   "mcpServers": {
-    "zen": {
-      "command": "/home/byron/dev/zen-mcp-server/zen-mcp-server",
-      "args": [],
-      "cwd": "/home/byron/dev/zen-mcp-server"
-    },
     "context7": {
       "command": "npx",
       "args": ["-y", "@upstash/context7-mcp"]
@@ -22,8 +17,8 @@
         "mcp/sonarqube"
       ],
       "env": {
-        "SONARQUBE_ORG": "williaby",
-        "SONARQUBE_TOKEN": "8c2df211fe3e165cabb8e8bdf330f4f6ff147051"
+        "SONARQUBE_ORG": "${SONARQUBE_ORG}",
+        "SONARQUBE_TOKEN": "${SONARQUBE_TOKEN}"
       }
     }
   }

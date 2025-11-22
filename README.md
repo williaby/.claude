@@ -36,29 +36,43 @@ nano ~/.claude/.env
 ~/.claude/
 ├── README.md                     # This file - configuration guide
 ├── CLAUDE.md                     # Global development standards (auto-loaded)
-├── commands/                     # Universal slash commands (flat structure)
+├── settings.json                 # Claude Code settings (permissions, hooks)
+├── .mcp.json                     # MCP server configurations
+├── agents/                       # Specialized agent definitions
+│   └── *.md                     # Agent capability definitions
+├── commands/                     # Universal slash commands
 │   ├── quality-*.md             # Code quality and formatting commands
 │   ├── security-*.md            # Security validation and checks
-│   ├── workflow-*.md            # Development workflow helpers
 │   └── meta-*.md               # Command management utilities
-├── settings/                     # Claude Code settings templates
-│   ├── base-settings.json       # Common configuration template
-│   └── base-permissions.json    # Security permissions template
-├── mcp/                         # MCP server configurations
-│   ├── common-servers.json      # Common MCP servers
-│   ├── context7-*.json          # Context7 transport options
-│   └── serena-*.json           # Serena configurations
-├── scripts/                     # Automation and setup scripts
-│   ├── setup-env.sh            # Environment setup
-│   ├── mcp-manager.sh          # MCP server installer
-│   └── check-mcp-env.sh        # Validation utilities
-├── docs/                        # Additional documentation
-│   ├── serena-setup.md         # Serena configuration guide
-│   └── project-env-loading.md  # Project-specific env guide
-├── projects/                    # Project-specific configurations
-├── ide/                         # IDE-specific settings
-├── statsig/                     # Statsig configuration
-└── todos/                       # Todo tracking storage
+├── context/                      # Shared context files for agents
+│   ├── development-standards.md # Quick reference standards
+│   ├── integration-patterns.md  # Common integration patterns
+│   └── shared-architecture.md   # Architectural guidelines
+├── docs/                         # Additional documentation
+│   ├── response-aware-development.md  # RAD methodology
+│   ├── tdd-enforcement-system.md     # TDD hook documentation
+│   └── project-env-loading.md        # Project-specific env guide
+├── mcp/                          # MCP server configuration templates
+│   └── *.json                   # Server configuration templates
+├── scripts/                      # Automation and setup scripts
+│   ├── setup-env.sh             # Environment setup
+│   ├── mcp-manager.sh           # MCP server installer
+│   └── check-mcp-env.sh         # Validation utilities
+├── skills/                       # Hierarchical skill definitions
+│   ├── git/                     # Git workflow skill
+│   ├── quality/                 # Code quality skill
+│   ├── rad/                     # Response-Aware Development skill
+│   ├── security/                # Security validation skill
+│   └── testing/                 # Testing skill
+├── standards/                    # Detailed standard specifications
+│   ├── python.md                # Python development standards
+│   ├── security.md              # Security requirements
+│   ├── git-workflow.md          # Git workflow standards
+│   └── linting.md               # Linting configuration
+├── templates/                    # Project CLAUDE.md templates
+│   ├── python-project.md        # Python project template
+│   └── general-project.md       # General project template
+└── logs/                         # Runtime logs (git-ignored)
 ```
 
 ## Command Categories
@@ -84,13 +98,14 @@ nano ~/.claude/.env
 **Usage**: `/universal:security-validate-env`  
 **Description**: Checks GPG keys, SSH keys, Git signing configuration, and dependency security
 
-### Workflow Commands (`workflow-*.md`)
+### Git Workflow (Skills)
 **Development workflow helpers and validation**
 
-#### `/universal:workflow-git-helpers`
-**Purpose**: Git workflow validation and helpers  
-**Usage**: `/universal:workflow-git-helpers branch-check` or `/universal:workflow-git-helpers pr-ready`  
-**Description**: Validates branch naming, commit messages, and provides PR readiness checks
+Git workflow functionality is now provided through the **git skill** (`skills/git/`):
+- **Branch validation**: Auto-activates on git/branch keywords
+- **Commit validation**: Conventional commits checking
+- **PR readiness**: Pre-PR validation checks
+- **PR preparation**: Automated PR creation with descriptions
 
 ### Meta Commands (`meta-*.md`)
 **Command management and discovery utilities**

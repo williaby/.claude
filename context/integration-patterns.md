@@ -5,11 +5,15 @@
 ### Qdrant Vector Database
 
 ```python
-# Connection pattern for external Qdrant at 192.168.1.16:6333
+# Connection pattern for external Qdrant (configure via environment)
 from qdrant_client import QdrantClient
+import os
 
 async def get_qdrant_client() -> QdrantClient:
-    return QdrantClient(host="192.168.1.16", port=6333)
+    return QdrantClient(
+        host=os.getenv("QDRANT_HOST", "localhost"),
+        port=int(os.getenv("QDRANT_PORT", "6333"))
+    )
 
 # Query pattern with error handling
 async def search_vectors(query_vector: List[float], limit: int = 10):
@@ -145,7 +149,7 @@ from typing import Optional
 
 class Settings(BaseSettings):
     database_url: str
-    qdrant_host: str = "192.168.1.16"
+    qdrant_host: str = "localhost"
     qdrant_port: int = 6333
     api_key: Optional[str] = None
     debug: bool = False

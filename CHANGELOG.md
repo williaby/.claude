@@ -7,18 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Added
-- Zapier MCP server configuration for workflow automation
-- Serena MCP server configuration for AI development assistance
-- Enhanced `.env.example` with organized sections and detailed instructions
-- Improved documentation for all MCP server categories
-- Comprehensive Serena setup guide in `docs/serena-setup.md`
-- SSE mode example configuration for Serena
-
 ### Changed
-- Reorganized `.env.example` with clear categories and setup instructions
-- Updated README to categorize MCP servers by function
-- Added AI Assistants category for development helper tools
+- Updated README.md with accurate directory structure
+- Removed project-specific references from context files
+- Replaced hardcoded credentials with environment variable references in `.mcp.json`
+- Updated type checker references from MyPy to BasedPyright
+
+### Removed
+- Deprecated commands migrated to skills (list-assumptions, verify-assumptions-smart, workflow-git-helpers, test-rad)
+- Deprecated skills replaced by hierarchical skills (8 files)
+- Historical planning/analysis docs (ISSUE_ANALYSIS.md, MODULARIZATION_PLAN.md, SKILLS-MIGRATION-SUMMARY.md)
+- Analysis docs (agent-compliance-audit.md, agent-context-analysis.md, hook-strategy-analysis.md, etc.)
+- Test scripts (test-claude-instances.sh, test-configuration.sh)
+- mcp-servers/ directory (development code)
+- Empty plugins/config.json
+
+### Security
+- Removed hardcoded SonarQube token from `.mcp.json`
+- Removed hardcoded zen server path with user-specific directory
 
 ## [1.0.0] - 2025-01-02
 
@@ -50,7 +56,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Standards Included
 
 ### Code Quality
-- Python: Black (88 chars), Ruff linting, MyPy type checking
+- Python: Black (88 chars), Ruff linting, BasedPyright type checking
 - Markdown: 120 char line length, consistent formatting
 - YAML: 2-space indentation, 120 char line length
 - JSON: Automatic formatting and validation
