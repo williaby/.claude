@@ -343,9 +343,210 @@ git worktree prune
 
 **Note**: Worktrees are for parallel branch isolation. They do NOT replace `tmp_cleanup/` which serves as development history and anti-compaction storage.
 
+## Automated Branch Creation Strategy (CRITICAL)
+
+> **Full Documentation**: See `/standards/git-workflow.md` and `/standards/git-worktree.md` for complete patterns and commands.
+
+Claude Code MUST automatically create branches and worktrees during project plan execution to maintain semantic release compatibility and git hygiene.
+
+### Branch Type Mapping (Semantic Release)
+
+| Task Type | Branch Prefix | Commit Type | Version Impact |
+|-----------|---------------|-------------|----------------|
+| New feature | `feat/` | `feat:` | Minor (0.X.0) |
+| Bug fix | `fix/` | `fix:` | Patch (0.0.X) |
+| Breaking change | `feat/` or `fix/` | `feat!:` or `fix!:` | Major (X.0.0) |
+| Documentation | `docs/` | `docs:` | No release |
+| Refactoring | `refactor/` | `refactor:` | No release |
+| Performance | `perf/` | `perf:` | Patch (0.0.X) |
+| Testing | `test/` | `test:` | No release |
+| Chore/maintenance | `chore/` | `chore:` | No release |
+| Hotfix (critical) | `hotfix/` | `fix:` | Patch (0.0.X) |
+
+### When to Create Branches (MANDATORY)
+
+**ALWAYS create a new branch when:**
+
+1. **Starting ANY implementation task** - Never commit directly to `main` or `develop`
+2. **TODO item involves code changes** - Each feature/fix TODO should have its own branch
+3. **Multiple independent features** - Create separate branches for parallel work
+4. **User explicitly requests a feature/fix** - Branch immediately before coding
+5. **PR review reveals issues** - Create fix branch from the PR branch
+
+**Branch Creation Command Pattern:**
+```bash
+# Standard feature branch (most common)
+git checkout main && git pull origin main
+git checkout -b feat/{descriptive-slug}
+
+# Bug fix branch
+git checkout -b fix/{issue-or-description}
+
+# Documentation branch
+git checkout -b docs/{topic}
+
+# Refactoring branch
+git checkout -b refactor/{component-name}
+```
+
+### When to Use Worktrees vs Simple Branches
+
+| Scenario | Use Worktree | Reason |
+|----------|--------------|--------|
+| Simple single task | No | Branch is sufficient |
+| Long-running feature (>1 session) | **Yes** | Preserves state across sessions |
+| Parallel agent work | **Yes** | Isolated environments |
+| PR review while working | **Yes** | Don't disrupt current work |
+| Hotfix during feature work | **Yes** | Emergency isolation |
+| Multiple TODOs in same feature | No | Single branch, multiple commits |
+| Experimentation/spike | **Yes** | Safe to abandon |
+
+**Worktree Decision Rule**: Use worktree when you need to **preserve current work state** or **run parallel isolated operations**.
+
+### Project Plan Branch Strategy
+
+When executing a multi-step project plan:
+
+**Single Feature Implementation:**
+```bash
+# 1. Create feature branch at plan start
+git checkout -b feat/implement-{feature-name}
+
+# 2. Work through TODOs with conventional commits
+git commit -m "feat: add initial {component}"
+git commit -m "feat: implement {sub-feature}"
+git commit -m "test: add tests for {component}"
+git commit -m "docs: document {feature-name} usage"
+
+# 3. Single PR at plan completion
+```
+
+**Multi-Feature Plan (Independent TODOs):**
+```bash
+# 1. Create branches for each independent feature
+git checkout -b feat/feature-a
+# ... work on feature A ...
+git checkout main
+git checkout -b feat/feature-b
+# ... work on feature B ...
+
+# 2. Or use worktrees for true parallelism
+git worktree add ../{project}-worktrees/feat-a -b feat/feature-a
+git worktree add ../{project}-worktrees/feat-b -b feat/feature-b
+```
+
+**Phased Development (Dependent TODOs):**
+```bash
+# 1. Create branch for entire phase
+git checkout -b feat/phase-1-{description}
+
+# 2. Commit each step with appropriate type
+git commit -m "feat: phase 1 step 1 - {description}"
+git commit -m "feat: phase 1 step 2 - {description}"
+# ... continue through phase ...
+
+# 3. Single PR for complete phase
+```
+
+### Branch Naming Convention (ENFORCED)
+
+**Format**: `{type}/{descriptive-slug}`
+
+**Rules:**
+- **Lowercase only**: `feat/user-auth` not `feat/User-Auth`
+- **Hyphen-separated**: `feat/add-login-page` not `feat/add_login_page`
+- **Descriptive but concise**: `feat/oauth-google` not `feat/add-oauth-integration-with-google-identity-provider`
+- **No ticket numbers alone**: `feat/auth-ABC-123` not `ABC-123`
+
+**Examples:**
+```bash
+# Good
+feat/user-authentication
+fix/null-pointer-api
+docs/installation-guide
+refactor/database-queries
+perf/image-optimization
+hotfix/critical-security-patch
+
+# Bad
+feature/UserAuthentication  # Wrong prefix, wrong case
+fix_null_pointer            # Underscores
+docs/update                 # Too vague
+ABC-123                     # Ticket number only
+```
+
+### Supervisor Branch Workflow (MANDATORY)
+
+**When Claude Code starts a development task:**
+
+1. **Check current branch**:
+   ```bash
+   git branch --show-current
+   git status
+   ```
+
+2. **If on main/develop, create appropriate branch FIRST**:
+   ```bash
+   git checkout -b {type}/{descriptive-slug}
+   ```
+
+3. **Update TODO list** with branch name:
+   ```
+   - [x] Create branch: feat/add-user-dashboard
+   - [ ] Implement dashboard component
+   - [ ] Add tests
+   - [ ] Create PR
+   ```
+
+4. **Commit frequently** with conventional commit messages matching branch type
+
+5. **Never merge directly** - Always use PR workflow via `mcp__zen__pr_prepare`
+
+### Integration with TodoWrite
+
+When creating TODO lists, include branch management:
+
+```markdown
+## TODO List: Implement User Dashboard
+
+### Setup
+- [ ] Create feature branch `feat/user-dashboard`
+- [ ] Set up worktree if parallel work needed
+
+### Implementation
+- [ ] Implement DashboardComponent
+- [ ] Add API endpoints
+- [ ] Write unit tests
+
+### Completion
+- [ ] Run pre-commit checks
+- [ ] Create PR via mcp__zen__pr_prepare
+- [ ] Clean up worktree (if used)
+```
+
+### Automatic Branch Validation
+
+Before ANY code changes, Claude Code MUST verify:
+
+1. **Not on protected branch**: `main`, `master`, `develop` require branch creation
+2. **Branch name matches work type**: `feat/` for features, `fix/` for bugs, etc.
+3. **Branch is up-to-date**: `git pull origin main` before branching
+4. **No uncommitted changes**: Commit or stash before switching
+
+```bash
+# Validation check pattern
+CURRENT_BRANCH=$(git branch --show-current)
+if [[ "$CURRENT_BRANCH" == "main" || "$CURRENT_BRANCH" == "master" || "$CURRENT_BRANCH" == "develop" ]]; then
+    echo "ERROR: Cannot work directly on $CURRENT_BRANCH. Create a feature branch first."
+    exit 1
+fi
+```
+
 ## Pre-Commit Linting Checklist
 
 Before committing ANY changes, ensure:
+- [ ] **Branch Validation**: Working on appropriate feature branch (not main/develop)
+- [ ] **Branch Naming**: Branch follows `{type}/{descriptive-slug}` convention
 - [ ] **TODO Management**: Was TodoWrite used for task tracking?
 - [ ] **Agent Assignment**: Were tasks assigned to appropriate specialized agents?
 - [ ] **Reference Files**: Were temporary reference files created for complex tasks?

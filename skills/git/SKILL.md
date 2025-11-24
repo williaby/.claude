@@ -18,12 +18,17 @@ This skill automatically activates when user mentions:
 - "merge" or "rebase"
 - "git status" or "repository status"
 - "workflow" or "git workflow helpers"
+- "milestone" or "start feature" or "start work"
+- "worktree" or "parallel work" or "parallel development"
+- "semantic release" or "version bump"
 
 ## What This Skill Does
 
 Provides comprehensive git workflow management:
 
+- **Milestone Management**: Auto-detect branch vs worktree, semantic release alignment, parallel work
 - **Branch Management**: Validate branch names, create feature branches, manage strategy
+- **Worktree Orchestration**: Create, manage, and cleanup worktrees for parallel development
 - **Commit Conventions**: Validate conventional commits, ensure signing, check formatting
 - **PR Preparation**: Automated PR creation with GitHub integration and What the Diff
 - **Repository Health**: Status checks, conflict detection, PR readiness validation
@@ -81,6 +86,33 @@ Provides comprehensive git workflow management:
 - "what files have changed?"
 - "summarize repository status"
 
+### Milestone Branch Management (RECOMMENDED)
+**Triggers**: "start feature", "start work", "new milestone", "begin implementation", "start fix"
+
+**Route to**: [/git/milestone](workflows/milestone.md) workflow
+
+**Examples**:
+- "start working on user authentication feature"
+- "begin implementing the dashboard"
+- "I need to fix a bug while working on this feature"
+- "start a new milestone for API refactoring"
+
+**Key Feature**: Auto-detects when to use worktree vs simple branch based on:
+- Current uncommitted changes
+- Whether already on a feature branch
+- Type of work (hotfix requires isolation)
+
+### Worktree Management
+**Triggers**: "worktree", "parallel work", "parallel branch", "need isolation"
+
+**Route to**: [/git/milestone](workflows/milestone.md) workflow (worktree subcommand)
+
+**Examples**:
+- "create worktree for parallel development"
+- "I need to review a PR while keeping my changes"
+- "set up isolated workspace for hotfix"
+- "list my active worktrees"
+
 ### General Git Questions
 **Triggers**: "git workflow", "git best practices", "branch strategy", "commit standards"
 
@@ -94,14 +126,37 @@ Provides comprehensive git workflow management:
 ## Quick Command Reference
 
 ```bash
+# === MILESTONE MANAGEMENT (RECOMMENDED) ===
+
+# Start new feature (auto-detects branch vs worktree)
+/git/milestone start feat/user-dashboard
+
+# Start bug fix
+/git/milestone start fix/api-timeout
+
+# Force worktree for parallel work
+/git/milestone worktree feat/parallel-feature
+
+# Complete milestone (validates, suggests PR)
+/git/milestone complete
+
+# List active branches and worktrees
+/git/milestone list
+
+# === BRANCH MANAGEMENT ===
+
 # Validate branch name
 /git/branch validate
 
 # Create feature branch
 /git/branch create feature/123-add-auth
 
+# === COMMIT VALIDATION ===
+
 # Validate last commit
 /git/commit validate
+
+# === PR WORKFLOW ===
 
 # Check PR readiness
 /git/pr-check
@@ -111,6 +166,8 @@ Provides comprehensive git workflow management:
 
 # Force WTD for large PRs
 /git/pr-prepare --include_wtd=true --force_wtd=true
+
+# === STATUS ===
 
 # Repository status summary
 /git/status
@@ -219,7 +276,50 @@ Integrates with [RAD skill](../rad/SKILL.md):
 
 ## Common Workflows
 
-### Creating a Feature Branch
+### Starting a New Milestone (RECOMMENDED)
+
+```bash
+# 1. Start milestone with automatic branch/worktree detection
+/git/milestone start feat/user-dashboard
+
+# 2. Work through your TODO items with proper commits
+git add .
+git commit -m "feat(dashboard): add initial component"
+git commit -m "feat(dashboard): implement data fetching"
+git commit -m "test(dashboard): add unit tests"
+
+# 3. Complete milestone validation
+/git/milestone complete
+
+# 4. Create PR
+/git/pr-prepare --include_wtd=true
+```
+
+### Parallel Feature Development
+
+```bash
+# 1. Start first feature
+/git/milestone start feat/feature-a
+
+# 2. Need to work on something else? Start parallel worktree
+/git/milestone worktree fix/urgent-bug
+
+# 3. Switch between worktrees as needed
+cd ../project-worktrees/fix-urgent-bug
+# ... work on fix ...
+/git/milestone complete
+
+# 4. Return to original feature
+cd ../project
+# ... continue feature work ...
+/git/milestone complete
+
+# 5. Clean up
+git worktree list
+git worktree remove ../project-worktrees/fix-urgent-bug
+```
+
+### Creating a Feature Branch (Manual)
 ```bash
 # 1. Create and checkout feature branch
 git checkout -b feature/123-add-feature
@@ -336,10 +436,12 @@ mcp__zen-core__pr_prepare --force_wtd=true
 
 ## Resources
 
+- **Milestone Management**: See [workflows/milestone.md](workflows/milestone.md) (RECOMMENDED)
 - **Branch Strategies**: See [context/branch-strategies.md](context/branch-strategies.md)
 - **Commit Standards**: See [context/conventional-commits.md](context/conventional-commits.md)
 - **PR Preparation**: See [workflows/pr-prepare.md](workflows/pr-prepare.md)
-- **Global Standards**: See `CLAUDE.md > Git Workflow`
+- **Global Standards**: See `CLAUDE.md > Automated Branch Creation Strategy`
+- **Worktree Reference**: See `~/.claude/standards/git-worktree.md`
 
 ---
 

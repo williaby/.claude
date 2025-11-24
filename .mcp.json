@@ -1,5 +1,10 @@
 {
   "mcpServers": {
+    "zen": {
+      "command": "/home/byron/dev/zen-mcp-server/zen-mcp-server",
+      "args": [],
+      "cwd": "/home/byron/dev/zen-mcp-server"
+    },
     "context7": {
       "command": "npx",
       "args": ["-y", "@upstash/context7-mcp"]
