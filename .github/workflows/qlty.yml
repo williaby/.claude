@@ -1,0 +1,30 @@
+name: Qlty
+
+on:
+  workflow_run:
+    workflows: ["CI"]
+    types:
+      - completed
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: qlty-coverage-${{ github.event.workflow_run.head_branch }}
+  cancel-in-progress: true
+
+jobs:
+  qlty:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    uses: williaby/.github/.github/workflows/python-qlty-coverage.yml@e8fc83c98c2971ad1ece71573d28171463e30c16
+    permissions:
+      contents: read
+      actions: read
+    with:
+      coverage-artifact-name: coverage-reports
+      coverage-file-path: coverage.xml
+      coverage-format: cobertura
+      workflow-run-id: ${{ github.event.workflow_run.id }}
+    secrets:
+      QLTY_COVERAGE_TOKEN: ${{ secrets.QLTY_COVERAGE_TOKEN }}
